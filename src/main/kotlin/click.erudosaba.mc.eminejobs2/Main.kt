@@ -1,6 +1,5 @@
 package click.erudosaba.mc.eminejobs2
 
-import com.sun.webkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
