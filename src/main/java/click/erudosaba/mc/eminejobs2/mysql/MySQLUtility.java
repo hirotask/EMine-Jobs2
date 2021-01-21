@@ -27,7 +27,7 @@ public class MySQLUtility {
     }
     public void insert(Player player, String job, int exp, int level) {
         try {
-            String s = "INSERT INTO " + table + " (" + column_uuid + ", " + column_name + ", " + column_job + ", " + column_exp + ", " + column_level + ") VALUES (?, ?, ?, ?, ?)";
+            String s = "INSERT INTO " + table + " (" + column_uuid + ", " + column_name + ", " + column_job + ", " + column_exp + git a", " + column_level + ") VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = manager.getConnection().prepareStatement(s);
             ps.setString(1, player.getUniqueId().toString());
             ps.setString(2, player.getName());
