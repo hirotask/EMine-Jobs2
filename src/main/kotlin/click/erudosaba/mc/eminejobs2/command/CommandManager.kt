@@ -2,7 +2,7 @@ package click.erudosaba.mc.eminejobs2.command
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
-import click.erudosaba.mc.eminejobs2.command.commands.subcommands.Help
+import click.erudosaba.mc.eminejobs2.command.commands.subcommands.*
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -19,6 +19,19 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
         plugin.getCommand(mainCommand)?.setExecutor(this)
 
         this.commands.add(Help(plugin))
+        this.commands.add(Stats(plugin))
+        this.commands.add(Leave(plugin))
+        this.commands.add(Browse(plugin))
+        this.commands.add(Info(plugin))
+        this.commands.add(AdminInfo(plugin))
+        this.commands.add(Fire(plugin))
+        this.commands.add(Employ(plugin))
+        this.commands.add(Promote(plugin))
+        this.commands.add(Demote(plugin))
+        this.commands.add(GrantExp(plugin))
+        this.commands.add(RemoveExp(plugin))
+        this.commands.add(Transfer(plugin))
+        this.commands.add(Reload(plugin))
     }
 
     override fun onCommand(p0: CommandSender, p1: Command, p2: String, p3: Array<out String>): Boolean {
