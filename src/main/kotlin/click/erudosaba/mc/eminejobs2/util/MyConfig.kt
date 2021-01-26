@@ -2,7 +2,7 @@ package click.erudosaba.mc.eminejobs2.util
 
 import click.erudosaba.mc.eminejobs2.Main
 
-class MyConfig(val plg: Main) : CustomConfig(plugin=plg,path = null) {
+class MyConfig(plg: Main) : CustomConfig(plugin=plg,path = null) {
 
     val enabledMySQL = config.getBoolean("enabled-mysql")
     val host = config.getString("host")
