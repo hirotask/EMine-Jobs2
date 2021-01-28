@@ -81,6 +81,21 @@ public class MySQLUtility {
             return 0;
         }
     }
+    public double selectDouble(Player player, String column) {
+        try {
+            String s = "SELECT * FROM "+ table +" WHERE " + column_uuid + " = ?";
+            PreparedStatement ps = manager.getConnection().prepareStatement(s);
+            ps.setString(1, player.getUniqueId().toString());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble(column);
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
     //update
     public void update(Player player, String column, String value) {
         try {
@@ -98,6 +113,17 @@ public class MySQLUtility {
             String s = "UPDATE "+ table +" SET "+ column +" = ? WHERE " + column_uuid + " = ?";
             PreparedStatement ps = manager.getConnection().prepareStatement(s);
             ps.setInt(1, value);
+            ps.setString(2, player.getUniqueId().toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void update(Player player, String column, double value) {
+        try {
+            String s = "UPDATE "+ table +" SET "+ column +" = ? WHERE " + column_uuid + " = ?";
+            PreparedStatement ps = manager.getConnection().prepareStatement(s);
+            ps.setDouble(1, value);
             ps.setString(2, player.getUniqueId().toString());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -125,10 +151,10 @@ public class MySQLUtility {
         update(player, column_job, value);
     }
     //exp
-    public int getExp(Player player) {
-        return selectInt(player , column_exp);
+    public double getExp(Player player) {
+        return selectDouble(player , column_exp);
     }
-    public void setExp(Player player, int value) {
+    public void setExp(Player player, double value) {
         update(player, column_exp, value);
     }
     //level
