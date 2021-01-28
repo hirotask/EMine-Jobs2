@@ -2,12 +2,24 @@ package click.erudosaba.mc.eminejobs2.event
 
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
+import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class StoneBreakEvent(val player : Player, val brokenBlock : Block) : Event() {
+class StoneBreakEvent(val player : Player, val brokenBlock : Block) : Event(), Cancellable {
+
+    var cancel = false
+
     override fun getHandlers(): HandlerList {
         return HANDLERS
+    }
+
+    override fun isCancelled(): Boolean {
+        return cancel
+    }
+
+    override fun setCancelled(p0: Boolean) {
+        cancel = p0
     }
 
     companion object {
@@ -18,4 +30,6 @@ class StoneBreakEvent(val player : Player, val brokenBlock : Block) : Event() {
             return HANDLERS
         }
     }
+
+
 }
