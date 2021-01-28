@@ -13,7 +13,7 @@ class JobPlayer(val player : Player) {
         set(value) {
             Main.sqlUtil.setJob(player,value)
         }
-    var exp : Int
+    var exp : Double
         get() {
             return Main.sqlUtil.getExp(player)
         }
