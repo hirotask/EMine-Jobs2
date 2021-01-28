@@ -33,4 +33,14 @@ object Blocks {
             GRAVEL,
             SAND
     )
+
+    val crops = arrayOf(
+            MELON,
+            CARROTS,
+            POTATOES,
+            CHORUS_FLOWER,
+            BEETROOTS,
+            SWEET_BERRY_BUSH,
+            WHEAT
+    )
 }

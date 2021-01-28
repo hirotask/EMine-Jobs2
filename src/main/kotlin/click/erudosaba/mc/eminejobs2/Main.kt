@@ -1,8 +1,8 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
-import click.erudosaba.mc.eminejobs2.listener.OnBlockBreak
-import click.erudosaba.mc.eminejobs2.listener.OnDamageMob
+import click.erudosaba.mc.eminejobs2.listener.bukkit.OnBlockBreak
+import click.erudosaba.mc.eminejobs2.listener.bukkit.OnDamageMob
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
 import click.erudosaba.mc.eminejobs2.util.MyConfig
@@ -40,7 +40,8 @@ class Main : JavaPlugin() {
         /* init of Listener */
         val listeners = arrayOf(
                 OnBlockBreak(this),
-                OnDamageMob(this)
+                OnDamageMob(this),
+
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 

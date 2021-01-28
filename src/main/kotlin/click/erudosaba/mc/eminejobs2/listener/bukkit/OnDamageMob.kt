@@ -1,4 +1,4 @@
-package click.erudosaba.mc.eminejobs2.listener
+package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.BowMobEvent
@@ -6,9 +6,7 @@ import click.erudosaba.mc.eminejobs2.event.SlashMobEvent
 import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
-import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
-import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 

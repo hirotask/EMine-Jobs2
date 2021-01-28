@@ -1,13 +1,12 @@
-package click.erudosaba.mc.eminejobs2.listener
+package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.DirtBreakEvent
+import click.erudosaba.mc.eminejobs2.event.PlayerFarmEvent
 import click.erudosaba.mc.eminejobs2.event.StoneBreakEvent
 import click.erudosaba.mc.eminejobs2.event.WoodBreakEvent
-import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.util.Blocks
 import click.erudosaba.mc.eminejobs2.util.Items
-import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
@@ -41,6 +40,11 @@ class OnBlockBreak(val plugin : Main) : Listener {
                 val event = DirtBreakEvent(player,brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
+        }
+
+        if(Blocks.crops.contains(brokenBlock.type)) {
+            val event = PlayerFarmEvent(player)
+            plugin.server.pluginManager.callEvent(event)
         }
 
     }
