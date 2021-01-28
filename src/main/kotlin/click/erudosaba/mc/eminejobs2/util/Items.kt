@@ -29,4 +29,13 @@ object Items {
             DIAMOND_SHOVEL,
             NETHERITE_SHOVEL
     )
+
+    val swords = arrayOf(
+            WOODEN_SWORD,
+            STONE_SWORD,
+            IRON_SWORD,
+            GOLDEN_SWORD,
+            DIAMOND_SWORD,
+            NETHERITE_SWORD
+    )
 }
