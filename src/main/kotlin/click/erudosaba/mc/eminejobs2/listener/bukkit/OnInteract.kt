@@ -7,8 +7,5 @@ import org.bukkit.event.player.PlayerInteractEvent
 
 class OnInteract(val plugin : Main) : Listener {
 
-    @EventHandler
-    fun onInteract(e: PlayerInteractEvent) {
 
-    }
 }
