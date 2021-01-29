@@ -44,7 +44,7 @@ class OnBlockBreak(val plugin : Main) : Listener {
         }
 
         if(Blocks.crops.contains(brokenBlock.type)) {
-            val event = PlayerFarmEvent(player)
+            val event = PlayerFarmEvent(JobPlayer(player))
             plugin.server.pluginManager.callEvent(event)
         }
 
