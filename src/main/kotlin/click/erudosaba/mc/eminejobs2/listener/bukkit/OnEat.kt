@@ -11,36 +11,39 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
-class OnEat(val plugin : Main) : Listener {
+class OnEat(val plugin: Main) : Listener {
 
     private var beforeEat = 0
     private var afterEat = 0
+    private var isEating = false
 
     @EventHandler
     fun onInteract(e: PlayerInteractEvent) {
-        if(e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
+        if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             val player = e.player
             val itemInMainHand = player.inventory.itemInMainHand
             val itemInOffHand = player.inventory.itemInOffHand
 
-            if(Items.foods.contains(itemInMainHand) || Items.foods.contains(itemInOffHand)) {
-                beforeEat = player.foodLevel
+            if(!isEating) {
+                if (Items.foods.contains(itemInMainHand) || Items.foods.contains(itemInOffHand)) {
+                    beforeEat = player.foodLevel
+                    isEating = true
+                }
             }
         }
     }
 
     @EventHandler
     fun onFoodLevelChanged(e: FoodLevelChangeEvent) {
-        val player = if(e.entity is Player) e.entity as Player else return
-        val itemInMainHand = player.inventory.itemInMainHand
-        val itemInOffHand = player.inventory.itemInOffHand
+        val player = if (e.entity is Player) e.entity as Player else return
 
-        if(Items.foods.contains(itemInMainHand) || Items.foods.contains(itemInOffHand)) {
+        if(isEating) {
             afterEat = e.foodLevel
             val diff = afterEat - beforeEat
 
-            val event = EatEvent(JobPlayer(player),diff)
+            val event = EatEvent(JobPlayer(player), diff)
             plugin.server.pluginManager.callEvent(event)
+            isEating = false
         }
     }
 }
