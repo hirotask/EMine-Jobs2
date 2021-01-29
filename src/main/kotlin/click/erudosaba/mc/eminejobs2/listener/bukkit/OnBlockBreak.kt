@@ -5,6 +5,7 @@ import click.erudosaba.mc.eminejobs2.event.DirtBreakEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerFarmEvent
 import click.erudosaba.mc.eminejobs2.event.StoneBreakEvent
 import click.erudosaba.mc.eminejobs2.event.WoodBreakEvent
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.util.Blocks
 import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.event.EventHandler
@@ -23,21 +24,21 @@ class OnBlockBreak(val plugin : Main) : Listener {
 
         if (Items.pickaxes.contains(itemMainhand) || Items.pickaxes.contains(itemOffhand)) {
             if (Blocks.stones.contains(brokenBlock.type)) {
-                val event = StoneBreakEvent(player,brokenBlock)
+                val event = StoneBreakEvent(JobPlayer(player),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }
 
         if (Items.axes.contains(itemMainhand) || Items.axes.contains(itemOffhand)) {
             if (Blocks.woods.contains(brokenBlock.type)) {
-                val event = WoodBreakEvent(player,brokenBlock)
+                val event = WoodBreakEvent(JobPlayer(player),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }
 
         if (Items.shovels.contains(itemMainhand) || Items.shovels.contains(itemOffhand)) {
             if (Blocks.dirts.contains(brokenBlock.type)) {
-                val event = DirtBreakEvent(player,brokenBlock)
+                val event = DirtBreakEvent(JobPlayer(player),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }

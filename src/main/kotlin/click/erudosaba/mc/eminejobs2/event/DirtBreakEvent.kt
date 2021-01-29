@@ -1,12 +1,13 @@
 package click.erudosaba.mc.eminejobs2.event
 
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class DirtBreakEvent(val player : Player, val brokenBlock : Block) : Event(),Cancellable {
+class DirtBreakEvent(val player : JobPlayer, val brokenBlock : Block) : Event(),Cancellable {
 
     var cancel = false
 

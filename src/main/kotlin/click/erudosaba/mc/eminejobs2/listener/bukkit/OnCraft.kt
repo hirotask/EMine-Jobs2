@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.CraftEvent
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.craftbukkit.v1_16_R2.event.CraftEventFactory
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
@@ -17,7 +18,7 @@ class OnCraft(val plugin : Main) : Listener {
         val player = if(e.whoClicked is Player) e.whoClicked as Player else return
         val result = if(e.currentItem != null) e.currentItem else return
 
-        val event = CraftEvent(player, result!!)
+        val event = CraftEvent(JobPlayer(player), result!!)
         plugin.server.pluginManager.callEvent(event)
     }
 }

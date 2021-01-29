@@ -1,11 +1,12 @@
 package click.erudosaba.mc.eminejobs2.event
 
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class PlayerFarmEvent(val player : Player) : Event() , Cancellable {
+class PlayerFarmEvent(val player : JobPlayer) : Event() , Cancellable {
 
     var cancel = false
 

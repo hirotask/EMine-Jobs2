@@ -1,12 +1,13 @@
 package click.erudosaba.mc.eminejobs2.event
 
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 import org.bukkit.inventory.ItemStack
 
-class FishEvent(val player : Player, val item : ItemStack) : Event(),Cancellable {
+class FishEvent(val player : JobPlayer, val item : ItemStack) : Event(),Cancellable {
     var cancel : Boolean = false
 
 

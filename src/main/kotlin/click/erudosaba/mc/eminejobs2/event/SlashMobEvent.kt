@@ -1,12 +1,13 @@
 package click.erudosaba.mc.eminejobs2.event
 
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class SlashMobEvent(val player : Player, val entity : Entity) : Event(), Cancellable {
+class SlashMobEvent(val player : JobPlayer, val entity : Entity) : Event(), Cancellable {
 
     var cancel = false
 
