@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.jobs
 
 import click.erudosaba.mc.eminejobs2.Main
 import org.bukkit.entity.Player
+import kotlin.math.exp
 
 class JobPlayer(val player : Player) {
 
@@ -19,6 +20,11 @@ class JobPlayer(val player : Player) {
         }
         set(value) {
             Main.sqlUtil.setExp(player,value)
+            val expFunc = 51.763 * exp(0.093 * (Main.sqlUtil.getLevel(player) + 1))
+
+            if(exp > expFunc) {
+                level += 1
+            }
         }
     var level : Int
         get() {
