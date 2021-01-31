@@ -1,5 +1,6 @@
 package click.erudosaba.mc.eminejobs2.mysql;
 
+import click.erudosaba.mc.eminejobs2.util.Blocks;
 import org.bukkit.Bukkit;
 
 import java.sql.Connection;
