@@ -13,7 +13,7 @@ class JobPlayer(val player : Player) {
         }
         set(value) {
             jobName = value
-            Main.sqlUtil.setJob(player,value)
+            Main.sqlUtil.setJob(player,jobName)
         }
     var exp : Double
         get() {
@@ -21,7 +21,7 @@ class JobPlayer(val player : Player) {
         }
         set(value) {
             exp = value
-            Main.sqlUtil.setExp(player,value)
+            Main.sqlUtil.setExp(player,exp)
             val expFunc = 51.763 * exp(0.093 * (Main.sqlUtil.getLevel(player) + 1))
 
             if(exp > expFunc) {
@@ -35,7 +35,7 @@ class JobPlayer(val player : Player) {
         }
         set(value) {
             level = value
-            Main.sqlUtil.setLevel(player,value)
+            Main.sqlUtil.setLevel(player,level)
         }
 
 
