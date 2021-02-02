@@ -14,7 +14,7 @@ class Demote(plugin: Main) : SubCommand() {
         }
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
-        val level = Integer.parseInt(args[1])
+        val level = args[1].toIntOrNull() ?: return
 
         if(Main.sqlUtil.isExists(target)) {
             Main.sqlUtil.setLevel(target,Main.sqlUtil.getLevel(target) - level)
