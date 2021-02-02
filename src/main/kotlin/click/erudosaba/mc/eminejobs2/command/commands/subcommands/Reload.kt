@@ -6,19 +6,20 @@ import org.bukkit.entity.Player
 
 class Reload(plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        TODO("Not yet implemented")
+        Main.myConfig.reload()
+        player.sendMessage("リロードが完了しました")
     }
 
     override fun name(): String {
-        TODO("Not yet implemented")
+        return "reload"
     }
 
     override fun info(): String {
-        TODO("Not yet implemented")
+        return ""
     }
 
     override fun aliases(): Array<String> {
-        TODO("Not yet implemented")
+        return arrayOf(String())
     }
 
 }
