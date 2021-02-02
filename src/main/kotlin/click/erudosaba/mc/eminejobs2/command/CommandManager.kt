@@ -20,6 +20,7 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
 
         this.commands.add(Help(plugin))
         this.commands.add(Stats(plugin))
+        this.commands.add(Join(plugin))
         this.commands.add(Leave(plugin))
         this.commands.add(Browse(plugin))
         this.commands.add(Info(plugin))
