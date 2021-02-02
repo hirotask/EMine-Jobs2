@@ -6,19 +6,24 @@ import org.bukkit.entity.Player
 
 class Leave(plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        TODO("Not yet implemented")
+        if(!Main.sqlUtil.isExists(player)) {
+            return
+        }
+
+        Main.sqlUtil.delete(player)
+        player.sendMessage("正常に退職しました")
     }
 
     override fun name(): String {
-        TODO("Not yet implemented")
+        return "leave"
     }
 
     override fun info(): String {
-        TODO("Not yet implemented")
+        return ""
     }
 
     override fun aliases(): Array<String> {
-        TODO("Not yet implemented")
+        return arrayOf(String())
     }
 
 }
