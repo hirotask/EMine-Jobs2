@@ -17,9 +17,8 @@ class Join(plugin: Main) : SubCommand() {
             player.sendMessage("あなたは${ChatColor.YELLOW}${args[0]}に就きました")
         } else {
             if(Main.sqlUtil.getLevel(player) <= 20) {
-                Main.sqlUtil.setJob(player,args[0])
-                Main.sqlUtil.setExp(player, 0.0)
-                Main.sqlUtil.setLevel(player,0)
+                Main.sqlUtil.delete(player)
+                Main.sqlUtil.insert(player,args[0])
                 player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${args[0]}に転職しました")
             } else {
                 player.sendMessage("あなたはレベルが20以上のため転職できません")
