@@ -1,7 +1,8 @@
 name: "${project.name}"
 version: "${project.version}"
-main: "${project.groupId}.Main"
+main: click.erudosaba.mc.eminejobs2.Main
 authors: [erudo,Koryu25]
+website: https://github.com/erudosan0524-JP/EMine-Jobs2
 api-version: 1.13
 depend: [QualityArmory]
 commands:

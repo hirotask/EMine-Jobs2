@@ -1,12 +1,10 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
-import click.erudosaba.mc.eminejobs2.jobs.JobManager
 import click.erudosaba.mc.eminejobs2.listener.MyEventListener
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
-import click.erudosaba.mc.eminejobs2.util.CustomConfig
 import click.erudosaba.mc.eminejobs2.util.MyConfig
 import org.bukkit.plugin.java.JavaPlugin
 
