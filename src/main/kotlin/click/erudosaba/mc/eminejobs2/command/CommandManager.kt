@@ -13,7 +13,7 @@ import java.lang.Exception
 class CommandManager(private val plugin: Main) : CommandExecutor {
 
     private val mainCommand = "emj"
-    private lateinit var commands : MutableList<SubCommand>
+    private val commands : MutableList<SubCommand> = ArrayList()
 
     fun setup() {
         plugin.getCommand(mainCommand)?.setExecutor(this)
@@ -22,8 +22,8 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
         this.commands.add(Stats(plugin))
         this.commands.add(Join(plugin))
         this.commands.add(Leave(plugin))
-        this.commands.add(Browse(plugin))
-        this.commands.add(Info(plugin))
+        //this.commands.add(Browse(plugin))
+        //this.commands.add(Info(plugin))
         this.commands.add(AdminInfo(plugin))
         this.commands.add(Fire(plugin))
         this.commands.add(Employ(plugin))

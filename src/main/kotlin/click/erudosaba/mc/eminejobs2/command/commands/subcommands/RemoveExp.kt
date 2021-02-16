@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class RemoveExp(plugin: Main) : SubCommand() {
+class RemoveExp(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         if(args.size < 2) {
             player.sendMessage("${ChatColor.BOLD}引数が足りません")
@@ -16,8 +16,9 @@ class RemoveExp(plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val exp = args[1].toDoubleOrNull() ?: return
 
-        if(Main.sqlUtil.isExists(target)) {
-            Main.sqlUtil.setExp(target,Main.sqlUtil.getLevel(target) - exp)
+        if(plugin.sqlUtil.isExists(target)) {
+            //マイナスの値になるバグ
+            plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) - exp)
             player.sendMessage("${target.name}のレベルを${exp}さげました")
         }
     }

@@ -4,13 +4,13 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import org.bukkit.entity.Player
 
-class Leave(plugin: Main) : SubCommand() {
+class Leave(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        if(!Main.sqlUtil.isExists(player)) {
+        if(!plugin.sqlUtil.isExists(player)) {
             return
         }
 
-        Main.sqlUtil.delete(player)
+        plugin.sqlUtil.delete(player)
         player.sendMessage("正常に退職しました")
     }
 

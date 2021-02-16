@@ -16,7 +16,7 @@ class OnFish(val plugin : Main) : Listener {
         val player = e.player
         val item = if(e.caught is Item) e.caught as Item else return
 
-        val event = FishEvent(JobPlayer(player),item.itemStack)
+        val event = FishEvent(JobPlayer(player,plugin),item.itemStack)
         plugin.server.pluginManager.callEvent(event)
     }
 }

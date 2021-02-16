@@ -10,21 +10,18 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
 
-    val plugin = this
+    val commandManager = CommandManager(this)
+    val myConfig = MyConfig(this)
+    val sqlUtil = MySQLUtility(MySQLManager(
+            myConfig.host,
+            myConfig.port,
+            myConfig.database,
+            myConfig.username,
+            myConfig.password
+    ))
 
     companion object {
-        private val plugin: Main = Main.plugin
         val PluginName = "EMine-Jobs"
-
-        val commandManager = CommandManager(plugin)
-        val myConfig = MyConfig(plugin)
-        val sqlUtil = MySQLUtility(MySQLManager(
-                myConfig.host,
-                myConfig.port,
-                myConfig.database,
-                myConfig.username,
-                myConfig.password
-        ))
     }
 
 

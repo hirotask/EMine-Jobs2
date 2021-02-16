@@ -24,27 +24,27 @@ class OnBlockBreak(val plugin : Main) : Listener {
 
         if (Items.pickaxes.contains(itemMainhand) || Items.pickaxes.contains(itemOffhand)) {
             if (Blocks.stones.contains(brokenBlock.type)) {
-                val event = StoneBreakEvent(JobPlayer(player),brokenBlock)
+                val event = StoneBreakEvent(JobPlayer(player,plugin),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }
 
         if (Items.axes.contains(itemMainhand) || Items.axes.contains(itemOffhand)) {
             if (Blocks.woods.contains(brokenBlock.type)) {
-                val event = WoodBreakEvent(JobPlayer(player),brokenBlock)
+                val event = WoodBreakEvent(JobPlayer(player,plugin),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }
 
         if (Items.shovels.contains(itemMainhand) || Items.shovels.contains(itemOffhand)) {
             if (Blocks.dirts.contains(brokenBlock.type)) {
-                val event = DirtBreakEvent(JobPlayer(player),brokenBlock)
+                val event = DirtBreakEvent(JobPlayer(player,plugin),brokenBlock)
                 plugin.server.pluginManager.callEvent(event)
             }
         }
 
         if(Blocks.crops.contains(brokenBlock.type)) {
-            val event = PlayerFarmEvent(JobPlayer(player))
+            val event = PlayerFarmEvent(JobPlayer(player, plugin))
             plugin.server.pluginManager.callEvent(event)
         }
 

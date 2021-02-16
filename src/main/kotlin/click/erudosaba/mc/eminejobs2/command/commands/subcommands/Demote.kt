@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class Demote(plugin: Main) : SubCommand() {
+class Demote(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         if(args.size < 2) {
             player.sendMessage("${ChatColor.BOLD}引数が足りません")
@@ -16,8 +16,8 @@ class Demote(plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val level = args[1].toIntOrNull() ?: return
 
-        if(Main.sqlUtil.isExists(target)) {
-            Main.sqlUtil.setLevel(target,Main.sqlUtil.getLevel(target) - level)
+        if(plugin.sqlUtil.isExists(target)) {
+            plugin.sqlUtil.setLevel(target,plugin.sqlUtil.getLevel(target) - level)
             player.sendMessage("${target.name}のレベルを${level}さげました")
         }
     }

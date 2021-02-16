@@ -5,18 +5,18 @@ import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class Stats(plugin: Main) : SubCommand() {
+class Stats(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        if(!Main.sqlUtil.isExists(player)) {
+        if(!plugin.sqlUtil.isExists(player)) {
             player.sendMessage("${ChatColor.BOLD}あなたは職業についていません")
             return
         }
 
         val messages = arrayOf(
                 "=========================",
-                "職業： ${Main.sqlUtil.getJob(player)}",
-                "レベル： ${Main.sqlUtil.getLevel(player)}",
-                "現在の経験値： ${Main.sqlUtil.getExp(player)}"
+                "職業： ${plugin.sqlUtil.getJob(player)}",
+                "レベル： ${plugin.sqlUtil.getLevel(player)}",
+                "現在の経験値： ${plugin.sqlUtil.getExp(player)}"
         )
 
         messages.forEach { s -> player.sendMessage(s)}
