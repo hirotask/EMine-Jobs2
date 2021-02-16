@@ -25,7 +25,7 @@ class OnEat(val plugin: Main) : Listener {
             val itemInOffHand = player.inventory.itemInOffHand
 
             if(!isEating) {
-                if (Items.foods.contains(itemInMainHand) || Items.foods.contains(itemInOffHand)) {
+                if (Items.foods.contains(itemInMainHand.type) || Items.foods.contains(itemInOffHand.type)) {
                     beforeEat = player.foodLevel
                     isEating = true
                 }
@@ -41,7 +41,7 @@ class OnEat(val plugin: Main) : Listener {
             afterEat = e.foodLevel
             val diff = afterEat - beforeEat
 
-            val event = EatEvent(JobPlayer(player), diff)
+            val event = EatEvent(JobPlayer(player,plugin), diff)
             plugin.server.pluginManager.callEvent(event)
             isEating = false
         }

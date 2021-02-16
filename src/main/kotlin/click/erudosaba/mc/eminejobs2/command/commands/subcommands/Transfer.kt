@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class Transfer(plugin: Main) : SubCommand() {
+class Transfer(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         if(args.size < 2) {
             player.sendMessage("${ChatColor.BOLD}引数が足りません")
@@ -16,8 +16,8 @@ class Transfer(plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val newjob = args[1]
 
-        if(Main.sqlUtil.isExists(target)) {
-            Main.sqlUtil.setJob(player,newjob);
+        if(plugin.sqlUtil.isExists(target)) {
+            plugin.sqlUtil.setJob(player,newjob);
             player.sendMessage("${target.name}を${newjob}に就かせました")
         } else {
             player.sendMessage("${target.name}は無職です")

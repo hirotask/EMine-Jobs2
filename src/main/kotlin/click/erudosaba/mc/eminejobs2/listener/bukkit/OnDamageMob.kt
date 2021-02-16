@@ -21,7 +21,7 @@ class OnDamageMob(val plugin : Main) : Listener {
             val arrow = if(e.damager is Arrow) e.damager as Arrow else return
             val player = if(arrow.shooter is Player) arrow.shooter as Player else return
 
-            val event = BowMobEvent(JobPlayer(player),entity)
+            val event = BowMobEvent(JobPlayer(player,plugin),entity)
             plugin.server.pluginManager.callEvent(event)
         } else {
             val player = e.damager as Player
@@ -30,7 +30,7 @@ class OnDamageMob(val plugin : Main) : Listener {
             val itemOffhand = player.inventory.itemInOffHand.type
 
             if(Items.swords.contains(itemMainhand) || Items.swords.contains(itemOffhand)) {
-                val event = SlashMobEvent(JobPlayer(player),entity)
+                val event = SlashMobEvent(JobPlayer(player,plugin),entity)
                 plugin.server.pluginManager.callEvent(event)
             }
         }

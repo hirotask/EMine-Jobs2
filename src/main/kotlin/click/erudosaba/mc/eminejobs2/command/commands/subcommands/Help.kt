@@ -22,7 +22,6 @@ class Help(plugin: Main) : SubCommand() {
                 ,"${DARK_AQUA}/emj removeexp ${GOLD}[playername] [experience] ${WHITE}→ ${DARK_GREEN}指定プレーヤーの経験値を下げる"
                 ,"${DARK_AQUA}/emj transfer ${GOLD}[playername] [newjob] ${WHITE}→ ${DARK_GREEN}レベルと経験値を保持した状態で転職させる"
                 ,"${DARK_AQUA}/emj reload ${WHITE}→ プラグインをリロードする"
-
         )
 
         if(player.hasPermission("emj.admin")) {

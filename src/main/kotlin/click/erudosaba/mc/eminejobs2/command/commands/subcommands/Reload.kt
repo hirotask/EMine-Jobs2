@@ -4,9 +4,9 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import org.bukkit.entity.Player
 
-class Reload(plugin: Main) : SubCommand() {
+class Reload(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        Main.myConfig.reload()
+        plugin.myConfig.reload()
         player.sendMessage("リロードが完了しました")
     }
 

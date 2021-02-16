@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class Fire(plugin: Main) : SubCommand() {
+class Fire(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         if(args.isEmpty()) {
             player.sendMessage("${ChatColor.BOLD}引数を指定してください")
@@ -15,10 +15,10 @@ class Fire(plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        if(!Main.sqlUtil.isExists(target)) {
+        if(!plugin.sqlUtil.isExists(target)) {
             player.sendMessage("${target.name}は職業に就いていません")
         } else{
-            Main.sqlUtil.delete(target)
+            plugin.sqlUtil.delete(target)
             player.sendMessage("${target.name}をクビにしました")
         }
     }

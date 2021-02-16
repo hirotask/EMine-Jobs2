@@ -6,7 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
-class Employ(plugin: Main) : SubCommand() {
+class Employ(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         //レベルを強制的にリセットし，転職させる
 
@@ -18,10 +18,11 @@ class Employ(plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val job = args[1]
 
-        if(Main.sqlUtil.isExists(target)) {
-            Main.sqlUtil.delete(target)
+        if(plugin.sqlUtil.isExists(target)) {
+            plugin.sqlUtil.delete(target)
         }
-        Main.sqlUtil.insert(target,job)
+        plugin.sqlUtil.insert(target,job)
+        player.sendMessage("${target.name}を${job}に就かせました")
     }
 
     override fun name(): String {

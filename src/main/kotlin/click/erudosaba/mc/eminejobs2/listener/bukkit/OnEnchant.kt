@@ -13,7 +13,7 @@ class OnEnchant(val plugin : Main) : Listener {
         val player = e.enchanter
         val item = e.item
 
-        val event = EnchantEvent(JobPlayer(player),item)
+        val event = EnchantEvent(JobPlayer(player,plugin),item)
         plugin.server.pluginManager.callEvent(event)
     }
 

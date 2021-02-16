@@ -7,7 +7,7 @@ import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.jetbrains.annotations.Nullable
 
-class AdminInfo(plugin: Main) : SubCommand() {
+class AdminInfo(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
         if (args.isEmpty()) {
             player.sendMessage("${ChatColor.BOLD}引数を指定してください")
@@ -16,15 +16,15 @@ class AdminInfo(plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        if (!Main.sqlUtil.isExists(target)) {
+        if (!plugin.sqlUtil.isExists(target)) {
             player.sendMessage("${target.name} は職業に就いていません")
             return
         } else {
             val messages = arrayOf(
                     "プレイヤー名： ${target.name}",
-                    "職業： ${Main.sqlUtil.getJob(target)}",
-                    "レベル； ${Main.sqlUtil.getLevel(target)}",
-                    "経験値： ${Main.sqlUtil.getExp(target)}"
+                    "職業： ${plugin.sqlUtil.getJob(target)}",
+                    "レベル； ${plugin.sqlUtil.getLevel(target)}",
+                    "経験値： ${plugin.sqlUtil.getExp(target)}"
             )
 
             messages.forEach { s -> player.sendMessage(s) }

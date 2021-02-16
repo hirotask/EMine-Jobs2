@@ -16,7 +16,7 @@ class OnBlockPlace(val plugin : Main) : Listener {
         val block = e.block
 
         if(Blocks.BuildBlocks.contains(block.type)) {
-            val event = BuildEvent(JobPlayer(player),block)
+            val event = BuildEvent(JobPlayer(player,plugin),block)
             plugin.server.pluginManager.callEvent(event)
         }
     }

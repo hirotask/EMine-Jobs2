@@ -18,7 +18,7 @@ class OnCraft(val plugin : Main) : Listener {
         val player = if(e.whoClicked is Player) e.whoClicked as Player else return
         val result = if(e.currentItem != null) e.currentItem else return
 
-        val event = CraftEvent(JobPlayer(player), result!!)
+        val event = CraftEvent(JobPlayer(player,plugin), result!!)
         plugin.server.pluginManager.callEvent(event)
     }
 }
