@@ -15,7 +15,6 @@ open class CustomConfig(val plugin: Main, path: String?) {
     val configFile: File = File(plugin.dataFolder,file)
 
     init {
-        this.saveDefault()
         this.reload()
     }
 
@@ -24,11 +23,5 @@ open class CustomConfig(val plugin: Main, path: String?) {
         val configStream = plugin.getResource(file) ?: return
 
         (config as @NotNull YamlConfiguration).setDefaults(YamlConfiguration.loadConfiguration(InputStreamReader(configStream,StandardCharsets.UTF_8)))
-    }
-
-    fun saveDefault() {
-        if(!configFile.exists()) {
-            plugin.saveResource(file,false)
-        }
     }
 }

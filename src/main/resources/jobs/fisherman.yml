@@ -1,0 +1,10 @@
+ID: fisherman
+JobName: 釣り師
+Category: FISH
+JobExp: 0.98
+Items:
+  - "アイテムのファイルのパス"
+  - "アイテムのファイルのパス"
+SKills:
+  - "スキルのファイルのパス"
+  - "スキルのファイルのパス"

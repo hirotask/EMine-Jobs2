@@ -1,0 +1,10 @@
+ID: weaponsmith
+JobName: 鍛冶屋
+Category: FORGE
+JobExp: 1.2
+Items:
+  - "アイテムのファイルのパス"
+  - "アイテムのファイルのパス"
+SKills:
+  - "スキルのファイルのパス"
+  - "スキルのファイルのパス"
