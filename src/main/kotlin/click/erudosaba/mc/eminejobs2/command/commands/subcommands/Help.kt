@@ -30,7 +30,8 @@ class Help(plugin: Main) : SubCommand() {
         if(player.hasPermission("emj.admin")) {
             for(message in array) player.sendMessage(message)
         } else {
-            for(x in 0..4) player.sendMessage(array[x])
+            for(x in 0..5) player.sendMessage(array[x])
+            player.sendMessage(array[15])
         }
     }
 
