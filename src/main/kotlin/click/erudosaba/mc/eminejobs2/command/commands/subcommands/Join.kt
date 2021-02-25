@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
+import click.erudosaba.mc.eminejobs2.jobs.JobManager
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
@@ -12,16 +13,19 @@ class Join(val plugin: Main) : SubCommand() {
             return
         }
 
+        val job = JobManager(plugin,args[0])
+        val jobName = job.JobName
+
         if(!plugin.sqlUtil.isExists(player)) {
-            plugin.sqlUtil.insert(player,args[0])
-            player.sendMessage("あなたは${ChatColor.YELLOW}${args[0]}に就きました")
+            plugin.sqlUtil.insert(player,jobName)
+            player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}に就きました")
         } else {
             if(plugin.sqlUtil.getLevel(player) <= 20) {
                 plugin.sqlUtil.delete(player)
-                plugin.sqlUtil.insert(player,args[0])
-                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${args[0]}に転職しました")
+                plugin.sqlUtil.insert(player,jobName)
+                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}に転職しました")
             } else {
-                player.sendMessage("あなたはレベルが20以上のため転職できません")
+                player.sendMessage("あなたはレベルが20より大きいのため転職できません")
                 return
             }
         }
