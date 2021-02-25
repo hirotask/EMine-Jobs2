@@ -1,0 +1,10 @@
+ID: smelter
+JobName: 精練家
+Category: FARM
+JobExp: 0.98
+Items:
+  - "アイテムのファイルのパス"
+  - "アイテムのファイルのパス"
+SKills:
+  - "スキルのファイルのパス"
+  - "スキルのファイルのパス"

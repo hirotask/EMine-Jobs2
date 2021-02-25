@@ -1,0 +1,10 @@
+ID: swordman
+JobName: 剣士
+Category: SLASH
+JobExp: 0.30
+Items:
+  - "アイテムのファイルのパス"
+  - "アイテムのファイルのパス"
+SKills:
+  - "スキルのファイルのパス"
+  - "スキルのファイルのパス"
