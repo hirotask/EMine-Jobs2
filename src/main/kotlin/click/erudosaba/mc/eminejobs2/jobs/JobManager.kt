@@ -8,7 +8,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
 
-class JobManager(plg: Main, fileName: String) : CustomConfig(plugin=plg, path="jobs/${fileName}") {
+class JobManager(plg: Main, fileName: String) : CustomConfig(plugin=plg, path="jobs/${fileName}.yml") {
 
     val id : Int = config.getInt("ID")
     val JobName : String? = config.getString("JobName")
@@ -16,7 +16,6 @@ class JobManager(plg: Main, fileName: String) : CustomConfig(plugin=plg, path="j
             try {
                 JobCategory.valueOf(config.getString("Category").toString())
             } catch(e: IllegalArgumentException) {
-                e.printStackTrace()
                 JobCategory.INVALID
             }
     val JobExp : Double = config.getDouble("JobExp")
