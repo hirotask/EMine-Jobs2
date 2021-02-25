@@ -16,13 +16,18 @@ class Join(val plugin: Main) : SubCommand() {
         val job = JobManager(plugin,args[0])
         val jobName = job.JobName
 
+        if(jobName == null) {
+            player.sendMessage("そのような職業は存在しません")
+            return
+        }
+
         if(!plugin.sqlUtil.isExists(player)) {
-            plugin.sqlUtil.insert(player,jobName)
+            plugin.sqlUtil.insert(player,args[0])
             player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}に就きました")
         } else {
             if(plugin.sqlUtil.getLevel(player) <= 20) {
                 plugin.sqlUtil.delete(player)
-                plugin.sqlUtil.insert(player,jobName)
+                plugin.sqlUtil.insert(player,args[0])
                 player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}に転職しました")
             } else {
                 player.sendMessage("あなたはレベルが20より大きいのため転職できません")

@@ -45,7 +45,7 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
 
         if(p1.name.equals(mainCommand,true)) {
             if(p3.isEmpty()) {
-                player.sendMessage("引数が0です")
+                player.sendMessage("/emj help　でヘルプを開く")
                 return true
             }
 
