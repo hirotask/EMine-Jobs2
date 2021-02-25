@@ -23,12 +23,12 @@ class Join(val plugin: Main) : SubCommand() {
 
         if(!plugin.sqlUtil.isExists(player)) {
             plugin.sqlUtil.insert(player,args[0])
-            player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}に就きました")
+            player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に就きました")
         } else {
             if(plugin.sqlUtil.getLevel(player) <= 20) {
                 plugin.sqlUtil.delete(player)
                 plugin.sqlUtil.insert(player,args[0])
-                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}に転職しました")
+                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に転職しました")
             } else {
                 player.sendMessage("あなたはレベルが20より大きいのため転職できません")
                 return
