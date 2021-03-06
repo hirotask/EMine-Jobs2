@@ -6,7 +6,7 @@
 
     <groupId>click.erudosaba.mc.eminejobs2</groupId>
     <artifactId>EMine-Jobs2</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.6-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
