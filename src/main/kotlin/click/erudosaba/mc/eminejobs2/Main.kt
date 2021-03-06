@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
+import click.erudosaba.mc.eminejobs2.listener.JobEventListener
 import click.erudosaba.mc.eminejobs2.listener.MyEventListener
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
@@ -37,6 +38,7 @@ class Main : JavaPlugin() {
         /* init of Listener */
         val listeners = arrayOf(
                 MyEventListener(this),
+                JobEventListener(this),
                 OnBlockBreak(this),
                 OnDamageMob(this),
                 OnCraft(this),
