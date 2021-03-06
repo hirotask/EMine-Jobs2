@@ -1,0 +1,6 @@
+ID: FrostWalk
+Name: 氷渡り
+Icon: DIAMOND_BOOTS
+NeedLevel: 30
+Interval: 300
+Effect: FrostWalk

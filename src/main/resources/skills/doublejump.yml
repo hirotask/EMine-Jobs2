@@ -1,0 +1,6 @@
+ID: DoubleJump
+Name: 2段ジャンプ
+Icon: FEATHER
+NeedLevel: 20
+Interval: 180
+Effect: DoubleJump

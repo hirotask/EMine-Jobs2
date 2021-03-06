@@ -1,0 +1,6 @@
+ID: Growing2
+Name: 成長促進2
+Icon: WHEAT_SEEDS
+NeedLevel: 25
+Interval: 60
+Effect: Growing2

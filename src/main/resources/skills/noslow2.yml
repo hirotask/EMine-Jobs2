@@ -1,0 +1,6 @@
+ID: NoSlow2
+Name: 食べ歩き2
+Icon: COOKED_BEEF
+NeedLevel: 35
+Interval: 60
+Effect: NoSlow2

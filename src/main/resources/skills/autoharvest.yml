@@ -1,0 +1,6 @@
+ID: AutoHarvest
+Name: 自動収穫
+Icon: LEATHER_BOOTS
+NeedLevel: 40
+Interval: 90
+Effect: AutoHarvest

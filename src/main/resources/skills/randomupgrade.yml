@@ -1,0 +1,6 @@
+ID: RandomUpgrade
+Name: ランダムアップグレード
+Icon: CRAFTING_TABLE
+NeedLevel: 40
+Interval: 130
+Effect: RandomUpgrade

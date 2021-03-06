@@ -1,0 +1,6 @@
+ID: Smelt3
+Name: 精錬速度上昇3
+Icon: FURNACE
+NeedLevel: 35
+Interval: 300
+Effect: Smelt3

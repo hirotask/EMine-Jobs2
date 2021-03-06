@@ -1,0 +1,6 @@
+ID: FastBrewing1
+Name: 醸造時間短縮1
+Icon: BREWING_STAND
+NeedLevel: 20
+Interval: 130
+Effect: FastBrewing1

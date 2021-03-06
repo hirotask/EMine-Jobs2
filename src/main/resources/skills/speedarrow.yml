@@ -1,0 +1,6 @@
+ID: SpeedArrow
+Name: アイオロスの矢
+Icon: TIPPED_ARROW
+NeedLevel: 25
+Interval: 90
+Effect: SpeedArrow

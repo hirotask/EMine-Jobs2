@@ -1,0 +1,6 @@
+ID: WallClimb
+Name: 壁登り
+Icon: DIAMOND_BOOTS
+NeedLevel: 25
+Interval: 300
+Effect: WallClimb

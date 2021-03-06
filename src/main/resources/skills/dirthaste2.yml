@@ -1,0 +1,6 @@
+ID: DirtHaste2
+Name: 破壊速度上昇2
+Icon: PODZOL
+NeedLevel: 25
+Interval: 90
+Effect: DirtHaste2
