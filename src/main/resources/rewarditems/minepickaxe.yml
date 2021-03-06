@@ -1,0 +1,9 @@
+ID: MinePickaxe
+name: 無尽槌
+needLevel: 30
+material: GOLDEN_PICKAXE
+lore:
+  - レベル30で貰える。
+  - 壊れない＆ちょっとだけ早い金のピッケル
+enchants:
+  DURABILITY: 1

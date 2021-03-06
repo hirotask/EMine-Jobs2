@@ -1,0 +1,8 @@
+ID: Amulet
+name: おまもり
+needLevel: 20
+material: GHAST_TEAR
+lore:
+  - レベル20で貰える。
+  - 死んだときにアイテムがチェストに入ってその場に残る
+enchants:

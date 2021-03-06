@@ -1,0 +1,10 @@
+ID: Grapple
+name: 立体機動装置
+needLevel: 30
+material: FISHING_ROD
+lore:
+  - レベル30で貰える。
+  - 右クリックで使用。
+  - ひっかけた場所に引っ張られる。
+enchants:
+  MENDING: 1

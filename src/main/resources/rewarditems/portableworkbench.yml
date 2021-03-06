@@ -1,0 +1,9 @@
+ID: PortableWorkBench
+name: 携帯型作業台
+needLevel: 20
+material: BRICK
+lore:
+  - レベル20で貰える。
+  - 右クリックで使用。
+  - 携帯できる作業台。
+enchants:
