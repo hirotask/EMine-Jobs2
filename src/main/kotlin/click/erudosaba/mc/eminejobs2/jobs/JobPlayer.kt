@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2.jobs
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -22,6 +23,9 @@ class JobPlayer(val player : Player, val plugin : Main) {
         }
         set(value) {
             plugin.sqlUtil.setExp(player,value)
+            val e = PlayerExpChangeEvent(player)
+            Bukkit.getServer().pluginManager.callEvent(e)
+
             val expFunc = 51.763 * exp(0.093 * plugin.sqlUtil.getLevel(player)-0.5)
 
             if(exp > expFunc) {
