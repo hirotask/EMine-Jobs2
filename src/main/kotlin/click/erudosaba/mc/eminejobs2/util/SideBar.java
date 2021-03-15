@@ -12,9 +12,9 @@ public class SideBar {
 
     private static final String objectName = "EMJSideBar";
     private static final String[] initial = {
-            "Job：",
-            "Level：",
-            "Exp:"
+            "Job： ",
+            "Level： ",
+            "Exp: "
     };
 
     //InstanceField
