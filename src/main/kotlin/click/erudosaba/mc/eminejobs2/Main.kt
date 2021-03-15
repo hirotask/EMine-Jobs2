@@ -45,8 +45,7 @@ class Main : JavaPlugin() {
                 OnFish(this),
                 OnEnchant(this),
                 OnBlockPlace(this),
-                OnEat(this)
-
+                OnEat(this),
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 

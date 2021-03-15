@@ -1,0 +1,6 @@
+ID: StoneHaste2
+Name: 破壊速度上昇2
+Icon: IRON_ORE
+NeedLevel: 25
+Interval: 90
+Effect: StoneHaste2

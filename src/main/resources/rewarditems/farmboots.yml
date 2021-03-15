@@ -1,0 +1,9 @@
+ID: FarmBoots
+name: 農業用長靴
+needLevel: 15
+material: LEATHER_BOOTS
+lore:
+  - レベル15で貰える。
+  - 壊れない＆農耕地でジャンプしてももとに戻らなくなる
+enchants:
+  PROTECTION_ENVIRONMENTAL: 1

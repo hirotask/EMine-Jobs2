@@ -1,0 +1,6 @@
+ID: RandomEffect1
+Name: ランダムエフェクト1
+Icon: CRAFTING_TABLE
+NeedLevel: 15
+Interval: 90
+Effect: RandomEffect1

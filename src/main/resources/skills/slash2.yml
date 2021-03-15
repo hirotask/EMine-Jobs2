@@ -1,0 +1,6 @@
+ID: Slash2
+Name: 斬撃2
+Icon: GOLD_SWORD
+NeedLevel: 30
+Interval: 20
+Effect: Slash2

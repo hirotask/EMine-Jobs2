@@ -1,0 +1,10 @@
+ID: HINOKI
+name: ひのき棒
+needLevel: 10
+material: STICK
+lore:
+  - レベル10で貰える。
+  - これで世界の秩序を取り戻せ！
+enchants:
+  DURABILITY: 1
+  KNOCKBACK: 10

@@ -1,0 +1,6 @@
+ID: AlwaysFull
+Name: 常時満腹
+Icon: CAKE
+NeedLevel: 45
+Interval: 150
+Effect: AlwaysFull

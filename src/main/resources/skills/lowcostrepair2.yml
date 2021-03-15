@@ -1,0 +1,6 @@
+ID: LowCostRepair2
+Name: 低コスト修理2
+Icon: ANVIL
+NeedLevel: 30
+Interval: 130
+Effect: LowCostRepair2

@@ -1,0 +1,6 @@
+ID: WoodHaste3
+Name: 破壊速度上昇3
+Icon: BIRCH_SAPLING
+NeedLevel: 35
+Interval: 80
+Effect: WoodHaste3

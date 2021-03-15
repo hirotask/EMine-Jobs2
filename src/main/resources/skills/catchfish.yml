@@ -1,0 +1,6 @@
+ID: CatchFish
+Name: つかみ取り
+Icon: COD
+NeedLevel: 25
+Interval: 60
+Effect: CatchFish

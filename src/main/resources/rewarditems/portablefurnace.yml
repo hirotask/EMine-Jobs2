@@ -1,0 +1,9 @@
+ID: PortableFurnace
+name: 携帯型かまど
+needLevel: 20
+material: IRON_HORSE_ARMOR
+lore:
+  - レベル20で貰える。
+  - 右クリックで使用。
+  - 携帯できるかまど。
+enchants:
