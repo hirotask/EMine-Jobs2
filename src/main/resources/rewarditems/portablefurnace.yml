@@ -2,6 +2,7 @@ ID: PortableFurnace
 name: 携帯型かまど
 needLevel: 20
 material: IRON_HORSE_ARMOR
+unbreakable: false
 lore:
   - レベル20で貰える。
   - 右クリックで使用。

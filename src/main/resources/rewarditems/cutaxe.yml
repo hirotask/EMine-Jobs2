@@ -2,6 +2,7 @@ ID: CutAxe
 name: 無尽斧
 needLevel: 30
 material: GOLDEN_AXE
+unbreakable: true
 lore:
   - レベル30で貰える。
   - 壊れない＆ちょっとだけ早い金の斧

@@ -3,7 +3,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.FishEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
-import click.erudosaba.mc.eminejobs2.scoreboard.SideBar
+import click.erudosaba.mc.eminejobs2.util.SideBar
 import org.bukkit.entity.Item
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

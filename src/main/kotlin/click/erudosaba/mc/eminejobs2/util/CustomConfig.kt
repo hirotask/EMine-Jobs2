@@ -5,8 +5,10 @@ import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.jetbrains.annotations.NotNull
 import java.io.File
+import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import java.util.logging.Level
 
 open class CustomConfig(val plugin: Main, path: String?) {
 
@@ -15,7 +17,22 @@ open class CustomConfig(val plugin: Main, path: String?) {
     val configFile: File = File(plugin.dataFolder,file)
 
     init {
+        saveDefaultConfig()
         this.reload()
+    }
+
+    fun saveDefaultConfig() {
+        if(!configFile.exists()) {
+            plugin.saveResource(file,false)
+        }
+    }
+
+    fun saveConfig() {
+        try {
+            config.save(configFile)
+        } catch(ex : IOException) {
+            plugin.logger.log(Level.SEVERE,"Could not save config to $configFile",ex)
+        }
     }
 
     fun reload() {

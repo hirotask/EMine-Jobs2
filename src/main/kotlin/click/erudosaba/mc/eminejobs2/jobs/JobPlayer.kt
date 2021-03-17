@@ -30,7 +30,7 @@ class JobPlayer(val player : Player, val plugin : Main) {
 
             if(exp > expFunc) {
                 level += 1
-                val event = PlayerLevelUpEvent(player)
+                val event = PlayerLevelUpEvent(this)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
         }

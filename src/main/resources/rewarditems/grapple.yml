@@ -2,6 +2,7 @@ ID: Grapple
 name: 立体機動装置
 needLevel: 30
 material: FISHING_ROD
+unbreakable: true
 lore:
   - レベル30で貰える。
   - 右クリックで使用。
