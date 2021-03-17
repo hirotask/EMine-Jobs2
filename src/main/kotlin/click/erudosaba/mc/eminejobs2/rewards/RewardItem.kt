@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
-class RewardItem(plg: Main, path: String) : CustomConfig(plugin = plg, path = "rewarditems/$path.yml") {
+class RewardItem(plg: Main, path: String) : CustomConfig(plugin = plg, path = "rewarditems/${path}.yml") {
 
     var id: String? = config.getString("ID")
     var name: String? = config.getString("Name")

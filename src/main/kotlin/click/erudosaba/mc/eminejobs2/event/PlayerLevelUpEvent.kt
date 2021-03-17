@@ -7,7 +7,7 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class PlayerLevelUpEvent(val player : Player) : Event(), Cancellable {
+class PlayerLevelUpEvent(val player : JobPlayer) : Event(), Cancellable {
 
     var cancel = false
 
