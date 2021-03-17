@@ -6,7 +6,6 @@ import org.bukkit.Material;
 
 public class Skill extends CustomConfig {
 
-    //インスタンスフィールド
     private final Main plugin;
     public final String id;
     public final String name;
