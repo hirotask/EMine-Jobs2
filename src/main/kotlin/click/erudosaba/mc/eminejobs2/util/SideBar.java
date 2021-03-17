@@ -12,9 +12,11 @@ public class SideBar {
 
     private static final String objectName = "EMJSideBar";
     private static final String[] initial = {
+            "================",
             "Job： ",
             "Level： ",
-            "Exp: "
+            "Exp: ",
+            "================ "
     };
 
     //InstanceField
@@ -37,9 +39,9 @@ public class SideBar {
         //初期化
         scores = initial;
         //値の取得と代入
-        scores[0] = scores[0] + jp.getJobName();
-        scores[1] = scores[1] + jp.getLevel();
-        scores[2] = scores[2] + jp.getExp();
+        scores[1] = scores[1] + jp.getJobName();
+        scores[2] = scores[2] + jp.getLevel();
+        scores[3] = scores[3] + String.format("%.2f", jp.getExp());
     }
 
     private void display() {

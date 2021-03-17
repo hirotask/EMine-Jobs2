@@ -1,5 +1,6 @@
 package click.erudosaba.mc.eminejobs2.mysql;
 
+import click.erudosaba.mc.eminejobs2.skill.Skill;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
@@ -15,7 +16,8 @@ public class MySQLUtility {
             column_name = "name",
             column_job = "job",
             column_exp = "exp",
-            column_level = "level";
+            column_level = "level",
+            column_selectedskill = "selectedskill";
 
     public MySQLUtility(MySQLManager manager) {
         this.manager = manager;
@@ -163,5 +165,12 @@ public class MySQLUtility {
     }
     public void setLevel(Player player, int value) {
         update(player, column_level, value);
+    }
+    //SelectedSkill
+    public String getSelectedSkill(Player player) {
+        return selectString(player, column_selectedskill);
+    }
+    public void setSelectedSkill(Player player, String value) {
+        update(player, column_selectedskill, value);
     }
 }
