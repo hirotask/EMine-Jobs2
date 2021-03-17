@@ -2,6 +2,7 @@ ID: PortableWorkBench
 name: 携帯型作業台
 needLevel: 20
 material: BRICK
+unbreakable: false
 lore:
   - レベル20で貰える。
   - 右クリックで使用。

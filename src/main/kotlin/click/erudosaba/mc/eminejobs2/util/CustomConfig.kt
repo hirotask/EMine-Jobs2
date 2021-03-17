@@ -21,17 +21,17 @@ open class CustomConfig(val plugin: Main, path: String?) {
         this.reload()
     }
 
+    fun saveDefaultConfig() {
+        if(!configFile.exists()) {
+            plugin.saveResource(file,false)
+        }
+    }
+
     fun saveConfig() {
         try {
             config.save(configFile)
         } catch(ex : IOException) {
             plugin.logger.log(Level.SEVERE,"Could not save config to $configFile",ex)
-        }
-    }
-
-    fun saveDefaultConfig() {
-        if(!configFile.exists()) {
-            plugin.saveResource(file,false)
         }
     }
 

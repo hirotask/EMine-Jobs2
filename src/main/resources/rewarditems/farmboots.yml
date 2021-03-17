@@ -2,6 +2,7 @@ ID: FarmBoots
 name: 農業用長靴
 needLevel: 15
 material: LEATHER_BOOTS
+unbreakable: true
 lore:
   - レベル15で貰える。
   - 壊れない＆農耕地でジャンプしてももとに戻らなくなる

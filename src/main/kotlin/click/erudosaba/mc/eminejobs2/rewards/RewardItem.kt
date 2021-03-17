@@ -10,27 +10,34 @@ import org.jetbrains.annotations.Nullable
 
 class RewardItem(plg: Main, path: String) : CustomConfig(plugin = plg, path = "rewarditems/${path}.yml") {
 
-    var id: String? = config.getString("ID")
-    var name: String? = config.getString("Name")
-    var needLevel: Int = config.getInt("needLevel")
-    var material: Material? = if (config.getString("material") != null) Material.getMaterial("material") else null
-    var lore: MutableList<String> = config.getStringList("lore")
-    var enchants: MutableMap<Enchantment, Int> = mutableMapOf()
+    val id: String? = config.getString("ID")
+    val name: String? = config.getString("name")
+    val needLevel: Int = config.getInt("needLevel")
+    lateinit var material: Material
+    val unbreakable = config.getBoolean("unbreakable")
+    val lore: MutableList<String> = config.getStringList("lore")
+    val enchants: MutableMap<Enchantment, Int> = mutableMapOf()
 
     init {
+        if(config.getString("material") != null) {
+            val s = config.getString("material")!!.toUpperCase()
+            material = Material.getMaterial(s)!!
+        }
+
         for (key: String in config.getConfigurationSection("enchants")?.getKeys(false)!!) {
             enchants.put(Enchantment.getByName(key.toUpperCase())!!, config.getInt("enchants.${key}"))
         }
     }
 
     fun getItem(): ItemStack {
-        val item = ItemStack(material!!)
+        val item = ItemStack(material)
 
-        if (item.hasItemMeta()) {
+        if (!item.hasItemMeta()) {
             val meta = item.itemMeta
             meta?.setDisplayName(name.toString())
             meta?.lore = lore
             for ((k, v) in enchants) meta?.addEnchant(k, v, true)
+            if(unbreakable) meta?.isUnbreakable = true
             item.itemMeta = meta
         }
 
