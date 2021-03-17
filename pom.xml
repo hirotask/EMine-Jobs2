@@ -68,11 +68,11 @@
             <version>1.16.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>me.zombie_striker</groupId>
             <artifactId>QualityArmory</artifactId>
             <version>1.1.169</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -184,6 +184,28 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.spigotmc:*</exclude>
+                                    <exclude>me.zombie_striker:*</exclude>
+                                    <exclude>junit:junit</exclude>
+                                    <exclude>com.google.code.gson:*</exclude>
+                                    <exclude>org.yaml:snakeyaml</exclude>
+                                    <exclude>com.oracle.database.*:*</exclude>
+                                    <exclude>com.google.guava:guava</exclude>
+                                    <exclude>org.hamcrest:hamcrest-core</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                             <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
