@@ -1,20 +1,11 @@
-package click.erudosaba.mc.eminejobs2.skill;
+package click.erudosaba.mc.eminejobs2.skill
 
-import click.erudosaba.mc.eminejobs2.Main;
-import click.erudosaba.mc.eminejobs2.jobs.JobPlayer;
-import org.bukkit.entity.Player;
+import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import org.bukkit.entity.Player
 
-public class SkillManager {
+class SkillManager(private val plugin: Main, private val player: Player) {
 
-    private Main plugin;
-    private Player player;
-    private Skill selectedSkill;
+    val selectedSkill: Skill = JobPlayer(player, plugin).selectedSkill
 
-    public SkillManager(Main plugin, Player player) {
-        this.plugin = plugin;
-        this.player = player;
-        this.selectedSkill = new JobPlayer(player, plugin).getSelectedSkill();
-        //以下で実行
-
-    }
 }
