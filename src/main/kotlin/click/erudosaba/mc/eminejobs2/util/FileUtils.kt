@@ -10,7 +10,7 @@ class FileUtils {
         val list = dir.listFiles()
         val result = mutableListOf<File>()
         for(l in list) {
-            if(l.isFile) {
+            if(l.name.contains(".yml")) {
                 result.add(l)
             }
         }
