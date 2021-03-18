@@ -16,10 +16,19 @@ class RemoveExp(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val exp = args[1].toDoubleOrNull() ?: return
 
+        if(exp <= 0) {
+            player.sendMessage("正の実数を入力してください")
+            return
+        }
+
         if(plugin.sqlUtil.isExists(target)) {
-            //マイナスの値になるバグ
-            plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) - exp)
-            player.sendMessage("${target.name}のレベルを${exp}さげました")
+            if(plugin.sqlUtil.getLevel(target) - exp < 0) {
+                player.sendMessage("マイナスの値になるため経験値を0に設定しました")
+                plugin.sqlUtil.setExp(target,0.0)
+            } else {
+                plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) - exp)
+                player.sendMessage("${target.name}のレベルを${exp}さげました")
+            }
         }
     }
 

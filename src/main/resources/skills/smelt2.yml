@@ -1,5 +1,6 @@
 ID: Smelt2
 Name: 精錬速度上昇2
+JobID: smelter
 Icon: FURNACE
 NeedLevel: 25
 Interval: 300

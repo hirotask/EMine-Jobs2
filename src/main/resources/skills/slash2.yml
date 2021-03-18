@@ -1,5 +1,6 @@
 ID: Slash2
 Name: 斬撃2
+JobID: swordman
 Icon: GOLD_SWORD
 NeedLevel: 30
 Interval: 20

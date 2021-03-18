@@ -2,7 +2,6 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
-import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerJobLeaveEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.Bukkit
@@ -22,7 +21,7 @@ class Fire(val plugin: Main) : SubCommand() {
             player.sendMessage("${target.name}は職業に就いていません")
         } else{
             val jobPlayer = JobPlayer(target,plugin)
-            val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.jobName)
+            val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobID)
             Bukkit.getServer().pluginManager.callEvent(event)
 
             plugin.sqlUtil.delete(target)

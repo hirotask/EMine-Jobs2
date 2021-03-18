@@ -1,5 +1,6 @@
 ID: LowCostRepair1
 Name: 低コスト修理1
+JobID: weaponsmith
 Icon: ANVIL
 NeedLevel: 20
 Interval: 130

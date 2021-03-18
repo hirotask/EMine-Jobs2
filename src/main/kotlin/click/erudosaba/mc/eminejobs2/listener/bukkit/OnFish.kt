@@ -21,8 +21,5 @@ class OnFish(val plugin : Main) : Listener {
         val event = FishEvent(JobPlayer(player,plugin),item.itemStack)
         plugin.server.pluginManager.callEvent(event)
     }
-    @EventHandler
-    fun onJoin(e : PlayerJoinEvent) {
-        SideBar(plugin, e.player)
-    }
+
 }

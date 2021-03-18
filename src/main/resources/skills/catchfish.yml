@@ -1,5 +1,6 @@
 ID: CatchFish
 Name: つかみ取り
+JobID: fisherman
 Icon: COD
 NeedLevel: 25
 Interval: 60

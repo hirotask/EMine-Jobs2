@@ -1,5 +1,6 @@
 ID: NoSlow2
 Name: 食べ歩き2
+JobID: hunger
 Icon: COOKED_BEEF
 NeedLevel: 35
 Interval: 60

@@ -16,6 +16,11 @@ class Promote(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val level = args[1].toIntOrNull() ?: return
 
+        if(level <= 0) {
+            player.sendMessage("1以上の自然数を入力してください")
+            return
+        }
+
         if(plugin.sqlUtil.isExists(target)) {
             plugin.sqlUtil.setLevel(target,plugin.sqlUtil.getLevel(target) + level)
             player.sendMessage("${target.name}のレベルを${level}あげました")

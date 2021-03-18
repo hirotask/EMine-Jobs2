@@ -1,5 +1,6 @@
 ID: Protean
 Name: 変幻自在
+JobID: builder
 Icon: BRICKS
 NeedLevel: 30
 Interval: 90

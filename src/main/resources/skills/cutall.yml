@@ -1,5 +1,6 @@
 ID: CutAll
 Name: 一括破壊
+JobID: woodcutter
 Icon: DIAMOND_AXE
 NeedLevel: 40
 Interval: 5

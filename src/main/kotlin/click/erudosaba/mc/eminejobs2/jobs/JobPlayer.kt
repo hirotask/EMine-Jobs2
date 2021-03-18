@@ -8,10 +8,10 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.math.exp
 
-class JobPlayer(val player : Player, val plugin : Main) {
+class JobPlayer(val player : Player, private val plugin : Main) {
 
     val UUID = player.uniqueId
-    var jobName : String
+    var JobID : String
         get() {
             return plugin.sqlUtil.getJob(player)
         }
@@ -40,7 +40,11 @@ class JobPlayer(val player : Player, val plugin : Main) {
             return plugin.sqlUtil.getLevel(player)
         }
         set(value) {
-            plugin.sqlUtil.setLevel(player,value)
+            if(value > plugin.myConfig.maxLevel) {
+                player.sendMessage("最大レベルに到達しています。")
+            } else {
+                plugin.sqlUtil.setLevel(player,value)
+            }
         }
     var selectedSkill : Skill
         get() {
@@ -50,6 +54,9 @@ class JobPlayer(val player : Player, val plugin : Main) {
             plugin.sqlUtil.setSelectedSkill(player, value.id)
         }
 
+    fun hasSkill() : Boolean {
+        return plugin.sqlUtil.SkillExists(player)
+    }
 
     fun hasJob() : Boolean{
         return plugin.sqlUtil.isExists(player)

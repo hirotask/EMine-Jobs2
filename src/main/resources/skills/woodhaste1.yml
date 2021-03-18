@@ -1,5 +1,6 @@
 ID: WoodHaste1
 Name: 破壊速度上昇1
+JobID: woodcutter
 Icon: OAK_SAPLING
 NeedLevel: 15
 Interval: 60

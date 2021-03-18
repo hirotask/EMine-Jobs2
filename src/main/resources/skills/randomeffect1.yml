@@ -1,5 +1,6 @@
 ID: RandomEffect1
 Name: ランダムエフェクト1
+JobID: crafter
 Icon: CRAFTING_TABLE
 NeedLevel: 15
 Interval: 90

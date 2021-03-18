@@ -16,6 +16,11 @@ class GrantExp(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val exp = args[1].toDoubleOrNull() ?: return
 
+        if(exp <= 0) {
+            player.sendMessage("正の実数を入力してください")
+            return
+        }
+
         if(plugin.sqlUtil.isExists(target)) {
             plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) + exp)
             player.sendMessage("${target.name}のレベルを${exp}あげました")
