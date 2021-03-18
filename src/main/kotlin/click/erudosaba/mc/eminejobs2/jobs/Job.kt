@@ -8,7 +8,7 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
 
-class JobManager(plg: Main, fileName: String) : CustomConfig(plugin=plg, path="jobs/${fileName}.yml") {
+class Job(plg: Main, fileName: String) : CustomConfig(plugin=plg, path="jobs/${fileName}.yml") {
 
     val id : Int = config.getInt("ID")
     val JobName : String? = config.getString("JobName")

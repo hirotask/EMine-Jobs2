@@ -2,7 +2,7 @@ package click.erudosaba.mc.eminejobs2.listener
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.*
-import click.erudosaba.mc.eminejobs2.jobs.JobManager
+import click.erudosaba.mc.eminejobs2.jobs.Job
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
@@ -14,7 +14,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "woodcutter") {
-                val job = JobManager(plugin,"woodcutter")
+                val job = Job(plugin,"woodcutter")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -26,7 +26,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "miner") {
-                val job = JobManager(plugin,"miner")
+                val job = Job(plugin,"miner")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -38,7 +38,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "digger") {
-                val job = JobManager(plugin,"digger")
+                val job = Job(plugin,"digger")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -50,7 +50,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "swordman") {
-                val job = JobManager(plugin,"swordman")
+                val job = Job(plugin,"swordman")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -62,7 +62,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "archer") {
-                val job = JobManager(plugin,"archer")
+                val job = Job(plugin,"archer")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -74,7 +74,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "farmer") {
-                val job = JobManager(plugin,"farmer")
+                val job = Job(plugin,"farmer")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -86,7 +86,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "explorer") {
-                val job = JobManager(plugin,"explorer")
+                val job = Job(plugin,"explorer")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -98,7 +98,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "smelter") {
-                val job = JobManager(plugin,"smelter")
+                val job = Job(plugin,"smelter")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -110,7 +110,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "fisherman") {
-                val job = JobManager(plugin,"fisherman")
+                val job = Job(plugin,"fisherman")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -122,7 +122,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "crafter") {
-                val job = JobManager(plugin,"crafter")
+                val job = Job(plugin,"crafter")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -134,7 +134,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "enchanter") {
-                val job = JobManager(plugin,"enchanter")
+                val job = Job(plugin,"enchanter")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -146,7 +146,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "weaponsmith") {
-                val job = JobManager(plugin,"weaponsmith")
+                val job = Job(plugin,"weaponsmith")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -158,7 +158,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "brewer") {
-                val job = JobManager(plugin,"brewer")
+                val job = Job(plugin,"brewer")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -170,7 +170,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "builder") {
-                val job = JobManager(plugin,"builder")
+                val job = Job(plugin,"builder")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -182,7 +182,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "gunner") {
-                val job = JobManager(plugin,"gunner")
+                val job = Job(plugin,"gunner")
                 jobplayer.exp += job.JobExp
             }
         }
@@ -194,7 +194,7 @@ class MyEventListener(val plugin : Main) : Listener {
 
         if(jobplayer.hasJob()) {
             if(jobplayer.jobName == "hunger") {
-                val job = JobManager(plugin,"hunger")
+                val job = Job(plugin,"hunger")
                 jobplayer.exp += job.JobExp
             }
         }
