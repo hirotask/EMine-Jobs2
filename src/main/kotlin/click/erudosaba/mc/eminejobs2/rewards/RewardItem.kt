@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.rewards
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.util.CustomConfig
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
@@ -19,7 +20,13 @@ class RewardItem(plg: Main, path: String) : CustomConfig(plugin = plg, path = "r
     val enchants: MutableMap<Enchantment, Int> = mutableMapOf()
 
     init {
-        if(config.getString("material") != null) {
+
+        if (id == null) {
+            Bukkit.getServer().logger.warning("存在しないアイテムを参照しました。path=$path")
+        }
+
+
+        if (config.getString("material") != null) {
             val s = config.getString("material")!!.toUpperCase()
             material = Material.getMaterial(s)!!
         }
@@ -37,7 +44,7 @@ class RewardItem(plg: Main, path: String) : CustomConfig(plugin = plg, path = "r
             meta?.setDisplayName(name.toString())
             meta?.lore = lore
             for ((k, v) in enchants) meta?.addEnchant(k, v, true)
-            if(unbreakable) meta?.isUnbreakable = true
+            if (unbreakable) meta?.isUnbreakable = true
             item.itemMeta = meta
         }
 

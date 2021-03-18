@@ -8,4 +8,6 @@ class SkillManager(private val plugin: Main, private val player: Player) {
 
     val selectedSkill: Skill = JobPlayer(player, plugin).selectedSkill
 
+
+
 }
