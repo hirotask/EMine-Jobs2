@@ -22,9 +22,4 @@ class OnBlockPlace(val plugin : Main) : Listener {
             plugin.server.pluginManager.callEvent(event)
         }
     }
-
-    @EventHandler
-    fun onJoin(e: PlayerJoinEvent) {
-        SideBar(plugin,e.player)
-    }
 }
