@@ -28,6 +28,8 @@ public class SideBar {
     private Objective sidebar;
     private Player player;
     private final List<String> scores = new ArrayList<>();
+    private double expFunc = 0;
+    private double diff = 0;
 
     //Constructor
     public SideBar(Main plugin, Player player) {
@@ -39,11 +41,15 @@ public class SideBar {
 
     private void manage() {
         JobPlayer jp = new JobPlayer(player, plugin);
+        expFunc = 51.763 * Math.exp((0.093 * (jp.getLevel()+1))-0.5);
+        diff = expFunc - jp.getExp();
+
         //値の取得と代入
         scores.add("================");
         scores.add("Job： " + jp.getJobID());
         scores.add("Level： " + jp.getLevel());
         scores.add("Exp: " + String.format("%.2f",jp.getExp()));
+        scores.add("次のレベルまで→ " + String.format("%.2f",diff));
         scores.add("================ ");
     }
 
