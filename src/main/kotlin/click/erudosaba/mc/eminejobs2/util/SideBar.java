@@ -39,7 +39,7 @@ public class SideBar {
         //初期化
         scores = initial;
         //値の取得と代入
-        scores[1] = scores[1] + jp.getJobName();
+        scores[1] = scores[1] + jp.getJobiD();
         scores[2] = scores[2] + jp.getLevel();
         scores[3] = scores[3] + String.format("%.2f", jp.getExp());
     }
