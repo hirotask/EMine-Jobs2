@@ -21,7 +21,7 @@ class Fire(val plugin: Main) : SubCommand() {
             player.sendMessage("${target.name}は職業に就いていません")
         } else{
             val jobPlayer = JobPlayer(target,plugin)
-            val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobiD)
+            val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobID)
             Bukkit.getServer().pluginManager.callEvent(event)
 
             plugin.sqlUtil.delete(target)

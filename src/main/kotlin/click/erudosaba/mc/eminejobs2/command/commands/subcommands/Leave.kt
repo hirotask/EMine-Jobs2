@@ -14,7 +14,7 @@ class Leave(val plugin: Main) : SubCommand() {
         }
 
         val jobPlayer = JobPlayer(player,plugin)
-        val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobiD)
+        val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobID)
         Bukkit.getServer().pluginManager.callEvent(event)
 
         plugin.sqlUtil.delete(player)

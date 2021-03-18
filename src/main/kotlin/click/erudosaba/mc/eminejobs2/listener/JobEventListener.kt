@@ -12,7 +12,7 @@ class JobEventListener(val plugin : Main) : Listener{
     @EventHandler
     fun onLevelUp(e: PlayerLevelUpEvent) {
         val lv = e.player.level
-        val job = e.player.JobiD
+        val job = e.player.JobID
         val player = e.player.player
 
         when(job) {

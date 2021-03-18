@@ -11,7 +11,7 @@ import kotlin.math.exp
 class JobPlayer(val player : Player, private val plugin : Main) {
 
     val UUID = player.uniqueId
-    var JobiD : String
+    var JobID : String
         get() {
             return plugin.sqlUtil.getJob(player)
         }

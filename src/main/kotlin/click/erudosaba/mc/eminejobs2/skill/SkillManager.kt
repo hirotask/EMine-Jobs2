@@ -1,7 +1,10 @@
 package click.erudosaba.mc.eminejobs2.skill
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.skill.effect.Effect
+import org.bukkit.Bukkit
 
 class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
@@ -11,11 +14,21 @@ class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
         if(jp.level < skill.needLevel) {
             return
         }
-        if(jp.JobiD != skill.jobID) {
+        if(jp.JobID != skill.jobID) {
             return
         }
 
+        when(skill.effect) {
+            Effect.AlwaysFull -> {
 
+            }
+        }
+
+        val event = SkillUseEvent(jp,skill)
+        Bukkit.getServer().pluginManager.callEvent(event)
     }
+
+
+    fun
 
 }

@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2.skill
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.skill.effect.Effect
 import click.erudosaba.mc.eminejobs2.util.CustomConfig
 import org.bukkit.Bukkit
 import org.bukkit.Material
