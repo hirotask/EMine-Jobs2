@@ -1,4 +1,4 @@
-package click.erudosaba.mc.eminejobs2.skill;
+package click.erudosaba.mc.eminejobs2.skill.effect;
 
 public enum Effect {
     CutAll("木を一括破壊できる"),

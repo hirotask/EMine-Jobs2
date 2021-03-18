@@ -18,17 +18,15 @@ class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
             return
         }
 
+        /*
         when(skill.effect) {
             Effect.AlwaysFull -> {
 
             }
-        }
+        }*/
 
         val event = SkillUseEvent(jp,skill)
         Bukkit.getServer().pluginManager.callEvent(event)
     }
-
-
-    fun
 
 }
