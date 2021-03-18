@@ -8,7 +8,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.math.exp
 
-class JobPlayer(val player : Player, val plugin : Main) {
+class JobPlayer(val player : Player, private val plugin : Main) {
 
     val UUID = player.uniqueId
     var jobName : String
@@ -54,6 +54,9 @@ class JobPlayer(val player : Player, val plugin : Main) {
             plugin.sqlUtil.setSelectedSkill(player, value.id)
         }
 
+    fun hasSkill() : Boolean {
+        return plugin.sqlUtil.SkillExists(player)
+    }
 
     fun hasJob() : Boolean{
         return plugin.sqlUtil.isExists(player)

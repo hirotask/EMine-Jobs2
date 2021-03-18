@@ -4,10 +4,16 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import org.bukkit.entity.Player
 
-class SkillManager(private val plugin: Main, private val player: Player) {
+class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
-    val selectedSkill: Skill = JobPlayer(player, plugin).selectedSkill
+    val selectedSkill: Skill = jp.selectedSkill
+
+    fun run(skill : Skill) {
+        if(jp.level < skill.needLevel) {
+            return
+        }
 
 
+    }
 
 }
