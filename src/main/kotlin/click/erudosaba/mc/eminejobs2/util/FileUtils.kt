@@ -7,6 +7,11 @@ class FileUtils {
 
     fun getFiles(dirPath : String) : MutableList<File> {
         val dir = File(dirPath)
+
+        if(!dir.exists()) {
+
+        }
+
         val list = dir.listFiles()
         val result = mutableListOf<File>()
         for(l in list) {
