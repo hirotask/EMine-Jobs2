@@ -1,5 +1,6 @@
 ID: WoodHaste2
 Name: 破壊速度上昇2
+JobID: woodcutter
 Icon: SPRUCE_SAPLING
 NeedLevel: 25
 Interval: 80

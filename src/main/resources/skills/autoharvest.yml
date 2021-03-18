@@ -1,5 +1,6 @@
 ID: AutoHarvest
 Name: 自動収穫
+JobID: farmer
 Icon: LEATHER_BOOTS
 NeedLevel: 40
 Interval: 90

@@ -1,5 +1,6 @@
 ID: Slash3
 Name: 斬撃3
+JobID: swordman
 Icon: DIAMOND_SWORD
 NeedLevel: 40
 Interval: 20

@@ -1,5 +1,6 @@
 ID: Levitation
 Name: 浮遊
+JobID: builder
 Icon: FEATHER
 NeedLevel: 45
 Interval: 360

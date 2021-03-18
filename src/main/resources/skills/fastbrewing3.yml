@@ -1,5 +1,6 @@
 ID: FastBrewing3
 Name: 醸造時間短縮3
+JobID: brewer
 Icon: BREWING_STAND
 NeedLevel: 40
 Interval: 130

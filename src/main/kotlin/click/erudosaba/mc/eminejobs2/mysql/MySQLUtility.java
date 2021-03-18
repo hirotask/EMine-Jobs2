@@ -173,4 +173,11 @@ public class MySQLUtility {
     public void setSelectedSkill(Player player, String value) {
         update(player, column_selectedskill, value);
     }
+    public boolean SkillExists(Player player) {
+        if(selectString(player,column_selectedskill) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

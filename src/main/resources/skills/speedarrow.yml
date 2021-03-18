@@ -1,5 +1,6 @@
 ID: SpeedArrow
 Name: アイオロスの矢
+JobID: archer
 Icon: TIPPED_ARROW
 NeedLevel: 25
 Interval: 90

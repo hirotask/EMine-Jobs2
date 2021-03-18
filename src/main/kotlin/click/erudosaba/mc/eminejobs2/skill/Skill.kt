@@ -9,6 +9,7 @@ class Skill(val plg: Main, val path: String) : CustomConfig(plg, "skills/$path.y
 
     val id : String? = config.getString("ID")
     val name: String? = config.getString("Name")
+    val jobID : String? = config.getString("JobID")
     val needLevel: Int = config.getInt("NeedLevel")
     val interval: Int = config.getInt("Interval")
     val effect: Effect = Effect.valueOf(config.getString("Effect")!!)

@@ -1,5 +1,6 @@
 ID: StoneHaste1
 Name: 破壊速度上昇1
+JobID: miner
 Icon: COAL_ORE
 NeedLevel: 15
 Interval: 70

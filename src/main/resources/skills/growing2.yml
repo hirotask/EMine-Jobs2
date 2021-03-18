@@ -1,5 +1,6 @@
 ID: Growing2
 Name: 成長促進2
+JobID: farmer
 Icon: WHEAT_SEEDS
 NeedLevel: 25
 Interval: 60
