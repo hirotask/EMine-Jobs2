@@ -5,3 +5,6 @@ port: 3306
 username: root
 password:
 database: eminejob
+
+#Setting for Job
+maxLevel: 80

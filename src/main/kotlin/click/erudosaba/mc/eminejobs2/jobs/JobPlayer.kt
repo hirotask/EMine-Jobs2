@@ -40,7 +40,11 @@ class JobPlayer(val player : Player, val plugin : Main) {
             return plugin.sqlUtil.getLevel(player)
         }
         set(value) {
-            plugin.sqlUtil.setLevel(player,value)
+            if(value > plugin.myConfig.maxLevel) {
+                player.sendMessage("最大レベルに到達しています。")
+            } else {
+                plugin.sqlUtil.setLevel(player,value)
+            }
         }
     var selectedSkill : Skill
         get() {

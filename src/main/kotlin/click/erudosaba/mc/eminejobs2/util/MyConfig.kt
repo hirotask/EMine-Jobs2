@@ -10,4 +10,6 @@ class MyConfig(plg: Main) : CustomConfig(plugin=plg,path = null) {
     val username = config.getString("username")
     val password = config.getString("password")
     val database = config.getString("database")
+
+    val maxLevel = config.getInt("maxLevel")
 }
