@@ -24,16 +24,17 @@ class JobPlayer(val player : Player, private val plugin : Main) {
         }
         set(value) {
             plugin.sqlUtil.setExp(player,value)
-            val e = PlayerExpChangeEvent(player)
-            Bukkit.getServer().pluginManager.callEvent(e)
+            val expFunc = 51.763 * exp(0.093 * (plugin.sqlUtil.getLevel(player)+1)-0.5)
 
-            val expFunc = 51.763 * exp(0.093 * plugin.sqlUtil.getLevel(player)-0.5)
+            val e = PlayerExpChangeEvent(this)
+            Bukkit.getServer().pluginManager.callEvent(e)
 
             if(exp > expFunc) {
                 level += 1
                 val event = PlayerLevelUpEvent(this)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
+
         }
     var level : Int
         get() {

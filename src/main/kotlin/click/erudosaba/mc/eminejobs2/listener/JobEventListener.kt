@@ -1,8 +1,11 @@
 package click.erudosaba.mc.eminejobs2.listener
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
+import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
 import click.erudosaba.mc.eminejobs2.rewards.RewardItem
+import click.erudosaba.mc.eminejobs2.util.SideBar
 import org.bukkit.ChatColor
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -54,6 +57,19 @@ class JobEventListener(val plugin : Main) : Listener{
             }
         }
 
+        SideBar(plugin,player)
         player.sendMessage("${ChatColor.GOLD} レベルアップｗｗｗｗｗ！！！")
+    }
+
+    @EventHandler
+    fun onJobJoin(e: PlayerJobJoinEvent) {
+        val jp = e.player
+        SideBar(plugin,jp.player)
+    }
+
+    @EventHandler
+    fun onExpChange(e: PlayerExpChangeEvent) {
+        val jp = e.player
+        SideBar(plugin,jp.player)
     }
 }

@@ -57,22 +57,6 @@ class Main : JavaPlugin() {
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 
-        /* init of Skills */
-        for(fileName in fileUtils.getFileNames(fileUtils.getFiles("${dataFolder}/skills"))) {
-            Skill(this,fileName)
-        }
-
-        /* init of Rewards */
-        for(fileName in fileUtils.getFileNames(fileUtils.getFiles("${dataFolder}/rewarditems"))) {
-            RewardItem(this,fileName)
-        }
-
-        /* init of Jobs */
-        for(fileName in fileUtils.getFileNames(fileUtils.getFiles("${dataFolder}/jobs"))) {
-            Job(this,fileName)
-        }
-
-
         logger.info("$PluginName was Enabled!")
     }
 }

@@ -8,6 +8,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SideBar {
 
     private static final String objectName = "EMJSideBar";
@@ -24,7 +27,9 @@ public class SideBar {
     private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
     private Objective sidebar;
     private Player player;
-    private String[] scores;
+    private final List<String> scores = new ArrayList<>();
+    private double expFunc = 0;
+    private double diff = 0;
 
     //Constructor
     public SideBar(Main plugin, Player player) {
@@ -36,19 +41,23 @@ public class SideBar {
 
     private void manage() {
         JobPlayer jp = new JobPlayer(player, plugin);
-        //初期化
-        scores = initial;
+        expFunc = 51.763 * Math.exp((0.093 * (jp.getLevel()+1))-0.5);
+        diff = expFunc - jp.getExp();
+
         //値の取得と代入
-        scores[1] = scores[1] + jp.getJobID();
-        scores[2] = scores[2] + jp.getLevel();
-        scores[3] = scores[3] + String.format("%.2f", jp.getExp());
+        scores.add("================");
+        scores.add("Job： " + jp.getJobID());
+        scores.add("Level： " + jp.getLevel());
+        scores.add("Exp: " + String.format("%.2f",jp.getExp()));
+        scores.add("次のレベルまで→ " + String.format("%.2f",diff));
+        scores.add("================ ");
     }
 
     private void display() {
         //オブジェクトの削除
         for (Objective obj : player.getScoreboard().getObjectives()) {
             if (obj.getName().equals(objectName)) {
-                player.sendMessage("テストメッセージ → オブジェクトを確認、削除します。");
+                //player.sendMessage("テストメッセージ → オブジェクトを確認、削除します。");
                 player.getScoreboard().getObjective(objectName).unregister();
             }
         }
@@ -56,7 +65,7 @@ public class SideBar {
         sidebar = scoreboard.registerNewObjective(objectName, "dummy", player.getName());
         sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
         //オブジェクトの初期化
-        for (int i = 0; i < scores.length; i++) sidebar.getScore(scores[i]).setScore(scores.length - i);
+        for (int i = 0; i < scores.size(); i++) sidebar.getScore(scores.get(i)).setScore(scores.size() - i);
         //オブジェクトの表示
         player.setScoreboard(scoreboard);
     }
