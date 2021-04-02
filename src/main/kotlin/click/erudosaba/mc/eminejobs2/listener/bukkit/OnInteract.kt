@@ -14,18 +14,18 @@ class OnInteract(val plugin : Main) : Listener {
 
     @EventHandler
     fun onInteract(e : PlayerInteractEvent) {
-        if(e.action != Action.RIGHT_CLICK_BLOCK || e.action != Action.RIGHT_CLICK_AIR) {
-            return
-        }
+        if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+            val player = e.player
+            if(player.isSneaking) {
+                val jp = JobPlayer(player, plugin)
 
-        val player = e.player
-        val jp = JobPlayer(player, plugin)
+                if(jp.hasJob() && jp.hasSkill()) {
+                    val skill = jp.selectedSkill
+                    val skillmanager = SkillManager(plugin, jp)
 
-        if(jp.hasJob() && jp.hasSkill()) {
-            val skill = jp.selectedSkill
-            val skillmanager = SkillManager(plugin, jp)
-
-            skillmanager.run(skill)
+                    skillmanager.run(skill)
+                }
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
 import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.math.exp
@@ -53,6 +54,19 @@ class JobPlayer(val player : Player, private val plugin : Main) {
         }
         set(value) {
             plugin.sqlUtil.setSelectedSkill(player, value.id)
+        }
+    var skillStatus : SkillStatus
+        get() {
+            val values = SkillStatus.values()
+            for(v in values){
+                if(v.name == plugin.sqlUtil.getSkillStatus(player)) {
+                    return v
+                }
+            }
+            return SkillStatus.NONE
+        }
+        set(value) {
+            plugin.sqlUtil.setSkillStatus(player,value.name)
         }
 
     fun hasSkill() : Boolean {
