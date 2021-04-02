@@ -15,12 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable
 class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
     fun run(skill : Skill, time : Int = 0) {
-        if(jp.level < skill.needLevel) {
-            return
-        }
-        if(jp.JobID != skill.jobID) {
-            return
-        }
         if(jp.skillStatus == SkillStatus.RUNNING) {
             return
         }
