@@ -11,28 +11,24 @@ import org.bukkit.Particle
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
+import org.bukkit.scheduler.BukkitTask
 
 class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
-    fun run(skill : Skill, time : Int = 0) {
-        if(jp.skillStatus == SkillStatus.RUNNING) {
-            return
+    fun run(skill: Skill, time: Int = 0) {
+        val effect = jp.selectedSkill.effect
+        val player = jp.player
+
+        //何回も発動するのを防止
+        if (jp.skillStatus != SkillStatus.RUNNING) {
+            jp.skillStatus = SkillStatus.RUNNING
+            jp.player.sendMessage("スキル発動！")
+
+            SkillRunnable(plugin,jp,time).runTaskTimer(plugin,0,20)
+
+            val event = SkillUseEvent(jp, skill)
+            Bukkit.getServer().pluginManager.callEvent(event)
         }
-
-        jp.skillStatus = SkillStatus.RUNNING
-
-        if(skill.effect.skilltime == 0) { //即発動のスキル
-            val instantSkill = SkillRunnable(plugin, jp)
-            val task = plugin.server.scheduler.runTaskTimer(plugin,instantSkill,0,1)
-            instantSkill.task = task
-        } else {
-            val skillRun = SkillRunnable(plugin, jp)
-            val task = plugin.server.scheduler.runTaskTimer(plugin,skillRun,0,20)
-            skillRun.task = task
-        }
-
-        val event = SkillUseEvent(jp,skill)
-        Bukkit.getServer().pluginManager.callEvent(event)
     }
 
 }

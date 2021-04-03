@@ -24,6 +24,7 @@ class SetSkill(val plugin : Main) : SubCommand() {
         if(jp.JobID != skill.jobID) {
             return
         }
+
         jp.selectedSkill = skill
 
         player.sendMessage("スキルを${ChatColor.YELLOW}${skill.name}${ChatColor.WHITE}に設定しました")
