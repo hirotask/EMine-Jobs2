@@ -27,24 +27,10 @@ class OnArrow(val plugin : Main) : Listener {
 
     @EventHandler
     fun onArrowHitEntity(e : EntityDamageByEntityEvent) {
-        val arrow = if(e.damager is Arrow) e.damager as Arrow else return
-        val player = if(e.entity is Player ) e.entity as Player else return
-        val jp = JobPlayer(player,plugin)
+
 
         //SpeedArrow
-        if(jp.skillStatus == SkillStatus.RUNNING) {
-            if(jp.selectedSkill.effect == Effect.SpeedArrow) {
-                if(arrow.shooter !is Player) return
 
-                if(arrow.shooter as Player == player) {
-                    val boostVec = player.location.direction.normalize().multiply(2.5).setY(1)
-                    player.velocity = boostVec
-
-                    e.isCancelled = true
-                }
-
-            }
-        }
     }
 
     @EventHandler
@@ -88,10 +74,20 @@ class OnArrow(val plugin : Main) : Listener {
                     val loc = e.projectile.location
                     val radius = 4
 
-                    for(p in Bukkit.getServer().onlinePlayers) {
-                        if(loc.distance(p.location) <= radius) {
-                            val homingVec = p.location.direction
-                            e.projectile.velocity = homingVec
+                    for(en in e.projectile.world.entities) {
+                        if(loc.distance(en.location) <= radius && !en.isDead) {
+                            val shooter = (e.projectile as Projectile).shooter as Player
+                            if(en is Player) {
+                                if(en == shooter) {
+                                    continue
+                                }
+                            } else {
+                                val homingVec = e.projectile.location.direction.subtract(en.location.toVector()).normalize()
+
+                                e.projectile.velocity = homingVec
+
+                            }
+
                         }
                     }
                 } else {
@@ -110,6 +106,30 @@ class OnArrow(val plugin : Main) : Listener {
         if(arrows.contains(e.entity as Arrow)) {
             arrows.remove(e.entity as Arrow)
         }
+
+
+        if(e.hitEntity != null) {
+            if(e.hitEntity is Player) {
+                val arrow = if(e.entity is Arrow) e.entity as Arrow else return
+                val player = if(e.hitEntity is Player ) e.hitEntity as Player else return
+                val jp = JobPlayer(player,plugin)
+
+                if(jp.skillStatus == SkillStatus.RUNNING) {
+                    if(jp.selectedSkill.effect == Effect.SpeedArrow) {
+                        if(arrow.shooter !is Player) return
+
+                        if(arrow.shooter as Player == player) {
+                            val boostVec = player.location.direction.normalize().multiply(2.5).setY(1)
+                            player.velocity = boostVec
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+
     }
 
 
