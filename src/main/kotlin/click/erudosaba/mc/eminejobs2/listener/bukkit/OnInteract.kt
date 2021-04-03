@@ -67,6 +67,7 @@ class OnInteract(val plugin : Main) : Listener {
                                 if (entities != null) {
                                     for(e in entities) {
                                         val living = e as LivingEntity
+                                        if(living == player) continue
 
                                         var multiple = 1.0
                                         var sworddamage = 1
@@ -93,6 +94,9 @@ class OnInteract(val plugin : Main) : Listener {
                                                 multiple = 1.5
                                             }
                                         }
+
+
+
                                         living.damage(sworddamage * multiple)
 
                                     }

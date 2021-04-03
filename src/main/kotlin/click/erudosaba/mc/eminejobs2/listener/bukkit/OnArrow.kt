@@ -82,7 +82,7 @@ class OnArrow(val plugin : Main) : Listener {
                                     continue
                                 }
                             } else {
-                                val homingVec = e.projectile.location.direction.subtract(en.location.toVector()).normalize()
+                                val homingVec = en.location.direction.subtract(e.projectile.location.toVector()).normalize()
 
                                 e.projectile.velocity = homingVec
 
