@@ -29,13 +29,12 @@ class OnInteract(val plugin : Main) : Listener {
                     val skill = jp.selectedSkill
                     val skillmanager = SkillManager(plugin, jp)
 
-                    skillmanager.run(skill,skill.effect.skilltime)
+                    skillmanager.run(skill,skill.effect.skilltime,skill.interval)
                 }
             } else {
                 //剣士スキル発動
                 if(jp.skillStatus == SkillStatus.RUNNING){
                     if(Items.swords.contains(player.inventory.itemInMainHand.type) || Items.swords.contains(player.inventory.itemInOffHand.type)) {
-                        player.sendMessage("剣士スキル発動")
 
                         object : BukkitRunnable() {
                             var t = 0.0

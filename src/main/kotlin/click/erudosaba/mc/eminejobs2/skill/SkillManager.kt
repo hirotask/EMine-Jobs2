@@ -15,16 +15,16 @@ import org.bukkit.scheduler.BukkitTask
 
 class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
-    fun run(skill: Skill, time: Int = 0) {
+    fun run(skill: Skill, time: Int, interval : Int) {
         val effect = jp.selectedSkill.effect
         val player = jp.player
 
         //何回も発動するのを防止
-        if (jp.skillStatus != SkillStatus.RUNNING) {
+        if (jp.skillStatus == SkillStatus.NONE) {
+            jp.player.playSound(jp.player.location,Sound.UI_BUTTON_CLICK,0.5F,1.3F)
             jp.skillStatus = SkillStatus.RUNNING
-            jp.player.sendMessage("スキル発動！")
 
-            SkillRunnable(plugin,jp,time).runTaskTimer(plugin,0,20)
+            SkillRunnable(plugin,jp,time,interval).runTaskTimer(plugin,0,20)
 
             val event = SkillUseEvent(jp, skill)
             Bukkit.getServer().pluginManager.callEvent(event)
