@@ -1,4 +1,4 @@
-package click.erudosaba.mc.eminejobs2.skill.effect;
+package click.erudosaba.mc.eminejobs2.skill;
 
 public enum Effect {
     //エフェクト名(説明，スキル有効時間)

@@ -4,14 +4,8 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.runnable.SkillRunnable
-import click.erudosaba.mc.eminejobs2.skill.effect.Effect
 import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.Particle
 import org.bukkit.Sound
-import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.scheduler.BukkitTask
 
 class SkillManager(private val plugin: Main, private val jp: JobPlayer) {
 
