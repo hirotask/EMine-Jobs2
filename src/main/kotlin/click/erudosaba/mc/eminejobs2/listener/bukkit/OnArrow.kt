@@ -103,7 +103,13 @@ class OnArrow(val plugin : Main) : Listener {
 
     @EventHandler
     fun onProjectileHit(e : ProjectileHitEvent) {
+        if(e.entity !is Arrow) {
+            return
+        }
 
+        if(arrows.contains(e.entity as Arrow)) {
+            arrows.remove(e.entity as Arrow)
+        }
     }
 
 
