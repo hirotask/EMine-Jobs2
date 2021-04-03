@@ -3,17 +3,25 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.skill.Effect
 import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.Sound
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.potion.Potion
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
 class OnInteract(val plugin : Main) : Listener {
@@ -36,6 +44,8 @@ class OnInteract(val plugin : Main) : Listener {
                 if(jp.skillStatus == SkillStatus.RUNNING){
                     if(Items.swords.contains(player.inventory.itemInMainHand.type) || Items.swords.contains(player.inventory.itemInOffHand.type)) {
 
+                        val swordItem = if(Items.swords.contains(player.inventory.itemInMainHand.type)) player.inventory.itemInMainHand else player.inventory.itemInOffHand
+
                         object : BukkitRunnable() {
                             var t = 0.0
                             override fun run() {
@@ -56,11 +66,34 @@ class OnInteract(val plugin : Main) : Listener {
 
                                 if (entities != null) {
                                     for(e in entities) {
-                                        if(e !is Player) continue
+                                        val living = e as LivingEntity
 
-                                        val p : Player = e
-                                        p.damage(6.0)
+                                        var multiple = 1.0
+                                        var sworddamage = 1
 
+                                        when(swordItem.type) {
+                                            Material.WOODEN_SWORD -> sworddamage = 4
+                                            Material.STONE_SWORD -> sworddamage = 5
+                                            Material.IRON_SWORD -> sworddamage = 6
+                                            Material.GOLDEN_SWORD -> sworddamage = 4
+                                            Material.DIAMOND_SWORD -> sworddamage = 7
+                                            Material.NETHERITE_SWORD -> sworddamage = 8
+                                        }
+
+                                        when(jp.selectedSkill.effect) {
+                                            Effect.Slash1 -> {
+                                                multiple = 1.3
+                                            }
+                                            Effect.Slash2 -> {
+                                                living.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS,10 * 20, 2, true))
+                                                multiple = 1.4
+                                            }
+                                            Effect.Slash3 -> {
+                                                living.addPotionEffect(PotionEffect(PotionEffectType.WEAKNESS,15 * 20, 2, true))
+                                                multiple = 1.5
+                                            }
+                                        }
+                                        living.damage(sworddamage * multiple)
 
                                     }
                                 }
