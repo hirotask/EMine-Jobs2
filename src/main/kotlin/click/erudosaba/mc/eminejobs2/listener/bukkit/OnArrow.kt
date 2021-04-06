@@ -3,6 +3,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Effect
+import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -27,9 +28,37 @@ class OnArrow(val plugin : Main) : Listener {
 
     @EventHandler
     fun onArrowHitEntity(e : EntityDamageByEntityEvent) {
+        if(e.damager !is Arrow) {
+            return
+        }
 
+        val arrow = e.damager as Arrow
 
-        //SpeedArrow
+        if(arrow.shooter !is Player) {
+            return
+        }
+
+        if(e.entity !is Player) {
+            return
+        }
+
+        val shooter = arrow.shooter as Player
+        val player = e.entity as Player
+        val jp = JobPlayer(player,plugin)
+
+        if(jp.skillStatus == SkillStatus.RUNNING) {
+            if(jp.selectedSkill.effect == Effect.SpeedArrow) {
+                if(shooter == player) {
+                    val itemInHand = shooter.inventory.itemInMainHand
+
+                    if(itemInHand.type == Material.BOW) {
+                        val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
+                        player.sendMessage("SpeedArrow fire")
+                        player.velocity = boostVec
+                    }
+                }
+            }
+        }
 
     }
 
@@ -63,11 +92,12 @@ class OnArrow(val plugin : Main) : Listener {
                     player.launchProjectile(Arrow::class.java,arrowDir1)
                     player.launchProjectile(Arrow::class.java,arrowDir2)
                 }
-            } else if(jp.selectedSkill.effect == Effect.HomingArrow) { //HomingArrow
-                arrows.add(e.projectile as Projectile)
-            }
+            } //else if(jp.selectedSkill.effect == Effect.HomingArrow) { //HomingArrow
+                //arrows.add(e.projectile as Projectile)
+            //}
         }
 
+        /*
         object : BukkitRunnable() {
             override fun run() {
                 if(arrows.contains(e.projectile as Projectile)) { //矢が空中にあったら
@@ -95,6 +125,8 @@ class OnArrow(val plugin : Main) : Listener {
                 }
             }
         }.runTaskTimer(plugin,0,1)
+
+         */
     }
 
     @EventHandler
@@ -108,26 +140,7 @@ class OnArrow(val plugin : Main) : Listener {
         }
 
 
-        if(e.hitEntity != null) {
-            if(e.hitEntity is Player) {
-                val arrow = if(e.entity is Arrow) e.entity as Arrow else return
-                val player = if(e.hitEntity is Player ) e.hitEntity as Player else return
-                val jp = JobPlayer(player,plugin)
 
-                if(jp.skillStatus == SkillStatus.RUNNING) {
-                    if(jp.selectedSkill.effect == Effect.SpeedArrow) {
-                        if(arrow.shooter !is Player) return
-
-                        if(arrow.shooter as Player == player) {
-                            val boostVec = player.location.direction.normalize().multiply(2.5).setY(1)
-                            player.velocity = boostVec
-                        }
-
-                    }
-                }
-            }
-
-        }
 
 
     }
