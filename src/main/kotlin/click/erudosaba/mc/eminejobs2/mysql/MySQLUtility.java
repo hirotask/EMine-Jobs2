@@ -17,7 +17,9 @@ public class MySQLUtility {
             column_job = "job",
             column_exp = "exp",
             column_level = "level",
-            column_selectedskill = "selectedskill";
+            column_selectedskill = "selectedskill",
+            column_skillstatus = "skillstatus"
+    ;
 
     public MySQLUtility(MySQLManager manager) {
         this.manager = manager;
@@ -172,6 +174,13 @@ public class MySQLUtility {
     }
     public void setSelectedSkill(Player player, String value) {
         update(player, column_selectedskill, value);
+    }
+    //SkillStatus
+    public String getSkillStatus(Player player) {
+        return selectString(player,column_skillstatus);
+    }
+    public void setSkillStatus(Player player,String value) {
+        update(player,column_skillstatus, value);
     }
     public boolean SkillExists(Player player) {
         if(selectString(player,column_selectedskill) != null) {

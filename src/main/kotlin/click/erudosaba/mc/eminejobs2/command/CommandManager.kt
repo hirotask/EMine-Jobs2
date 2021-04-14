@@ -32,6 +32,7 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
         this.commands.add(GrantExp(plugin))
         this.commands.add(RemoveExp(plugin))
         this.commands.add(Transfer(plugin))
+        this.commands.add(SetSkill(plugin))
         this.commands.add(Reload(plugin))
     }
 

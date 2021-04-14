@@ -53,7 +53,8 @@ class Main : JavaPlugin() {
                 OnBlockPlace(this),
                 OnEat(this),
                 OnJoinLeave(this),
-                OnInteract(this)
+                OnInteract(this),
+                OnArrow(this)
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 
