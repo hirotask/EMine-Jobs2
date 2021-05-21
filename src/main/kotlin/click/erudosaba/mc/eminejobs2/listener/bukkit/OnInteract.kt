@@ -108,7 +108,6 @@ class OnInteract(val plugin: Main) : Listener {
                                 }
 
                             }.runTaskTimer(plugin, 0, 1)
-
                         }
                     }
                 }
