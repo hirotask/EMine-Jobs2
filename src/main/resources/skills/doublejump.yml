@@ -1,7 +1,0 @@
-ID: DoubleJump
-Name: 2段ジャンプ
-JobID: gunner
-Icon: FEATHER
-NeedLevel: 20
-Interval: 180
-Effect: DoubleJump

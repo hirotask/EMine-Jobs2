@@ -3,10 +3,8 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
-import click.erudosaba.mc.eminejobs2.skill.Skill
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
-import org.bukkit.event.Event
 
 class SetSkill(val plugin : Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {

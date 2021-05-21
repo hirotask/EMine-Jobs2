@@ -1,7 +1,0 @@
-ID: StoneHaste3
-Name: 破壊速度上昇3
-JobID: miner
-Icon: GOLD_ORE
-NeedLevel: 35
-Interval: 110
-Effect: StoneHaste3

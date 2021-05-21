@@ -3,10 +3,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Effect
-import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
-import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
@@ -16,8 +13,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityShootBowEvent
 import org.bukkit.event.entity.ProjectileHitEvent
-import org.bukkit.inventory.ItemStack
-import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin

@@ -1,7 +1,0 @@
-ID: DigAll
-Name: 一括破壊
-JobID: digger
-Icon: DIAMOND_SHOVEL
-NeedLevel: 40
-Interval: 5
-Effect: DigAll

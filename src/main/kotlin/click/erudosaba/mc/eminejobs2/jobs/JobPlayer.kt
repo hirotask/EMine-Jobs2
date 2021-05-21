@@ -3,7 +3,6 @@ package click.erudosaba.mc.eminejobs2.jobs
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
-import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player

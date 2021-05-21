@@ -1,7 +1,6 @@
 package click.erudosaba.mc.eminejobs2.event
 
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
-import click.erudosaba.mc.eminejobs2.skill.Skill
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList

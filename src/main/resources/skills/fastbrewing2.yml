@@ -1,7 +1,0 @@
-ID: FastBrewing2
-Name: 醸造時間短縮2
-JobID: brewer
-Icon: BREWING_STAND
-NeedLevel: 30
-Interval: 130
-Effect: FastBrewing2

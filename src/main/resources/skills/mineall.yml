@@ -1,7 +1,0 @@
-ID: MineAll
-Name: 一括破壊
-JobID: miner
-Icon: DIAMOND_PICKAXE
-NeedLevel: 40
-Interval: 5
-Effect: MineAll

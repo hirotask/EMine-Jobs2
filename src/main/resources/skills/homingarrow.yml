@@ -1,7 +1,0 @@
-ID: HomingArrow
-Name: ホーミングの矢
-JobID: archer
-Icon: ARROW
-NeedLevel: 35
-Interval: 60
-Effect: HomingArrow

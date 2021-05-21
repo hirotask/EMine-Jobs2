@@ -1,7 +1,0 @@
-ID: DirtHaste1
-Name: 破壊速度上昇1
-JobID: digger
-Icon: PODZOL
-NeedLevel: 15
-Interval: 70
-Effect: DirtHaste1

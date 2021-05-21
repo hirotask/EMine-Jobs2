@@ -1,7 +1,0 @@
-ID: TransEnchant
-Name: 付与移植
-JobID: enchanter
-Icon: BOOK
-NeedLevel: 25
-Interval: 90
-Effect: TransEnchant
