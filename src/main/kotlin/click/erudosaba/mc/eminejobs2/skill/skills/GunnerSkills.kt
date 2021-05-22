@@ -1,22 +1,20 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import org.bukkit.Material
 import org.bukkit.event.Listener
 
 class GunnerSkills(plugin : Main) {
 
-    companion object {
-        val jobID = "gunner"
-    }
-
     init {
-        plugin.server.pluginManager.registerEvents(DoubleJump(),plugin)
+        plugin.server.pluginManager.registerEvents(DoubleJump(plugin),plugin)
     }
 
 
-    class DoubleJump : Skill("DoubleJump", "2段ジャンプ", GunnerSkills.jobID, arrayOf("60秒間スペースキーを２回押すと，２段ジャンプが可能"), Material.FEATHER, 60, 20, 180), Listener {
+    class DoubleJump(plg : Main) : SkillProvider(plg, Jobs.GUNNER), Listener{
 
     }
 }

@@ -6,6 +6,8 @@ import click.erudosaba.mc.eminejobs2.listener.MyEventListener
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
+import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
 import org.bukkit.plugin.java.JavaPlugin
@@ -52,6 +54,10 @@ class Main : JavaPlugin() {
                 OnJoinLeave(this)
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
+
+        val skillManager = SkillManager(plugin = this)
+        skillManager.loadOptions()
+        skillManager.loadSkills()
 
         logger.info("$PluginName was Enabled!")
     }

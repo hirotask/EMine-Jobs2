@@ -1,5 +1,5 @@
 skills:
-  archer:
+  woodcutter:
     cutall:
       enabled: true
       name: 一括破壊
@@ -8,5 +8,392 @@ skills:
       description:
         - "木を一括破壊できる"
       icon: DIAMOND_AXE
+    woodhaste1:
+      enabled: true
+      name: 破壊速度上昇1
+      need_level: 15
+      interval: 60
+      description:
+        - "10秒間採掘速度を上昇する"
+      icon: OAK_SAPLING
+    woodhaste2:
+      enabled: true
+      name: 破壊速度上昇2
+      need_level: 25
+      interval: 80
+      description:
+        - "30秒間採掘速度を上昇する"
+      icon: OAK_SAPLING
+    woodhaste3:
+      enabled: true
+      name: 破壊速度上昇3
+      need_level: 35
+      interval: 100
+      description:
+        - "50秒間採掘速度を上昇する"
+      icon: OAK_SAPLING
+  miner:
+    mineall:
+      enabled: true
+      name: 一括破壊
+      need_level: 40
+      interval: 5
+      description:
+        - "鉱石ブロックを一括破壊できる"
+        - "（自分の立ってる高さ以下は破壊しない）"
+      icon: DIAMOND_PICKAXE
+    stonehaste1:
+      enabled: true
+      name: 破壊速度上昇1
+      need_level: 15
+      interval: 70
+      description:
+        - "20秒間採掘速度を上昇する"
+      icon: COAL_ORE
+    stonehaste2:
+      enabled: true
+      name: 破壊速度上昇2
+      need_level: 25
+      interval: 90
+      description:
+        - "40秒間採掘速度を上昇する"
+      icon: IRON_ORE
+    stonehaste3:
+      enabled: true
+      name: 破壊速度上昇3
+      need_level: 35
+      interval: 110
+      description:
+        - "60秒間採掘速度を上昇する"
+      icon: GOLD_ORE
+  digger:
+    digall:
+      enabled: true
+      name: 一括破壊
+      need_level: 40
+      interval: 5
+      description:
+        - "土ブロックを一括破壊できる"
+        - "（自分の立ってる高さ以下は破壊しない）"
+      icon: DIAMOND_SHOVEL
+    dighaste1:
+      enabled: true
+      name: 破壊速度上昇1
+      need_level: 15
+      interval: 70
+      description:
+        - "20秒間採掘速度を上昇する"
+      icon: PODZOL
+    dighaste2:
+      enabled: true
+      name: 破壊速度上昇2
+      need_level: 25
+      interval: 90
+      description:
+        - "40秒間採掘速度を上昇する"
+      icon: PODZOL
+    dighaste3:
+      enabled: true
+      name: 破壊速度上昇3
+      need_level: 35
+      interval: 110
+      description:
+        - "60秒間採掘速度を上昇する"
+      icon: PODZOL
+  swordman:
+    slash1:
+      enabled: true
+      name: 斬撃1
+      need_level: 20
+      interval: 20
+      description:
+        - "スキル発動時に斬撃を飛ばして"
+        - "あたったプレイヤーに持ってる剣のダメージ*1.3"
+      icon: IRON_SWORD
+    slash2:
+      enabled: true
+      name: 斬撃2
+      need_level: 30
+      interval: 20
+      description:
+        - "スキル発動時に斬撃を飛ばして"
+        - "あたったプレイヤーに持ってる剣のダメージ*1.4 + 弱体化10秒"
+      icon: GOLDEN_SWORD
+    slash3:
+      enabled: true
+      name: 斬撃3
+      need_level: 40
+      interval: 20
+      description:
+        - "スキル発動時に斬撃を飛ばして"
+        - "あたったプレイヤーに持ってる剣のダメージ*1.5 + 弱体化15秒"
+      icon: DIAMOND_SWORD
+  archer:
+    speedarrow:
+      enabled: true
+      name: アイオロスの矢
+      need_level: 25
+      interval: 90
+      description:
+        - "10秒間自分が撃った矢に当たると空を飛べる"
+        - "15秒間は落下ダメージが0となる"
+      icon: TIPPED_ARROW
+    powerarrow:
+      enabled: true
+      name: アレスの矢
+      need_level: 30
+      interval: 60
+      description:
+        - "10秒間撃った矢が３方向に同時に飛ぶようになる"
+      icon: TIPPED_ARROW
+    homingarrow:
+      enabled: true
+      name: ホーミングの矢
+      need_level: 35
+      interval: 60
+      description:
+        - "10秒間撃った矢がホーミングする"
+      icon: ARROW
+  farmer:
+    growing1:
+      enabled: true
+      name: 成長促進1
+      need_level: 15
+      interval: 60
+      description:
+        - "10秒間半径3ブロックの植物の成長速度を早める"
+      icon: WHEAT_SEEDS
+    growing2:
+      enabled: true
+      name: 成長促進2
+      need_level: 25
+      interval: 60
+      description:
+        - "10秒間半径5ブロックの植物の成長速度を早める"
+      icon: WHEAT_SEEDS
+    growing3:
+      enabled: true
+      name: 成長促進3
+      need_level: 35
+      interval: 60
+      description:
+        - "10秒間半径8ブロックの植物の成長速度を早める"
+      icon: WHEAT_SEEDS
+    autoharvest:
+      enabled: true
+      name: 自動収穫
+      need_level: 40
+      interval: 90
+      description:
+        - "20秒間自分が歩いた地点から"
+        - "半径3ブロックの範囲の作物を自動で破壊する"
+      icon: LETHER_BOOTS
+  explorer:
+    wallclimb:
+      enabled: true
+      name: 壁上り
+      need_level: 25
+      interval: 300
+      description:
+        - "180秒間壁が上れる＋移動速度上昇2"
+      icon: DIAMOND_BOOTS
+    frostwalk:
+      enabled: true
+      name: 氷渡り
+      need_level: 30
+      interval: 300
+      description:
+        - "180秒間水の上を歩ける＋移動速度上昇2"
+      icon: DIAMOND_BOOTS
+  smelter:
+    smelt1:
+      enabled: true
+      name: 精練速度上昇1
+      need_level: 15
+      interval: 300
+      description:
+        - "180秒間精練速度が1.3倍"
+      icon: FURNACE
+    smelt2:
+      enabled: true
+      name: 精練速度上昇2
+      need_level: 25
+      interval: 300
+      description:
+        - "180秒間精練速度が1.6倍"
+      icon: FURNACE
+    smelt3:
+      enabled: true
+      name: 精練速度上昇3
+      need_level: 35
+      interval: 300
+      description:
+        - "180秒間精練速度が2倍"
+      icon: FURNACE
+  fisherman:
+    catchfish:
+      enabled: true
+      name: つかみ取り
+      need_level: 25
+      interval: 60
+      description:
+        - "5秒間素手で水を右クリックすると魚が取れる"
+        - "（この時経験値は増えない）"
+      icon: SALMON
+  crafter:
+    randomeffect1:
+      enabled: true
+      name: ランダムエフェクト1
+      need_level: 15
+      interval: 90
+      description:
+        - "30秒間の間にクラフトしたら"
+        - "10秒間ランダムなエフェクト(lv.1)がつく"
+      icon: CRAFTING_TABLE
+    randomeffect2:
+      enabled: true
+      name: ランダムエフェクト2
+      need_level: 25
+      interval: 90
+      description:
+        - "30秒間の間にクラフトしたら"
+        - "10秒間ランダムなエフェクト(lv.2)がつく"
+      icon: CRAFTING_TABLE
+    randomeffect3:
+      enabled: true
+      name: ランダムエフェクト3
+      need_level: 35
+      interval: 90
+      description:
+        - "30秒間の間にクラフトしたら"
+        - "10秒間ランダムなエフェクト(lv.3)がつく"
+      icon: CRAFTING_TABLE
+    randomupgrade:
+      enabled: true
+      name: ランダムアップグレード
+      need_level: 40
+      interval: 130
+      description:
+        - "10秒間の間にクラフトしたら，2%が上位のツールになる"
+        - "（木→石→鉄→金→ダイヤ→ネザライト）"
+      icon: CRAFTING_TABLE
+  enchanter:
+    transenchant:
+      enabled: true
+      name: 付与移植
+      need_level: 25
+      interval: 90
+      description:
+        - "30秒間の間にエンチャントしたら"
+        - "そのエンチャントの本が１つ手に入る"
+      icon: BOOK
+  weaponsmith:
+    lowcostrepair1:
+      enabled: true
+      name: 低コスト修理1
+      need_level: 20
+      interval: 130
+      description:
+        - "10秒間の間に金床を使用すると"
+        - "修理コストが（普通のコスト - 4)される"
+      icon: ANVIL
+    lowcostrepair2:
+      enabled: true
+      name: 低コスト修理2
+      need_level: 30
+      interval: 130
+      description:
+        - "10秒間の間に金床を使用すると"
+        - "修理コストが（普通のコスト - 7)される"
+      icon: ANVIL
+    lowcostrepair3:
+      enabled: true
+      name: 低コスト修理3
+      need_level: 40
+      interval: 130
+      description:
+        - "10秒間の間に金床を使用すると"
+        - "修理コストが（普通のコスト - 10)される"
+      icon: ANVIL
+  brewer:
+    fastbrewing1:
+      enabled: true
+      name: 醸造時間短縮1
+      need_level: 20
+      interval: 130
+      description:
+        - "10秒間醸造の時間が0.8倍"
+      icon: BREWING_STAND
+    fastbrewing2:
+      enabled: true
+      name: 醸造時間短縮2
+      need_level: 30
+      interval: 130
+      description:
+        - "10秒間醸造の時間が0.6倍"
+      icon: BREWING_STAND
+    fastbrewing3:
+      enabled: true
+      name: 醸造時間短縮3
+      need_level: 40
+      interval: 130
+      description:
+        - "10秒間醸造の時間が0.4倍"
+      icon: BREWING_STAND
+  builder:
+    protean:
+      enabled: true
+      name: 変幻自在
+      need_level: 30
+      interval: 90
+      description:
+        - "30秒間ブロックを殴ると"
+        - "左手に持っているブロックに殴ったブロックが変化する"
+        - "(鉱石ブロックは変化しない)"
+      icon: BRICKS
+    levitation:
+      enabled: true
+      name: 浮遊
+      need_level: 45
+      interval: 360
+      description:
+        - "60秒間浮遊が可能"
+      icon: FETHER
+  gunner:
+    doublejump:
+      enabled: true
+      name: ２段ジャンプ
+      need_level: 20
+      interval: 180
+      description:
+        - "60秒間スペースキーを２回押すと"
+        - "２段ジャンプが可能"
+      icon: FETHER
+  hunger:
+    noslow1:
+      enabled: true
+      name: 食べ歩き1
+      need_level: 25
+      interval: 60
+      description:
+        - "20秒間食事中の移動速度が遅くならない"
+      icon: STEAK
+    noslow2:
+      enabled: true
+      name: 食べ歩き2
+      need_level: 35
+      interval: 60
+      description:
+        - "40秒間食事中の移動速度が遅くならない"
+      icon: STEAK
+    alwaysfull:
+      enabled: true
+      name: 常時満腹
+      need_level: 45
+      interval: 150
+      description:
+        - "120秒間お腹が減らない"
+      icon: CAKE
+
 
 

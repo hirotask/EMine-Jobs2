@@ -4,6 +4,7 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Material
 import org.bukkit.entity.Arrow
@@ -16,57 +17,59 @@ import org.bukkit.event.entity.EntityShootBowEvent
 class ArcherSkills(plugin: Main) {
 
     init {
-        plugin.server.pluginManager.registerEvents(SpeedArrow(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(PowerArrow(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(HomingArrow(plugin),plugin)
+        plugin.server.pluginManager.registerEvents(SpeedArrow(plugin), plugin)
+        plugin.server.pluginManager.registerEvents(PowerArrow(plugin), plugin)
+        plugin.server.pluginManager.registerEvents(HomingArrow(plugin), plugin)
     }
 
-    class SpeedArrow(plg : Main) : Skill(plg,"SpeedArrow", "アイオロスの矢", Jobs.ARCHER, arrayOf("10秒間自分が撃った矢に当たると空を飛べる","15秒間は落下ダメージが0となる"), Material.TIPPED_ARROW, 30, 25, 90), Listener {
+    class SpeedArrow(val plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
 
         @EventHandler
-        fun onArrowHitEntity(e : EntityDamageByEntityEvent) {
-            if(e.damager !is Arrow) {
+        fun onArrowHitEntity(e: EntityDamageByEntityEvent) {
+            if (e.damager !is Arrow) {
                 return
             }
 
             val arrow = e.damager as Arrow
 
-            if(arrow.shooter !is Player) {
+            if (arrow.shooter !is Player) {
                 return
             }
 
-            if(e.entity !is Player) {
+            if (e.entity !is Player) {
                 return
             }
 
             val shooter = arrow.shooter as Player
             val player = e.entity as Player
-            val jp = JobPlayer(player,plugin)
+            val jp = JobPlayer(player, plg)
 
-            if(jp.skillStatus == SkillStatus.ENABLED) {
-                if(shooter == player) {
-                    val itemInHand = shooter.inventory.itemInMainHand
 
-                    if(itemInHand.type == Material.BOW) {
-                        val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
-                        player.velocity = boostVec
-                    }
+            if(block(jp)) return
+
+            if (shooter == player) {
+                val itemInHand = shooter.inventory.itemInMainHand
+
+                if (itemInHand.type == Material.BOW) {
+                    val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
+                    player.velocity = boostVec
                 }
             }
+
         }
     }
 
-    class PowerArrow(plg : Main) : Skill(plg,"PowerArrow", "アレスの矢", ArcherSkills.jobID, arrayOf("10秒間撃った矢が３方向に同時に飛ぶようになる"), Material.TIPPED_ARROW, 30, 30, 60), Listener {
+    class PowerArrow(plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
         @EventHandler
-        fun onShoot(e : EntityShootBowEvent) {
-            val player = if(e.entity is Player) e.entity as Player else return
-            val jp = JobPlayer(player,plugin)
+        fun onShoot(e: EntityShootBowEvent) {
+            val player = if (e.entity is Player) e.entity as Player else return
+            val jp = JobPlayer(player, plugin)
 
 
         }
     }
 
-    class HomingArrow(plg : Main) : Skill(plg,"HomingArrow", "ホーミングの矢", ArcherSkills.jobID, arrayOf("10秒間撃った矢がホーミングする"), Material.ARROW, 10, 35, 60), Listener {
+    class HomingArrow(plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
 
     }
 }
