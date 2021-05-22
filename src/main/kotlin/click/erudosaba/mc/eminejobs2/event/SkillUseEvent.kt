@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class SkillUseEvent(val player : JobPlayer,val skill : Skill) : Event(), Cancellable {
+class SkillUseEvent(val player : JobPlayer,val skill : String) : Event(), Cancellable {
 
     var cancel = false
 

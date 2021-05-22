@@ -13,19 +13,12 @@ class SetSkill(val plugin : Main) : SubCommand() {
             return
         }
 
-        val skill = Skill(plugin,args[0])
+        val skill = args[0]
         val jp = JobPlayer(player,plugin)
-
-        if(jp.level < skill.needLevel) {
-            return
-        }
-        if(jp.JobID != skill.jobID) {
-            return
-        }
 
         jp.selectedSkill = skill
 
-        player.sendMessage("スキルを${ChatColor.YELLOW}${skill.name}${ChatColor.WHITE}に設定しました")
+        player.sendMessage("スキルを${ChatColor.YELLOW}${skill}${ChatColor.WHITE}に設定しました")
     }
 
     override fun name(): String {

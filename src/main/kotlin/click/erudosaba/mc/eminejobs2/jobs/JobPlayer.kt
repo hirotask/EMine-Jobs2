@@ -47,12 +47,12 @@ class JobPlayer(val player : Player, private val plugin : Main) {
                 plugin.sqlUtil.setLevel(player,value)
             }
         }
-    var selectedSkill : Skill
+    var selectedSkill : String
         get() {
-            return Skill(plugin, plugin.sqlUtil.getSelectedSkill(player))
+            return plugin.sqlUtil.getSelectedSkill(player)
         }
         set(value) {
-            plugin.sqlUtil.setSelectedSkill(player, value.id)
+            plugin.sqlUtil.setSelectedSkill(player, value)
         }
     var skillStatus : SkillStatus
         get() {
@@ -62,7 +62,7 @@ class JobPlayer(val player : Player, private val plugin : Main) {
                     return v
                 }
             }
-            return SkillStatus.NONE
+            return SkillStatus.DISABLED
         }
         set(value) {
             plugin.sqlUtil.setSkillStatus(player,value.name)

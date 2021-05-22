@@ -1,0 +1,12 @@
+skills:
+  archer:
+    cutall:
+      enabled: true
+      name: 一括破壊
+      need_level: 40
+      interval: 5
+      description:
+        - "木を一括破壊できる"
+      icon: DIAMOND_AXE
+
+

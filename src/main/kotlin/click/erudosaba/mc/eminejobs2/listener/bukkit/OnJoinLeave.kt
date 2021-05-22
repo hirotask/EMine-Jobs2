@@ -14,8 +14,8 @@ class OnJoinLeave(val plugin : Main) : Listener {
         val player = e.player
         val jp = JobPlayer(player,plugin)
 
-        if(jp.skillStatus != SkillStatus.NONE) {
-            jp.skillStatus = SkillStatus.NONE
+        if(jp.skillStatus != SkillStatus.DISABLED) {
+            jp.skillStatus = SkillStatus.DISABLED
         }
 
         SideBar(plugin, player)
