@@ -11,12 +11,13 @@ import kotlin.math.exp
 class JobPlayer(val player : Player, private val plugin : Main) {
 
     val UUID = player.uniqueId
-    var JobID : String
+    var JobID : Jobs
         get() {
-            return plugin.sqlUtil.getJob(player)
+            val jobStr = plugin.sqlUtil.getJob(player)
+            return Jobs.valueOf(jobStr)
         }
         set(value) {
-            plugin.sqlUtil.setJob(player,value)
+            plugin.sqlUtil.setJob(player,value.name)
         }
     var exp : Double
         get() {

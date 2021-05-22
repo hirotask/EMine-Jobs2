@@ -49,10 +49,7 @@ class Main : JavaPlugin() {
                 OnEnchant(this),
                 OnBlockPlace(this),
                 OnEat(this),
-                OnJoinLeave(this),
-                OnInteract(this),
-                OnArrow(this),
-                OnMove(this)
+                OnJoinLeave(this)
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 

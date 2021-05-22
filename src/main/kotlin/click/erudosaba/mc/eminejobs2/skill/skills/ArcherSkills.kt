@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Material
@@ -14,17 +15,13 @@ import org.bukkit.event.entity.EntityShootBowEvent
 
 class ArcherSkills(plugin: Main) {
 
-    companion object {
-        val jobID: String = "archer"
-    }
-
     init {
         plugin.server.pluginManager.registerEvents(SpeedArrow(plugin),plugin)
         plugin.server.pluginManager.registerEvents(PowerArrow(plugin),plugin)
         plugin.server.pluginManager.registerEvents(HomingArrow(plugin),plugin)
     }
 
-    class SpeedArrow(plg : Main) : Skill(plg,"SpeedArrow", "アイオロスの矢", ArcherSkills.jobID, arrayOf("10秒間自分が撃った矢に当たると空を飛べる","15秒間は落下ダメージが0となる"), Material.TIPPED_ARROW, 30, 25, 90), Listener {
+    class SpeedArrow(plg : Main) : Skill(plg,"SpeedArrow", "アイオロスの矢", Jobs.ARCHER, arrayOf("10秒間自分が撃った矢に当たると空を飛べる","15秒間は落下ダメージが0となる"), Material.TIPPED_ARROW, 30, 25, 90), Listener {
 
         @EventHandler
         fun onArrowHitEntity(e : EntityDamageByEntityEvent) {

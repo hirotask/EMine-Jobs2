@@ -3,8 +3,8 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
-import click.erudosaba.mc.eminejobs2.jobs.Job
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -20,10 +20,10 @@ class Employ(val plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        val job = Job(plugin,args[1])
-        val jobName = job.JobName
+        val job = Jobs.valueOf(args[0])
+        val jobName = job.name
 
-        if(jobName == null) {
+        if(jobName == "NULL") {
             player.sendMessage("そのような職業は存在しません")
             return
         }

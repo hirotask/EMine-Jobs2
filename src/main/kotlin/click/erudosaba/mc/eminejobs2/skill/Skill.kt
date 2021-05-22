@@ -3,6 +3,7 @@ package click.erudosaba.mc.eminejobs2.skill
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -14,7 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 open class Skill(val plugin : Main,
                  val ID: String,
                  val name: String,
-                 val JobID: String,
+                 val job: Jobs,
                  val description: Array<String>,
                  val icon: Material,
                  val activeTime: Int,

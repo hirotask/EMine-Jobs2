@@ -4,6 +4,7 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.rewards.RewardItem
 import click.erudosaba.mc.eminejobs2.util.SideBar
 import org.bukkit.ChatColor
@@ -19,39 +20,39 @@ class JobEventListener(val plugin : Main) : Listener{
         val player = e.player.player
 
         when(job) {
-            "woodcutter" -> {
+            Jobs.WOODCUTTER -> {
                 val item = RewardItem(plugin,"cutaxe")
                 if(lv == 30)  player.inventory.addItem(item.getItem())
             }
-            "miner" -> {
+            Jobs.MINER -> {
                 val item = RewardItem(plugin,"minepickaxe")
                 if(lv == 30)  player.inventory.addItem(item.getItem())
             }
-            "digger" -> {
+            Jobs.DIGGER -> {
                 val item = RewardItem(plugin,"digshovel")
                 if(lv == 30)  player.inventory.addItem(item.getItem())
             }
-            "swordman" -> {
+            Jobs.SWORDMAN -> {
                 val item = RewardItem(plugin,"hinoki")
                 if(lv == 10)  player.inventory.addItem(item.getItem())
             }
-            "farmer" -> {
+            Jobs.FARMER -> {
                 val item = RewardItem(plugin,"farmboots")
                 if(lv == 10)  player.inventory.addItem(item.getItem())
             }
-            "explorer" -> {
+            Jobs.EXPLORER -> {
                 val item = RewardItem(plugin,"amulet")
                 if(lv == 20)  player.inventory.addItem(item.getItem())
             }
-            "smelter" -> {
+            Jobs.SMELTER -> {
                 val item = RewardItem(plugin,"portablefurnace")
                 if(lv == 20)  player.inventory.addItem(item.getItem())
             }
-            "fisherman" -> {
+            Jobs.FISHERMAN -> {
                 val item = RewardItem(plugin,"grapple")
                 if(lv == 20)  player.inventory.addItem(item.getItem())
             }
-            "crafter" -> {
+            Jobs.CRAFTER -> {
                 val item = RewardItem(plugin,"portableworkbench")
                 if(lv == 20)  player.inventory.addItem(item.getItem())
             }
