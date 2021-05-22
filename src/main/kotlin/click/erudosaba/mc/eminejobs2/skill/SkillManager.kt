@@ -1,11 +1,18 @@
 package click.erudosaba.mc.eminejobs2.skill
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.skills.*
 import click.erudosaba.mc.eminejobs2.util.CustomConfig
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.Sound
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
+import org.bukkit.event.player.PlayerInteractEvent
 
 class SkillManager(val plugin : Main) {
 
@@ -82,6 +89,7 @@ class SkillManager(val plugin : Main) {
         SwordmanSkills(plugin)
         WeaponSmithSkills(plugin)
         WoodCutterSkills(plugin)
+        ToggleSkill(plugin)
     }
 
     fun getSkillOption(skill : Skill) : SkillOption? {
@@ -97,6 +105,43 @@ class SkillManager(val plugin : Main) {
     }
 
 
+    class ToggleSkill(val plg : Main) : Listener {
+
+        init {
+            plg.server.pluginManager.registerEvents(this,plg)
+        }
+
+        @EventHandler
+        fun onInteract(e : PlayerInteractEvent) {
+            val jp = JobPlayer(e.player,plg)
+
+            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+                if(!jp.hasSkill()){
+                    return
+                }
+                if(!jp.hasJob()) {
+                    return
+                }
+
+                if(jp.JobID != jp.selectedSkill.job) {
+                    return
+                }
+
+                if(jp.skillStatus == SkillStatus.DISABLED) {
+                    val skillManager = SkillManager(plg)
+                    if(jp.level >= skillManager.getSkillOption(jp.selectedSkill)!!.needLevel) {
+
+                        jp.skillStatus = SkillStatus.ENABLED
+                        jp.player.playSound(jp.player.location, Sound.UI_BUTTON_CLICK,0.5F,1.3F)
+
+                        val event = SkillUseEvent(jp, jp.selectedSkill)
+                        Bukkit.getServer().pluginManager.callEvent(event)
+
+                    }
+                }
+            }
+        }
+    }
 
     
 }
