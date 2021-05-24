@@ -23,6 +23,7 @@ class Main : JavaPlugin() {
             myConfig.username,
             myConfig.password
     ))
+    val skillManager = SkillManager(plugin = this)
 
     companion object {
         const val PluginName = "EMine-Jobs"
@@ -55,7 +56,6 @@ class Main : JavaPlugin() {
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 
-        val skillManager = SkillManager(plugin = this)
         skillManager.loadOptions()
         skillManager.loadSkills()
 

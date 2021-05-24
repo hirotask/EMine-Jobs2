@@ -47,6 +47,7 @@ class SkillManager(val plugin : Main) {
                             val enabled = config.getBoolean("${path}enabled",true)
                             val name = config.getString("${path}name",skill.name.toLowerCase())
                             val needLevel = config.getInt("${path}need_level",skill.defaultNeedLevel)
+                            val activeTime = config.getInt("${path}active_time",skill.defaultActiveTime)
                             val interval = config.getInt("${path}interval",skill.defaultInterval)
                             val description = config.getStringList("${path}description")
                             val iconStr = config.getString("${path}icon",skill.defaultIcon)
@@ -56,7 +57,7 @@ class SkillManager(val plugin : Main) {
                                 amountDisabled++
                             }
 
-                            val option = SkillOption(enabled, name!!,needLevel,interval,description.toTypedArray(),icon)
+                            val option = SkillOption(enabled, name!!,needLevel,activeTime,interval,description.toTypedArray(),icon)
                             skillOptions[skill] = option
                             amountLoaded++
 
@@ -89,7 +90,6 @@ class SkillManager(val plugin : Main) {
         SwordmanSkills(plugin)
         WeaponSmithSkills(plugin)
         WoodCutterSkills(plugin)
-        ToggleSkill(plugin)
     }
 
     fun getSkillOption(skill : Skill) : SkillOption? {
@@ -101,45 +101,6 @@ class SkillManager(val plugin : Main) {
             skillOptions[skill]?.enabled
         } else {
             true
-        }
-    }
-
-
-    class ToggleSkill(val plg : Main) : Listener {
-
-        init {
-            plg.server.pluginManager.registerEvents(this,plg)
-        }
-
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            val jp = JobPlayer(e.player,plg)
-
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                if(!jp.hasSkill()){
-                    return
-                }
-                if(!jp.hasJob()) {
-                    return
-                }
-
-                if(jp.JobID != jp.selectedSkill.job) {
-                    return
-                }
-
-                if(jp.skillStatus == SkillStatus.DISABLED) {
-                    val skillManager = SkillManager(plg)
-                    if(jp.level >= skillManager.getSkillOption(jp.selectedSkill)!!.needLevel) {
-
-                        jp.skillStatus = SkillStatus.ENABLED
-                        jp.player.playSound(jp.player.location, Sound.UI_BUTTON_CLICK,0.5F,1.3F)
-
-                        val event = SkillUseEvent(jp, jp.selectedSkill)
-                        Bukkit.getServer().pluginManager.callEvent(event)
-
-                    }
-                }
-            }
         }
     }
 
