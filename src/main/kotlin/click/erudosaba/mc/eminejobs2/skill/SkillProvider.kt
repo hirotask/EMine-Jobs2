@@ -6,9 +6,11 @@ import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import org.bukkit.Bukkit
 import org.bukkit.Sound
+import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 
-open class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
+abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
 
 
     //Enabledされている後のブロック
@@ -49,7 +51,7 @@ open class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
             return true
         }
 
-        if(jp.skillStatus == SkillStatus.ENABLED) {
+        if(jp.skillStatus != SkillStatus.DISABLED) {
             return true
         }
 
@@ -64,5 +66,4 @@ open class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
         return false
 
     }
-
 }

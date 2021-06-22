@@ -91,8 +91,6 @@ class JobEventListener(val plugin : Main) : Listener{
         //Interval処理
         object : BukkitRunnable() {
             override fun run() {
-                println("activateTime:$activeTime")
-                println("interval:$interval")
                 if(jp.skillStatus == SkillStatus.ENABLED) {
                     if(activeTime <= 0) {
                         jp.skillStatus = SkillStatus.INTERVAL

@@ -17,7 +17,7 @@ class Join(val plugin: Main) : SubCommand() {
         }
 
         val job = Jobs.valueOf(args[0].toUpperCase())
-        val jobName = job.name
+        val jobName = job.Jobname
 
         if(jobName == "NULL") {
             player.sendMessage("そのような職業は存在しません")

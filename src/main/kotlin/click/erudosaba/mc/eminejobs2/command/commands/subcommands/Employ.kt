@@ -21,7 +21,7 @@ class Employ(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
         val job = Jobs.valueOf(args[1].toUpperCase())
-        val jobName = job.name
+        val jobName = job.Jobname
 
         if(jobName == "NULL") {
             player.sendMessage("そのような職業は存在しません")

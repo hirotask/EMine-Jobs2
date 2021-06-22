@@ -72,6 +72,7 @@ class SkillManager(val plugin : Main) {
         val timeElapsed = endTime - startTime
         Bukkit.getLogger().info("[eMineJobs2] Disabled $amountDisabled Skills")
         Bukkit.getLogger().info("[eMineJobs2] Enabled $amountLoaded Skills")
+        Bukkit.getLogger().info("[eMineJobs2] Time: $timeElapsed")
 
     }
 
