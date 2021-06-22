@@ -15,9 +15,9 @@ class Transfer(val plugin: Main) : SubCommand() {
         }
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
-        val newjob = args[1]
+        val newjob = args[1].toUpperCase()
 
-        val job = Jobs.valueOf(args[0])
+        val job = Jobs.valueOf(args[0].toUpperCase())
         val jobName = job.name
 
         if(jobName == "NULL") {

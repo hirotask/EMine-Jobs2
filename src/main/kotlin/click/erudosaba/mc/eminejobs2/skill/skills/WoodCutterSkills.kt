@@ -36,6 +36,7 @@ class WoodCutterSkills(plugin : Main) {
                 if(activateBlock(jp,plg.skillManager)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.WOODHASTE1)
+                println(option)
                 val event = SkillUseEvent(jp, option)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }

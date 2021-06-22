@@ -16,7 +16,7 @@ class Join(val plugin: Main) : SubCommand() {
             return
         }
 
-        val job = Jobs.valueOf(args[0])
+        val job = Jobs.valueOf(args[0].toUpperCase())
         val jobName = job.name
 
         if(jobName == "NULL") {
@@ -28,7 +28,7 @@ class Join(val plugin: Main) : SubCommand() {
             plugin.sqlUtil.insert(player,args[0])
             player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に就きました")
 
-            val event = PlayerJobJoinEvent(JobPlayer(player,plugin),args[0])
+            val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[0].toUpperCase()))
             Bukkit.getServer().pluginManager.callEvent(event)
         } else {
             if(plugin.sqlUtil.getLevel(player) <= 20) {
@@ -36,7 +36,7 @@ class Join(val plugin: Main) : SubCommand() {
                 plugin.sqlUtil.insert(player,args[0])
                 player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に転職しました")
 
-                val event = PlayerJobJoinEvent(JobPlayer(player,plugin),args[0])
+                val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[0].toUpperCase()))
                 Bukkit.getServer().pluginManager.callEvent(event)
             } else {
                 player.sendMessage("あなたはレベルが20より大きいのため転職できません")

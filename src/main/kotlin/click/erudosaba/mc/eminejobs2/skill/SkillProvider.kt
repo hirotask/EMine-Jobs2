@@ -31,31 +31,37 @@ open class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
             return false
         }
 
+
+
         return true
     }
 
     //Enabledされる前のブロック
     fun activateBlock(jp : JobPlayer, skillManager : SkillManager) : Boolean{
         if(!jp.hasSkill()){
-            return false
+            return true
         }
         if(!jp.hasJob()) {
-            return false
+            return true
         }
 
         if(jp.JobID != jp.selectedSkill.job) {
-            return false
+            return true
         }
 
         if(jp.skillStatus == SkillStatus.ENABLED) {
-            return false
+            return true
         }
 
         if(jp.level < skillManager.getSkillOption(jp.selectedSkill)!!.needLevel) {
-            return false
+            return true
         }
 
-        return true
+        if(!jp.player.isSneaking) {
+            return true
+        }
+
+        return false
 
     }
 

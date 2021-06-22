@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.jobs
 
 import org.bukkit.Material
 
+//列挙型Jobs：職業のデフォルト設定を記載
 enum class Jobs(val Jobname : String, val jobCategory: JobCategory, val jobExp : Double, val icon : Material) {
     WOODCUTTER("木こり",JobCategory.CUT,0.30, Material.STONE_AXE),
     MINER("鉱夫",JobCategory.MINE,0.30, Material.STONE_PICKAXE),

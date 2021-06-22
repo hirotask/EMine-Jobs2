@@ -20,7 +20,7 @@ class Employ(val plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        val job = Jobs.valueOf(args[0])
+        val job = Jobs.valueOf(args[1].toUpperCase())
         val jobName = job.name
 
         if(jobName == "NULL") {
@@ -31,10 +31,10 @@ class Employ(val plugin: Main) : SubCommand() {
         if(plugin.sqlUtil.isExists(target)) {
             plugin.sqlUtil.delete(target)
         }
-        plugin.sqlUtil.insert(target,args[1])
+        plugin.sqlUtil.insert(target,args[1].toUpperCase())
         player.sendMessage("${target.name}を${jobName}に就かせました")
 
-        val event = PlayerJobJoinEvent(JobPlayer(player,plugin),args[1])
+        val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[1].toUpperCase()))
         Bukkit.getServer().pluginManager.callEvent(event)
     }
 

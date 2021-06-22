@@ -18,6 +18,9 @@ class OnJoinLeave(val plugin : Main) : Listener {
             jp.skillStatus = SkillStatus.DISABLED
         }
 
-        SideBar(plugin, player)
+        if(jp.hasJob()){
+            SideBar(plugin, player)
+        }
+
     }
 }

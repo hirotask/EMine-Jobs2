@@ -1,5 +1,6 @@
 package click.erudosaba.mc.eminejobs2.jobs
 
+//列挙型JobCategory：職業の収益カテゴリ
 enum class JobCategory {
     CUT,    //木を切る
     MINE,   //石を掘る

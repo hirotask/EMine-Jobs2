@@ -86,28 +86,28 @@ class JobEventListener(val plugin : Main) : Listener{
         jp.skillStatus = SkillStatus.ENABLED
         jp.player.playSound(jp.player.location, Sound.UI_BUTTON_CLICK, 0.5F, 1.3F)
 
-        var activeTime = option?.activeTime
-        var interval = option?.interval
+        var activeTime = option.activeTime
+        var interval = option.interval
         //Interval処理
         object : BukkitRunnable() {
             override fun run() {
-                if (activeTime != null && interval != null) {
-                    if(jp.skillStatus == SkillStatus.ENABLED) {
-                        if(activeTime <= 0) {
-                            jp.skillStatus = SkillStatus.INTERVAL
-                        }
-                        activeTime--
+                println("activateTime:$activeTime")
+                println("interval:$interval")
+                if(jp.skillStatus == SkillStatus.ENABLED) {
+                    if(activeTime <= 0) {
+                        jp.skillStatus = SkillStatus.INTERVAL
                     }
-                    if(jp.skillStatus == SkillStatus.INTERVAL) {
-                        if(interval <= 0) {
-                            jp.skillStatus = SkillStatus.DISABLED
-                            cancel()
-                        }
-                        interval--
+                    activeTime--
+                }
+                if(jp.skillStatus == SkillStatus.INTERVAL) {
+                    if(interval <= 0) {
+                        jp.skillStatus = SkillStatus.DISABLED
+                        cancel()
                     }
+                    interval--
                 }
             }
 
-        }
+        }.runTaskTimer(plugin,0L,20L)
     }
 }

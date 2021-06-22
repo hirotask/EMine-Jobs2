@@ -8,17 +8,17 @@ import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import kotlin.math.exp
-
+//JobPlayerクラス：プレイヤーと職業情報を紐づけ
 class JobPlayer(val player : Player, private val plugin : Main) {
 
     val UUID = player.uniqueId
     var JobID : Jobs
         get() {
-            val jobStr = plugin.sqlUtil.getJob(player)
+            val jobStr = plugin.sqlUtil.getJob(player).toUpperCase()
             return Jobs.valueOf(jobStr)
         }
         set(value) {
-            plugin.sqlUtil.setJob(player,value.name)
+            plugin.sqlUtil.setJob(player,value.name.toUpperCase())
         }
     var exp : Double
         get() {
@@ -54,7 +54,7 @@ class JobPlayer(val player : Player, private val plugin : Main) {
             return Skill.valueOf(plugin.sqlUtil.getSelectedSkill(player).toUpperCase())
         }
         set(value) {
-            plugin.sqlUtil.setSelectedSkill(player, value.name)
+            plugin.sqlUtil.setSelectedSkill(player, value.name.toUpperCase())
         }
     var skillStatus : SkillStatus
         get() {

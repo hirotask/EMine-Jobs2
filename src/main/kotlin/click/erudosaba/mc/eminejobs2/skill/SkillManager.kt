@@ -18,6 +18,8 @@ class SkillManager(val plugin : Main) {
 
     val skillOptions = mutableMapOf<Skill,SkillOption>()
 
+    //スキルをskill_config.ymlからロード
+    //値が設定されていなかったらSkillから取得
     fun loadOptions() {
         val customConfig = CustomConfig(plugin,"skills_config.yml")
         val config = customConfig.config
@@ -92,8 +94,8 @@ class SkillManager(val plugin : Main) {
         WoodCutterSkills(plugin)
     }
 
-    fun getSkillOption(skill : Skill) : SkillOption? {
-        return skillOptions[skill]
+    fun getSkillOption(skill : Skill) : SkillOption {
+        return skillOptions[skill]!!
     }
 
     fun isEnabled(skill: Skill) : Boolean? {
