@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent
 
 class OnBlockBreak(val plugin : Main) : Listener {
 
+    //ブロックが壊れた時ハンドラー
     @EventHandler
     fun onBlockBreak(e: BlockBreakEvent) {
         val player = e.player

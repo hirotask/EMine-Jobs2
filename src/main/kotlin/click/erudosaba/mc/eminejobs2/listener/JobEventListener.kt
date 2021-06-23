@@ -4,11 +4,20 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
+import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.rewards.RewardItem
+import click.erudosaba.mc.eminejobs2.rewards.RewardManager
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import click.erudosaba.mc.eminejobs2.util.SideBar
+import net.md_5.bungee.api.ChatMessageType
+import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
+import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.inventory.ItemStack
+import org.bukkit.scheduler.BukkitRunnable
 
 class JobEventListener(val plugin : Main) : Listener{
 
@@ -17,43 +26,45 @@ class JobEventListener(val plugin : Main) : Listener{
         val lv = e.player.level
         val job = e.player.JobID
         val player = e.player.player
+        val rewardManager = RewardManager(plugin)
+
 
         when(job) {
-            "woodcutter" -> {
-                val item = RewardItem(plugin,"cutaxe")
-                if(lv == 30)  player.inventory.addItem(item.getItem())
+            Jobs.WOODCUTTER -> {
+                val item = RewardItem.CUTAXE
+                if(lv == 30)  player.inventory.addItem(rewardManager.getItem(RewardItem.CUTAXE))
             }
-            "miner" -> {
-                val item = RewardItem(plugin,"minepickaxe")
-                if(lv == 30)  player.inventory.addItem(item.getItem())
+            Jobs.MINER -> {
+                val item = RewardItem.MINEPICKAXE
+                if(lv == 30)  player.inventory.addItem(rewardManager.getItem(RewardItem.MINEPICKAXE))
             }
-            "digger" -> {
-                val item = RewardItem(plugin,"digshovel")
-                if(lv == 30)  player.inventory.addItem(item.getItem())
+            Jobs.DIGGER -> {
+                val item = RewardItem.DIGSHOVEL
+                if(lv == 30)  player.inventory.addItem(rewardManager.getItem(RewardItem.DIGSHOVEL))
             }
-            "swordman" -> {
-                val item = RewardItem(plugin,"hinoki")
-                if(lv == 10)  player.inventory.addItem(item.getItem())
+            Jobs.SWORDMAN -> {
+                val item = RewardItem.HINOKI
+                if(lv == 10)  player.inventory.addItem(rewardManager.getItem(RewardItem.HINOKI))
             }
-            "farmer" -> {
-                val item = RewardItem(plugin,"farmboots")
-                if(lv == 10)  player.inventory.addItem(item.getItem())
+            Jobs.FARMER -> {
+                val item = RewardItem.FARMBOOTS
+                if(lv == 10)  player.inventory.addItem(rewardManager.getItem(RewardItem.FARMBOOTS))
             }
-            "explorer" -> {
-                val item = RewardItem(plugin,"amulet")
-                if(lv == 20)  player.inventory.addItem(item.getItem())
+            Jobs.EXPLORER -> {
+                val item = RewardItem.AMULET
+                if(lv == 20)  player.inventory.addItem(rewardManager.getItem(RewardItem.AMULET))
             }
-            "smelter" -> {
-                val item = RewardItem(plugin,"portablefurnace")
-                if(lv == 20)  player.inventory.addItem(item.getItem())
+            Jobs.SMELTER -> {
+                val item = RewardItem.PORTABLEFURNACE
+                if(lv == 20)  player.inventory.addItem(rewardManager.getItem(RewardItem.PORTABLEFURNACE))
             }
-            "fisherman" -> {
-                val item = RewardItem(plugin,"grapple")
-                if(lv == 20)  player.inventory.addItem(item.getItem())
+            Jobs.FISHERMAN -> {
+                val item = RewardItem.GRAPPLE
+                if(lv == 20)  player.inventory.addItem(rewardManager.getItem(RewardItem.GRAPPLE))
             }
-            "crafter" -> {
-                val item = RewardItem(plugin,"portableworkbench")
-                if(lv == 20)  player.inventory.addItem(item.getItem())
+            Jobs.CRAFTER -> {
+                val item = RewardItem.PORTABLEWORKBENCH
+                if(lv == 20)  player.inventory.addItem(rewardManager.getItem(RewardItem.PORTABLEWORKBENCH))
             }
         }
 
@@ -71,5 +82,40 @@ class JobEventListener(val plugin : Main) : Listener{
     fun onExpChange(e: PlayerExpChangeEvent) {
         val jp = e.player
         SideBar(plugin,jp.player)
+    }
+
+    @EventHandler
+    fun onSkillUse(e : SkillUseEvent) {
+        val option = e.skillOption
+        val jp = e.player
+        val player = e.player.player
+        jp.skillStatus = SkillStatus.ENABLED
+        jp.player.playSound(jp.player.location, Sound.UI_BUTTON_CLICK, 0.5F, 1.3F)
+
+        var activeTime = option.activeTime
+        var interval = option.interval
+        //Interval処理
+        object : BukkitRunnable() {
+            override fun run() {
+                if(jp.skillStatus == SkillStatus.ENABLED) {
+                    if(activeTime <= 0) {
+                        jp.skillStatus = SkillStatus.INTERVAL
+                    }
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("有効時間：${ChatColor.YELLOW}$activeTime"))
+                    activeTime--
+                }
+                if(jp.skillStatus == SkillStatus.INTERVAL) {
+                    if(interval <= 0) {
+                        jp.skillStatus = SkillStatus.DISABLED
+                        jp.player.playSound(jp.player.location, Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.3F)
+                        cancel()
+                    }
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("インターバル：${ChatColor.YELLOW}$interval"))
+                    interval--
+
+                }
+            }
+
+        }.runTaskTimer(plugin,0L,20L)
     }
 }

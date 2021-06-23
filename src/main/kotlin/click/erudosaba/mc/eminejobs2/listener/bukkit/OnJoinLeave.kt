@@ -2,7 +2,6 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
-import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import click.erudosaba.mc.eminejobs2.util.SideBar
 import org.bukkit.event.EventHandler
@@ -15,10 +14,13 @@ class OnJoinLeave(val plugin : Main) : Listener {
         val player = e.player
         val jp = JobPlayer(player,plugin)
 
-        if(jp.skillStatus != SkillStatus.NONE) {
-            jp.skillStatus = SkillStatus.NONE
+        if(jp.skillStatus != SkillStatus.DISABLED) {
+            jp.skillStatus = SkillStatus.DISABLED
         }
 
-        SideBar(plugin, player)
+        if(jp.hasJob()){
+            SideBar(plugin, player)
+        }
+
     }
 }

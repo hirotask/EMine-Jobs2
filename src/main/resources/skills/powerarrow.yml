@@ -1,7 +1,0 @@
-ID: PowerArrow
-Name: アレスの矢
-JobID: archer
-Icon: TIPPED_ARROW
-NeedLevel: 30
-Interval: 60
-Effect: PowerArrow

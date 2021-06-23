@@ -1,0 +1,96 @@
+rewardItems:
+  amulet:
+    enabled: true
+    name: おまもり
+    need_level: 20
+    material: GHAST_TEAR
+    unbreakable: true
+    lore:
+      - レベル20で貰える。
+      - 死んだときにアイテムがチェストに入ってその場に残る
+    enchants:
+      DURABILITY: 1
+  cutaxe:
+    name: 無尽斧
+    needLevel: 30
+    material: GOLDEN_AXE
+    unbreakable: true
+    lore:
+      - レベル30で貰える。
+      - 壊れない＆ちょっとだけ早い金の斧
+    enchants:
+      DURABILITY: 1
+  digshovel:
+    name: 無尽円匙
+    needLevel: 30
+    material: GOLDEN_SHOVEL
+    unbreakable: true
+    lore:
+      - レベル30で貰える。
+      - 壊れない＆ちょっとだけ早い金のシャベル
+    enchants:
+      DURABILITY: 1
+  farmboots:
+    name: 農業用長靴
+    needLevel: 15
+    material: LEATHER_BOOTS
+    unbreakable: true
+    lore:
+      - レベル15で貰える。
+      - 壊れない＆農耕地でジャンプしてももとに戻らなくなる
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 1
+  grapple:
+    name: 立体機動装置
+    needLevel: 30
+    material: FISHING_ROD
+    unbreakable: true
+    lore:
+      - レベル30で貰える。
+      - 右クリックで使用。
+      - ひっかけた場所に引っ張られる。
+    enchants:
+      MENDING: 1
+  hinoki:
+    name: ひのき棒
+    needLevel: 10
+    material: STICK
+    unbreakable: true
+    lore:
+      - レベル10で貰える。
+      - これで世界の秩序を取り戻せ！
+    enchants:
+      DURABILITY: 1
+      KNOCKBACK: 10
+  minepickaxe:
+    name: 無尽槌
+    needLevel: 30
+    material: GOLDEN_PICKAXE
+    unbreakable: true
+    lore:
+      - レベル30で貰える。
+      - 壊れない＆ちょっとだけ早い金のピッケル
+    enchants:
+      DURABILITY: 1
+  portablefurnace:
+    name: 携帯型かまど
+    needLevel: 20
+    material: IRON_HORSE_ARMOR
+    unbreakable: false
+    lore:
+      - レベル20で貰える。
+      - 右クリックで使用。
+      - 携帯できるかまど。
+    enchants:
+      DURABILITY: 1
+  portableworkbench:
+    name: 携帯型作業台
+    needLevel: 20
+    material: BRICK
+    unbreakable: false
+    lore:
+      - レベル20で貰える。
+      - 右クリックで使用。
+      - 携帯できる作業台。
+    enchants:
+      DURABILITY: 1

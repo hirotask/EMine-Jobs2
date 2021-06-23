@@ -1,7 +1,0 @@
-ID: Growing1
-Name: 成長促進1
-JobID: farmer
-Icon: WHEAT_SEEDS
-NeedLevel: 15
-Interval: 60
-Effect: Growing1

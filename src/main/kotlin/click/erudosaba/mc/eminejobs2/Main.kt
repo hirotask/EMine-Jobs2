@@ -1,14 +1,12 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
-import click.erudosaba.mc.eminejobs2.jobs.Job
 import click.erudosaba.mc.eminejobs2.listener.JobEventListener
 import click.erudosaba.mc.eminejobs2.listener.MyEventListener
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
-import click.erudosaba.mc.eminejobs2.rewards.RewardItem
-import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
 import org.bukkit.plugin.java.JavaPlugin
@@ -24,6 +22,7 @@ class Main : JavaPlugin() {
             myConfig.username,
             myConfig.password
     ))
+    val skillManager = SkillManager(plugin = this)
 
     companion object {
         const val PluginName = "EMine-Jobs"
@@ -52,11 +51,12 @@ class Main : JavaPlugin() {
                 OnEnchant(this),
                 OnBlockPlace(this),
                 OnEat(this),
-                OnJoinLeave(this),
-                OnInteract(this),
-                OnArrow(this)
+                OnJoinLeave(this)
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
+
+        skillManager.loadOptions()
+        skillManager.loadSkills()
 
         logger.info("$PluginName was Enabled!")
     }

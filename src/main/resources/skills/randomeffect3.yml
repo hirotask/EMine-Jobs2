@@ -1,7 +1,0 @@
-ID: RandomEffect3
-Name: ランダムエフェクト3
-JobID: crafter
-Icon: CRAFTING_TABLE
-NeedLevel: 35
-Interval: 90
-Effect: RandomEffect3

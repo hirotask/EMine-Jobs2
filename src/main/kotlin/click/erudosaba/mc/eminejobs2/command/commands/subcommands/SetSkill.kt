@@ -6,7 +6,7 @@ import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
-import org.bukkit.event.Event
+import java.lang.Exception
 
 class SetSkill(val plugin : Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
@@ -15,19 +15,16 @@ class SetSkill(val plugin : Main) : SubCommand() {
             return
         }
 
-        val skill = Skill(plugin,args[0])
+        val skill = args[0]
         val jp = JobPlayer(player,plugin)
 
-        if(jp.level < skill.needLevel) {
-            return
-        }
-        if(jp.JobID != skill.jobID) {
-            return
+        try {
+            jp.selectedSkill = Skill.valueOf(skill.toUpperCase())
+        }catch (e : Exception) {
+            player.sendMessage("そのようなスキルは存在しません")
         }
 
-        jp.selectedSkill = skill
-
-        player.sendMessage("スキルを${ChatColor.YELLOW}${skill.name}${ChatColor.WHITE}に設定しました")
+        player.sendMessage("スキルを${ChatColor.YELLOW}${skill}${ChatColor.WHITE}に設定しました")
     }
 
     override fun name(): String {

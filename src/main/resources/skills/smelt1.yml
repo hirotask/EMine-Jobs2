@@ -1,7 +1,0 @@
-ID: Smelt1
-Name: 精錬速度上昇1
-JobID: smelter
-Icon: FURNACE
-NeedLevel: 15
-Interval: 300
-Effect: Smelt1

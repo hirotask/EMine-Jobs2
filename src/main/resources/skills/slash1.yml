@@ -1,7 +1,0 @@
-ID: Slash1
-Name: 斬撃1
-JobID: swordman
-Icon: IRON_SWORD
-NeedLevel: 20
-Interval: 20
-Effect: Slash1
