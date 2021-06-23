@@ -1,9 +1,0 @@
-ID: Amulet
-name: おまもり
-needLevel: 20
-material: GHAST_TEAR
-unbreakable: true
-lore:
-  -
-  - 死んだときにアイテムがチェストに入ってその場に残る
-enchants:
