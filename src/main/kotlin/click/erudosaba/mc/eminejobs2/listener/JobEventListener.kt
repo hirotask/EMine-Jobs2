@@ -10,6 +10,8 @@ import click.erudosaba.mc.eminejobs2.rewards.RewardItem
 import click.erudosaba.mc.eminejobs2.rewards.RewardManager
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import click.erudosaba.mc.eminejobs2.util.SideBar
+import net.md_5.bungee.api.ChatMessageType
+import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -86,6 +88,7 @@ class JobEventListener(val plugin : Main) : Listener{
     fun onSkillUse(e : SkillUseEvent) {
         val option = e.skillOption
         val jp = e.player
+        val player = e.player.player
         jp.skillStatus = SkillStatus.ENABLED
         jp.player.playSound(jp.player.location, Sound.UI_BUTTON_CLICK, 0.5F, 1.3F)
 
@@ -98,14 +101,18 @@ class JobEventListener(val plugin : Main) : Listener{
                     if(activeTime <= 0) {
                         jp.skillStatus = SkillStatus.INTERVAL
                     }
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("有効時間：${ChatColor.YELLOW}$activeTime"))
                     activeTime--
                 }
                 if(jp.skillStatus == SkillStatus.INTERVAL) {
                     if(interval <= 0) {
                         jp.skillStatus = SkillStatus.DISABLED
+                        jp.player.playSound(jp.player.location, Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.3F)
                         cancel()
                     }
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("インターバル：${ChatColor.YELLOW}$interval"))
                     interval--
+
                 }
             }
 

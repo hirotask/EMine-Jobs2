@@ -65,7 +65,7 @@ class ArcherSkills(plugin: Main) {
             val jp = JobPlayer(player, plg)
 
 
-            if(block(jp)) return
+            if(block(jp,Skill.SPEEDARROW)) return
 
             if (shooter == player) {
                 val itemInHand = shooter.inventory.itemInMainHand
@@ -97,7 +97,7 @@ class ArcherSkills(plugin: Main) {
         fun onShoot(e: EntityShootBowEvent) {
             val player = if (e.entity is Player) e.entity as Player else return
             val jp = JobPlayer(player, plugin)
-            if(block(jp)) return
+            if(block(jp,Skill.POWERARROW)) return
 
             if(player.inventory.itemInMainHand.type == Material.BOW) {
                 val multiply = e.projectile.velocity.length()

@@ -14,13 +14,18 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
 
 
     //Enabledされている後のブロック
-    fun block(jp : JobPlayer) : Boolean {
+    fun block(jp : JobPlayer, skill : Skill) : Boolean {
         if(!jp.hasSkill()){
             return true
         }
         if(!jp.hasJob()) {
             return true
         }
+
+        if(jp.selectedSkill != skill) {
+            return true
+        }
+
         if(jp.skillStatus != SkillStatus.ENABLED) {
             return true
         }

@@ -22,21 +22,22 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class WoodCutterSkills(plugin : Main) {
+class WoodCutterSkills(plugin: Main) {
 
     init {
-        plugin.server.pluginManager.registerEvents(WoodHaste1(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(WoodHaste2(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(WoodHaste3(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(CutAll(plugin),plugin)
+        plugin.server.pluginManager.registerEvents(WoodHaste1(plugin), plugin)
+        plugin.server.pluginManager.registerEvents(WoodHaste2(plugin), plugin)
+        plugin.server.pluginManager.registerEvents(WoodHaste3(plugin), plugin)
+        plugin.server.pluginManager.registerEvents(CutAll(plugin), plugin)
     }
 
-    class WoodHaste1(val plg : Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener{
+    class WoodHaste1(val plg: Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener {
+
         @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.WOODHASTE1)) return
+        fun onInteract(e: PlayerInteractEvent) {
+            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+                val jp = JobPlayer(plugin = plg, player = e.player)
+                if (activateBlock(jp, plg.skillManager, Skill.WOODHASTE1)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.WOODHASTE1)
                 println(option)
@@ -46,28 +47,32 @@ class WoodCutterSkills(plugin : Main) {
         }
 
         @EventHandler
-        fun onMove(e : PlayerMoveEvent) {
+        fun onMove(e: PlayerMoveEvent) {
             val player = e.player
-            val jp = JobPlayer(player,plg)
+            val jp = JobPlayer(player, plg)
 
-            if(jp.skillStatus == SkillStatus.ENABLED) {
-                if(Items.axes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null,5).type
-                    if(Blocks.woods.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING,20 * 2, 2,true))
+            if (block(jp, Skill.WOODHASTE1)) return
+
+            if (jp.skillStatus == SkillStatus.ENABLED) {
+                if (Items.axes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.woods.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
                     }
                 }
             }
+
+
         }
     }
 
-    class WoodHaste2(val plg : Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener{
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.WOODHASTE2)) return
+    class WoodHaste2(val plg: Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener {
 
+        @EventHandler
+        fun onInteract(e: PlayerInteractEvent) {
+            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+                val jp = JobPlayer(plugin = plg, player = e.player)
+                if (activateBlock(jp, plg.skillManager, Skill.WOODHASTE2)) return
                 val option = plg.skillManager.getSkillOption(Skill.WOODHASTE2)
                 val event = SkillUseEvent(jp, option)
                 Bukkit.getServer().pluginManager.callEvent(event)
@@ -75,28 +80,32 @@ class WoodCutterSkills(plugin : Main) {
         }
 
         @EventHandler
-        fun onMove(e : PlayerMoveEvent) {
+        fun onMove(e: PlayerMoveEvent) {
             val player = e.player
-            val jp = JobPlayer(player,plg)
+            val jp = JobPlayer(player, plg)
 
-            if(jp.skillStatus == SkillStatus.ENABLED) {
-                if(Items.axes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null,5).type
-                    if(Blocks.woods.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING,20 * 2, 2,true))
+            if (block(jp, Skill.WOODHASTE2))
+
+                if (jp.skillStatus == SkillStatus.ENABLED) {
+                    if (Items.axes.contains(player.inventory.itemInMainHand.type)) {
+                        val targetBlock = player.getTargetBlock(null, 5).type
+                        if (Blocks.woods.contains(targetBlock)) {
+                            player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+                        }
                     }
                 }
-            }
+
+
         }
     }
 
-    class WoodHaste3(val plg : Main) :SkillProvider(plg, Jobs.WOODCUTTER), Listener{
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.WOODHASTE3)) return
+    class WoodHaste3(val plg: Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener {
 
+        @EventHandler
+        fun onInteract(e: PlayerInteractEvent) {
+            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+                val jp = JobPlayer(plugin = plg, player = e.player)
+                if (activateBlock(jp, plg.skillManager, Skill.WOODHASTE3)) return
                 val option = plg.skillManager.getSkillOption(Skill.WOODHASTE3)
                 val event = SkillUseEvent(jp, option)
                 Bukkit.getServer().pluginManager.callEvent(event)
@@ -104,27 +113,31 @@ class WoodCutterSkills(plugin : Main) {
         }
 
         @EventHandler
-        fun onMove(e : PlayerMoveEvent) {
+        fun onMove(e: PlayerMoveEvent) {
             val player = e.player
-            val jp = JobPlayer(player,plg)
+            val jp = JobPlayer(player, plg)
 
-            if(jp.skillStatus == SkillStatus.ENABLED) {
-                if(Items.axes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null,5).type
-                    if(Blocks.woods.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING,20 * 2, 2,true))
+            if(block(jp,Skill.WOODHASTE3))
+
+            if (jp.skillStatus == SkillStatus.ENABLED) {
+                if (Items.axes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.woods.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
                     }
                 }
             }
+
+
         }
     }
 
-    class CutAll(val plg : Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener{
+    class CutAll(val plg: Main) : SkillProvider(plg, Jobs.WOODCUTTER), Listener {
         @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.MINEALL)) return
+        fun onInteract(e: PlayerInteractEvent) {
+            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+                val jp = JobPlayer(plugin = plg, player = e.player)
+                if (activateBlock(jp, plg.skillManager, Skill.MINEALL)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.MINEALL)
                 val event = SkillUseEvent(jp, option)
@@ -133,50 +146,50 @@ class WoodCutterSkills(plugin : Main) {
         }
 
         @EventHandler
-        fun onBlockBroken(e : BlockBreakEvent) {
+        fun onBlockBroken(e: BlockBreakEvent) {
             val player = e.player
-            val jp = JobPlayer(player,plugin)
+            val jp = JobPlayer(player, plugin)
             val block = e.block
             val tool = player.inventory.itemInMainHand
 
-            if(block(jp)) {
+            if (block(jp, Skill.CUTALL)) {
                 return
             }
 
             //スニーク時無効
-            if(player.isSneaking) return
+            if (player.isSneaking) return
 
             //持っているアイテムが斧かどうか
-            if(!Items.axes.contains(tool.type)) return
+            if (!Items.axes.contains(tool.type)) return
 
             //壊すブロックが木かどうか
-            if(!Blocks.woods.contains(tool.type)) return
+            if (!Blocks.woods.contains(block.type)) return
 
 
             //掘り開始
-            val count =  mineRecursively(block, tool)
+            val count = mineRecursively(block, tool)
 
             tool.durability = (tool.durability + count).toShort()
 
-            if(tool.type.maxDurability < tool.durability) {
+            if (tool.type.maxDurability < tool.durability) {
                 player.inventory.remove(tool)
             }
         }
 
-        private fun mineRecursively(block : Block, tool : ItemStack, cnt : Int = 20) : Int {
-            if(cnt < 0) return 0
+        private fun mineRecursively(block: Block, tool: ItemStack, cnt: Int = 20): Int {
+            if (cnt < 0) return 0
             val type = block.type.toString()
             var count = 0
             block.breakNaturally(tool)
 
-            for(x in -1..1) {
-                for(y in -1..1) {
-                    for(z in -1..1) {
-                        if(x == 0 && y == 0 && z ==0) break
+            for (x in -1..1) {
+                for (y in -1..1) {
+                    for (z in -1..1) {
+                        if (x == 0 && y == 0 && z == 0) break
 
-                        block.getRelative(x,y,z).let {
-                            if(type == it.type.toString() && !(block.x == it.x && block.y == it.y && block.z == it.z)) {
-                                count += mineRecursively(it, tool, cnt -1)
+                        block.getRelative(x, y, z).let {
+                            if (type == it.type.toString() && !(block.x == it.x && block.y == it.y && block.z == it.z)) {
+                                count += mineRecursively(it, tool, cnt - 1)
                             }
                         }
                     }
