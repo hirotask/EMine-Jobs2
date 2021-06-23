@@ -11,11 +11,14 @@ import click.erudosaba.mc.eminejobs2.util.Blocks
 import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.Potion
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -34,7 +37,7 @@ class DiggerSkills(plugin : Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.DIGHASTE1)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.DIGHASTE1)
                 val event = SkillUseEvent(jp, option)
@@ -63,7 +66,7 @@ class DiggerSkills(plugin : Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.DIGHASTE2)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.DIGHASTE2)
                 val event = SkillUseEvent(jp, option)
@@ -92,7 +95,7 @@ class DiggerSkills(plugin : Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.DIGHASTE3)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.DIGHASTE3)
                 val event = SkillUseEvent(jp, option)
@@ -122,12 +125,65 @@ class DiggerSkills(plugin : Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.DIGALL)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.DIGALL)
                 val event = SkillUseEvent(jp, option)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
+        }
+
+        @EventHandler
+        fun onBlockBroken(e : BlockBreakEvent) {
+            val player = e.player
+            val jp = JobPlayer(player,plugin)
+            val block = e.block
+            val tool = player.inventory.itemInMainHand
+
+            if(block(jp)) {
+                return
+            }
+
+            //スニーク時無効
+            if(player.isSneaking) return
+
+            //持っているアイテムがショベルかどうか
+            if(!Items.shovels.contains(tool.type)) return
+
+            //壊すブロックが土系かどうか
+            if(!Blocks.dirts.contains(tool.type)) return
+
+
+            //掘り開始
+            val count =  mineRecursively(block, tool)
+
+            tool.durability = (tool.durability + count).toShort()
+
+            if(tool.type.maxDurability < tool.durability) {
+                player.inventory.remove(tool)
+            }
+        }
+
+        private fun mineRecursively(block : Block, tool : ItemStack, cnt : Int = 20) : Int {
+            if(cnt < 0) return 0
+            val type = block.type.toString()
+            var count = 0
+            block.breakNaturally(tool)
+
+            for(x in -1..1) {
+                for(y in -1..1) {
+                    for(z in -1..1) {
+                        if(x == 0 && y == 0 && z ==0) break
+
+                        block.getRelative(x,y,z).let {
+                            if(type == it.type.toString() && !(block.x == it.x && block.y == it.y && block.z == it.z)) {
+                                count += mineRecursively(it, tool, cnt -1)
+                            }
+                        }
+                    }
+                }
+            }
+            return count + 1
         }
     }
 }

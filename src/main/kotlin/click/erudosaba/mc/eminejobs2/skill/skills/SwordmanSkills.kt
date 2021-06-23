@@ -88,7 +88,7 @@ class SwordmanSkills(plugin : Main) {
                     }
 
                 } else {
-                    if(activateBlock(jp,plg.skillManager)) return
+                    if(activateBlock(jp,plg.skillManager,Skill.SLASH1)) return
 
                     val option = plg.skillManager.getSkillOption(Skill.SLASH1)
                     val event = SkillUseEvent(jp, option)
@@ -158,7 +158,7 @@ class SwordmanSkills(plugin : Main) {
                     }
 
                 } else {
-                    if(activateBlock(jp,plg.skillManager)) return
+                    if(activateBlock(jp,plg.skillManager,Skill.SLASH2)) return
 
                     val option = plg.skillManager.getSkillOption(Skill.SLASH2)
                     val event = SkillUseEvent(jp, option)
@@ -228,7 +228,7 @@ class SwordmanSkills(plugin : Main) {
                     }
 
                 } else {
-                    if(activateBlock(jp,plg.skillManager)) return
+                    if(activateBlock(jp,plg.skillManager,Skill.SLASH3)) return
 
                     val option = plg.skillManager.getSkillOption(Skill.SLASH3)
                     val event = SkillUseEvent(jp, option)

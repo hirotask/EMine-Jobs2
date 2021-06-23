@@ -36,7 +36,7 @@ class ArcherSkills(plugin: Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.SPEEDARROW)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.SPEEDARROW)
                 val event = SkillUseEvent(jp, option)
@@ -65,7 +65,7 @@ class ArcherSkills(plugin: Main) {
             val jp = JobPlayer(player, plg)
 
 
-            if(block(jp,plg.skillManager)) return
+            if(block(jp)) return
 
             if (shooter == player) {
                 val itemInHand = shooter.inventory.itemInMainHand
@@ -85,7 +85,7 @@ class ArcherSkills(plugin: Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.POWERARROW)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.POWERARROW)
                 val event = SkillUseEvent(jp, option)
@@ -97,7 +97,7 @@ class ArcherSkills(plugin: Main) {
         fun onShoot(e: EntityShootBowEvent) {
             val player = if (e.entity is Player) e.entity as Player else return
             val jp = JobPlayer(player, plugin)
-            if(block(jp,plg.skillManager)) return
+            if(block(jp)) return
 
             if(player.inventory.itemInMainHand.type == Material.BOW) {
                 val multiply = e.projectile.velocity.length()
@@ -129,7 +129,7 @@ class ArcherSkills(plugin: Main) {
         fun onInteract(e : PlayerInteractEvent) {
             if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager)) return
+                if(activateBlock(jp,plg.skillManager,Skill.HOMINGARROW)) return
 
                 val option = plg.skillManager.getSkillOption(Skill.HOMINGARROW)
                 val event = SkillUseEvent(jp, option)

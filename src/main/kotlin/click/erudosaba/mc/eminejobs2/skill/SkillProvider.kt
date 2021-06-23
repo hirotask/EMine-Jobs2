@@ -14,36 +14,36 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
 
 
     //Enabledされている後のブロック
-    fun block(jp : JobPlayer, skillManager: SkillManager) : Boolean {
-        if(!jp.hasSkill()){
-            return false
-        }
-        if(!jp.hasJob()) {
-            return false
-        }
-        if(jp.skillStatus != SkillStatus.ENABLED) {
-            return false
-        }
-
-        if(jp.level < skillManager.getSkillOption(jp.selectedSkill)!!.needLevel) {
-            return false
-        }
-
-        if(jp.JobID != job) {
-            return false
-        }
-
-
-
-        return true
-    }
-
-    //Enabledされる前のブロック
-    fun activateBlock(jp : JobPlayer, skillManager : SkillManager) : Boolean{
+    fun block(jp : JobPlayer) : Boolean {
         if(!jp.hasSkill()){
             return true
         }
         if(!jp.hasJob()) {
+            return true
+        }
+        if(jp.skillStatus != SkillStatus.ENABLED) {
+            return true
+        }
+
+        if(jp.JobID != job) {
+            return true
+        }
+
+
+
+        return false
+    }
+
+    //Enabledされる前のブロック
+    fun activateBlock(jp : JobPlayer, skillManager : SkillManager, skill : Skill) : Boolean{
+        if(!jp.hasSkill()){
+            return true
+        }
+        if(!jp.hasJob()) {
+            return true
+        }
+
+        if(jp.selectedSkill != skill) {
             return true
         }
 
@@ -55,7 +55,7 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
             return true
         }
 
-        if(jp.level < skillManager.getSkillOption(jp.selectedSkill)!!.needLevel) {
+        if(jp.level < skillManager.getSkillOption(jp.selectedSkill).needLevel) {
             return true
         }
 
