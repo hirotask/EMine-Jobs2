@@ -1,0 +1,51 @@
+package click.erudosaba.mc.eminejobs2.gui;
+
+import click.erudosaba.mc.eminejobs2.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.Inventory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class InventoryGUI {
+
+    protected final Main plugin;
+    protected final GUIEnum guiEnum;
+    protected final Player player;
+    protected final Inventory inventory;
+    protected final Map<Integer, SlotCommand> map = new HashMap<>();
+
+    public InventoryGUI(Main main, GUIEnum guiEnum, Player player) {
+        this.plugin = main;
+        this.guiEnum = guiEnum;
+        this.player = player;
+        inventory = create();
+    }
+
+    private Inventory create() {
+        Inventory inv = Bukkit.createInventory(null, guiEnum.getSlot(), guiEnum.getTitle());
+        return inv;
+    }
+
+    protected abstract void initialize();
+
+    protected void addItem(SlotCommand slotCommand) {
+        int slot = slotCommand.slot;
+        if (map.containsKey(slot)) map.remove(slot);
+        inventory.setItem(slot, slotCommand.item);
+        map.put(new Integer(slot), slotCommand);
+    }
+
+    public void open() {
+        player.openInventory(inventory);
+    }
+
+    public boolean onClick(int slot, ClickType click) throws InvalidConfigurationException {
+        SlotCommand slotCommand = map.get(new Integer(slot));
+        if (slotCommand == null) return true;
+        return map.get(new Integer(slot)).onClick(click);
+    }
+}
