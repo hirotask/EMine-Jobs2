@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.gui.menu.BrowseMenu
 import click.erudosaba.mc.eminejobs2.gui.menu.MainMenu
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -16,8 +17,8 @@ class OnInventoryClick(val plugin: Main) : Listener {
         val slot = e.slot
         val clickType = e.click
         when(title) {
-            MainMenu.title -> {
-                if (MainMenu(plugin, player).onClick(slot, clickType)) {
+            BrowseMenu.title -> {
+                if (BrowseMenu(plugin, player).onClick(slot, clickType)) {
                     e.isCancelled = true
                 }
             }

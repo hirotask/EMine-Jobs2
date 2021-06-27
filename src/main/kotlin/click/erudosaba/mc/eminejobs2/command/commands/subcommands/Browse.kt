@@ -2,10 +2,11 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
+import click.erudosaba.mc.eminejobs2.gui.menu.BrowseMenu
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import org.bukkit.entity.Player
 
-class Browse(plugin: Main) : SubCommand() {
+class Browse(val plugin: Main) : SubCommand() {
     //TODO
     /*
     タイトル：現在就くことが出来る職業
@@ -15,20 +16,20 @@ class Browse(plugin: Main) : SubCommand() {
     ２０より大きい→何も表示しない
      */
     override fun onCommand(player: Player, args: Array<String>) {
-        TODO("Not yet implemented")
 
+        BrowseMenu(plugin,player).open()
     }
 
     override fun name(): String {
-        TODO("Not yet implemented")
+        return "browse"
     }
 
     override fun info(): String {
-        TODO("Not yet implemented")
+        return ""
     }
 
     override fun aliases(): Array<String> {
-        TODO("Not yet implemented")
+        return arrayOf(String())
     }
 
 }
