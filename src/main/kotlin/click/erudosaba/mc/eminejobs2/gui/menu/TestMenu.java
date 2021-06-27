@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-public class TestMenu extends InventoryGUI {
+public class    TestMenu extends InventoryGUI {
 
     public static final String title = "テストメニュー";
 

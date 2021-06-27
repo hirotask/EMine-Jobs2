@@ -44,6 +44,7 @@ class Main : JavaPlugin() {
         val listeners = arrayOf(
                 MyEventListener(this),
                 JobEventListener(this),
+                OnInventoryClick(this),
                 OnBlockBreak(this),
                 OnDamageMob(this),
                 OnCraft(this),
