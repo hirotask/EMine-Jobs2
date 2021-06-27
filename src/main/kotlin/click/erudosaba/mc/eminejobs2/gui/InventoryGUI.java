@@ -13,20 +13,22 @@ import java.util.Map;
 public abstract class InventoryGUI {
 
     protected final Main plugin;
-    protected final GUIEnum guiEnum;
+    protected final int slot;
+    protected final String title;
     protected final Player player;
     protected final Inventory inventory;
     protected final Map<Integer, SlotCommand> map = new HashMap<>();
 
-    public InventoryGUI(Main main, GUIEnum guiEnum, Player player) {
+    public InventoryGUI(Main main, int slot, String title, Player player) {
         this.plugin = main;
-        this.guiEnum = guiEnum;
+        this.slot = slot;
+        this.title = title;
         this.player = player;
         inventory = create();
     }
 
     private Inventory create() {
-        Inventory inv = Bukkit.createInventory(null, guiEnum.getSlot(), guiEnum.getTitle());
+        Inventory inv = Bukkit.createInventory(null, slot, title);
         return inv;
     }
 
