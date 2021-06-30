@@ -69,7 +69,6 @@ class JobPlayer(val player : Player, private val plugin : Main) {
         set(value) {
             plugin.sqlUtil.setSkillStatus(player,value.name)
         }
-
     fun hasSkill() : Boolean {
         return plugin.sqlUtil.SkillExists(player)
     }

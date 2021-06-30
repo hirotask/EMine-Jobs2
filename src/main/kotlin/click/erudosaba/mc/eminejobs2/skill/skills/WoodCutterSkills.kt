@@ -84,16 +84,16 @@ class WoodCutterSkills(plugin: Main) {
             val player = e.player
             val jp = JobPlayer(player, plg)
 
-            if (block(jp, Skill.WOODHASTE2))
+            if (block(jp, Skill.WOODHASTE2)) return
 
-                if (jp.skillStatus == SkillStatus.ENABLED) {
-                    if (Items.axes.contains(player.inventory.itemInMainHand.type)) {
-                        val targetBlock = player.getTargetBlock(null, 5).type
-                        if (Blocks.woods.contains(targetBlock)) {
-                            player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                        }
+            if (jp.skillStatus == SkillStatus.ENABLED) {
+                if (Items.axes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.woods.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
                     }
                 }
+            }
 
 
         }
@@ -117,7 +117,7 @@ class WoodCutterSkills(plugin: Main) {
             val player = e.player
             val jp = JobPlayer(player, plg)
 
-            if(block(jp,Skill.WOODHASTE3))
+            if (block(jp, Skill.WOODHASTE3)) return
 
             if (jp.skillStatus == SkillStatus.ENABLED) {
                 if (Items.axes.contains(player.inventory.itemInMainHand.type)) {

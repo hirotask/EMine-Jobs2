@@ -103,8 +103,7 @@ class JobEventListener(val plugin : Main) : Listener{
                     }
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("有効時間：${ChatColor.YELLOW}$activeTime"))
                     activeTime--
-                }
-                if(jp.skillStatus == SkillStatus.INTERVAL) {
+                } else if(jp.skillStatus == SkillStatus.INTERVAL) {
                     if(interval <= 0) {
                         jp.skillStatus = SkillStatus.DISABLED
                         jp.player.playSound(jp.player.location, Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.3F)
@@ -112,7 +111,8 @@ class JobEventListener(val plugin : Main) : Listener{
                     }
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR,TextComponent("インターバル：${ChatColor.YELLOW}$interval"))
                     interval--
-
+                } else {
+                    cancel()
                 }
             }
 

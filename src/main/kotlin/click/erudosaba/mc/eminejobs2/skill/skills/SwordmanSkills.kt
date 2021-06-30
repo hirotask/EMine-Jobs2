@@ -36,6 +36,7 @@ class SwordmanSkills(plugin : Main) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
                 if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
                     if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
+                        if(block(jp,Skill.SLASH1)) return
                         val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
 
                         object : BukkitRunnable() {
@@ -105,6 +106,7 @@ class SwordmanSkills(plugin : Main) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
                 if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
                     if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
+                        if(block(jp,Skill.SLASH2)) return
                         val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
 
                         object : BukkitRunnable() {
@@ -175,6 +177,8 @@ class SwordmanSkills(plugin : Main) {
                 val jp = JobPlayer(plugin=plg,player=e.player)
                 if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
                     if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
+                        if(block(jp,Skill.SLASH3)) return
+
                         val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
 
                         object : BukkitRunnable() {

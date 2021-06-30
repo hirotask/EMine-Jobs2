@@ -15,60 +15,41 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
 
     //Enabledされている後のブロック
     fun block(jp : JobPlayer, skill : Skill) : Boolean {
-        if(!jp.hasSkill()){
-            return true
+
+        if(jp.hasJob()) {
+            if(jp.hasSkill()){
+                if(jp.selectedSkill == skill) {
+                    if(jp.skillStatus == SkillStatus.ENABLED) {
+                        if(jp.JobID == job) {
+                            println("${skill.name} Activate")
+                            return false
+                        }
+                    }
+                }
+            }
         }
-        if(!jp.hasJob()) {
-            return true
-        }
-
-        if(jp.selectedSkill != skill) {
-            return true
-        }
-
-        if(jp.skillStatus != SkillStatus.ENABLED) {
-            return true
-        }
-
-        if(jp.JobID != job) {
-            return true
-        }
-
-
-
-        return false
+        return true
     }
 
     //Enabledされる前のブロック
-    fun activateBlock(jp : JobPlayer, skillManager : SkillManager, skill : Skill) : Boolean{
-        if(!jp.hasSkill()){
-            return true
+    fun activateBlock(jp : JobPlayer, skillManager : SkillManager, skill : Skill) : Boolean {
+        if(jp.player.isSneaking) {
+            if(jp.hasSkill()){
+                if(jp.hasJob()) {
+                    if(jp.JobID == jp.selectedSkill.job) {
+                        if(jp.selectedSkill == skill) {
+                            if(jp.level >= skillManager.getSkillOption(jp.selectedSkill).needLevel) {
+                                if(jp.skillStatus == SkillStatus.DISABLED) {
+                                    println("${skill.name} Activate")
+                                    return false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if(!jp.hasJob()) {
-            return true
-        }
-
-        if(jp.selectedSkill != skill) {
-            return true
-        }
-
-        if(jp.JobID != jp.selectedSkill.job) {
-            return true
-        }
-
-        if(jp.skillStatus != SkillStatus.DISABLED) {
-            return true
-        }
-
-        if(jp.level < skillManager.getSkillOption(jp.selectedSkill).needLevel) {
-            return true
-        }
-
-        if(!jp.player.isSneaking) {
-            return true
-        }
-
-        return false
+        return true
 
     }
 }

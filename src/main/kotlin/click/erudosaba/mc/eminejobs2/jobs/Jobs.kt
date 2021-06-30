@@ -20,5 +20,4 @@ enum class Jobs(val Jobname : String, val jobCategory: JobCategory, val jobExp :
     BUILDER("建築家",JobCategory.BUILD,0.98, Material.BRICKS),
     GUNNER("ガンナー",JobCategory.GUN,0.98, Material.GOLDEN_HORSE_ARMOR),
     HUNGER("暴飲暴食",JobCategory.EAT,0.98, Material.BREAD)
-
 }

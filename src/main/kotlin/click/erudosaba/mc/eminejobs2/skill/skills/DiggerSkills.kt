@@ -51,16 +51,16 @@ class DiggerSkills(plugin: Main) {
             val player = e.player
             val jp = JobPlayer(player, plg)
 
-            if (block(jp, Skill.DIGHASTE1))
+            if (block(jp, Skill.DIGHASTE1)) return
 
-                if (jp.skillStatus == SkillStatus.ENABLED) {
-                    if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
-                        val targetBlock = player.getTargetBlock(null, 5).type
-                        if (Blocks.dirts.contains(targetBlock)) {
-                            player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                        }
+            if (jp.skillStatus == SkillStatus.ENABLED) {
+                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.dirts.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
                     }
                 }
+            }
 
 
         }
@@ -85,16 +85,16 @@ class DiggerSkills(plugin: Main) {
             val player = e.player
             val jp = JobPlayer(player, plg)
 
-            if (block(jp, Skill.DIGHASTE2))
+            if (block(jp, Skill.DIGHASTE2)) return
 
-                if (jp.skillStatus == SkillStatus.ENABLED) {
-                    if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
-                        val targetBlock = player.getTargetBlock(null, 5).type
-                        if (Blocks.dirts.contains(targetBlock)) {
-                            player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                        }
+            if (jp.skillStatus == SkillStatus.ENABLED) {
+                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.dirts.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
                     }
                 }
+            }
 
 
         }
@@ -118,7 +118,7 @@ class DiggerSkills(plugin: Main) {
             val player = e.player
             val jp = JobPlayer(player, plg)
 
-            if(block(jp,Skill.DIGHASTE3)) return
+            if (block(jp, Skill.DIGHASTE3)) return
 
             if (jp.skillStatus == SkillStatus.ENABLED) {
                 if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
