@@ -21,7 +21,6 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
                 if(jp.selectedSkill == skill) {
                     if(jp.skillStatus == SkillStatus.ENABLED) {
                         if(jp.JobID == job) {
-                            println("${skill.name} Activate")
                             return false
                         }
                     }
@@ -40,7 +39,6 @@ abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
                         if(jp.selectedSkill == skill) {
                             if(jp.level >= skillManager.getSkillOption(jp.selectedSkill).needLevel) {
                                 if(jp.skillStatus == SkillStatus.DISABLED) {
-                                    println("${skill.name} Activate")
                                     return false
                                 }
                             }

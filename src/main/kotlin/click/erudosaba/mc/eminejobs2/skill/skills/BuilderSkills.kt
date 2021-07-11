@@ -1,11 +1,24 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
+import click.erudosaba.mc.eminejobs2.util.Blocks
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.Sound
+import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockDamageEvent
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerMoveEvent
 
 class BuilderSkills(plugin : Main) {
 
@@ -14,11 +27,76 @@ class BuilderSkills(plugin : Main) {
         plugin.server.pluginManager.registerEvents(Levitation(plugin),plugin)
     }
 
-    class Protean(plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
+    class Protean(val plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
+        @EventHandler
+        fun onInteract(e : PlayerInteractEvent) {
+            val jp = JobPlayer(plugin=plg,player=e.player)
+            if(activateBlock(jp,plg.skillManager,Skill.PROTEAN)) return
 
+            val option = plg.skillManager.getSkillOption(Skill.PROTEAN)
+            val event = SkillUseEvent(jp, option)
+            Bukkit.getServer().pluginManager.callEvent(event)
+        }
+
+        @EventHandler
+        fun onBlockDamage(e : BlockDamageEvent) {
+            val player = e.player
+            val jp = JobPlayer(player,plg)
+
+            if(block(jp,Skill.PROTEAN)) return
+
+            val targetBlock = e.block
+            val blockinOffhand = player.inventory.itemInOffHand
+
+            if(!Blocks.ores.contains(targetBlock.type) && !Blocks.ores.contains(blockinOffhand.type)) {
+                if(blockinOffhand.type == Material.AIR) {
+                    return
+                }
+
+                targetBlock.type = blockinOffhand.type
+                targetBlock.location.world?.playSound(targetBlock.location, Sound.BLOCK_FIRE_EXTINGUISH,0.5F,1.3F)
+                targetBlock.location.world?.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,targetBlock.location,2)
+            }
+        }
     }
 
-    class Levitation(plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
+    class Levitation(val plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
+        @EventHandler
+        fun onInteract(e : PlayerInteractEvent) {
+            val jp = JobPlayer(plugin=plg,player=e.player)
+            if(activateBlock(jp,plg.skillManager,Skill.LEVITATION)) return
 
+            val option = plg.skillManager.getSkillOption(Skill.LEVITATION)
+            val event = SkillUseEvent(jp, option)
+            Bukkit.getServer().pluginManager.callEvent(event)
+        }
+
+        @EventHandler
+        fun onMove(e : PlayerMoveEvent) {
+            val player = e.player
+            val jp = JobPlayer(player,plg)
+
+            if(block(jp,Skill.LEVITATION)) return
+
+            if(jp.skillStatus == SkillStatus.ENABLED) {
+                player.allowFlight = true
+                player.isFlying = true
+            } else {
+                player.allowFlight = false
+                player.isFlying = false
+            }
+        }
+
+        @EventHandler
+        fun onPlayerDamage(e : EntityDamageEvent) {
+            val player = if(e.entity is Player) e.entity as Player else return
+            val jp = JobPlayer(player,plg)
+
+            if(block(jp,Skill.LEVITATION)) return
+
+            if(e.cause == EntityDamageEvent.DamageCause.FALL) {
+                e.isCancelled = true
+            }
+        }
     }
 }

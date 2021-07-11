@@ -163,8 +163,8 @@ class MineAll(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
         //持っているアイテムがピッケルかどうか
         if (!Items.pickaxes.contains(tool.type)) return
 
-        //壊すブロックが石かどうか
-        if (!Blocks.stones.contains(block.type)) return
+        //壊すブロックが鉱石かどうか
+        if (!Blocks.ores.contains(block.type)) return
 
 
         //掘り開始

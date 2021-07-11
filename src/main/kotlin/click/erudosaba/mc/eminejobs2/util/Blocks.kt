@@ -154,6 +154,27 @@ object Blocks {
             MOSSY_COBBLESTONE
     )
 
+    val ores = arrayOf(
+            IRON_ORE,
+            COAL_ORE,
+            GOLD_ORE,
+            LAPIS_ORE,
+            NETHER_GOLD_ORE,
+            NETHER_QUARTZ_ORE,
+            REDSTONE_ORE,
+            EMERALD_ORE,
+            DIAMOND_ORE,
+            IRON_BLOCK,
+            COAL_BLOCK,
+            GOLD_BLOCK,
+            LAPIS_BLOCK,
+            QUARTZ_BLOCK,
+            REDSTONE_BLOCK,
+            EMERALD_BLOCK,
+            DIAMOND_BLOCK
+    )
+
+
     val woods = arrayOf(
             OAK_LOG,
             SPRUCE_LOG,
