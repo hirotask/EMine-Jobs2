@@ -2,6 +2,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.gui.menu.BrowseMenu
+import click.erudosaba.mc.eminejobs2.gui.menu.SkillMenu
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -18,6 +19,11 @@ class OnInventoryClick(val plugin: Main) : Listener {
         when(title) {
             BrowseMenu.title -> {
                 if (BrowseMenu(plugin, player).onClick(slot, clickType)) {
+                    e.isCancelled = true
+                }
+            }
+            SkillMenu.title -> {
+                if (SkillMenu(plugin, player).onClick(slot, clickType)) {
                     e.isCancelled = true
                 }
             }
