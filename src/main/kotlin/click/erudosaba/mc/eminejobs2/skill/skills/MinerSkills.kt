@@ -13,6 +13,7 @@ import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.block.Block
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -23,126 +24,40 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class MinerSkills(plugin: Main) {
-
-    init {
-        plugin.server.pluginManager.registerEvents(StoneHaste1(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(StoneHaste2(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(StoneHaste3(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(MineAll(plugin), plugin)
-    }
-
-    class StoneHaste1(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.STONEHASTE1)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.STONEHASTE1)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
-        }
-
-        @EventHandler
-        fun onMove(e: PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plg)
-
-            if (block(jp, Skill.STONEHASTE1)) return
-
-            if (jp.skillStatus == SkillStatus.ENABLED) {
-                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.stones.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                    }
-                }
-            }
-
-        }
-    }
-
-    class StoneHaste2(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
-
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.STONEHASTE2)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.STONEHASTE2)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
-        }
-
-        @EventHandler
-        fun onMove(e: PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plg)
-
-            if (block(jp, Skill.STONEHASTE2)) return
-
-            if (jp.skillStatus == SkillStatus.ENABLED) {
-                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.stones.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                    }
-                }
-            }
-        }
-
-    }
-}
-
-class StoneHaste3(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
-
-    @EventHandler
-    fun onInteract(e: PlayerInteractEvent) {
-        if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-            val jp = JobPlayer(plugin = plg, player = e.player)
-            if (activateBlock(jp, plg.skillManager, Skill.STONEHASTE3)) return
-
-            val option = plg.skillManager.getSkillOption(Skill.STONEHASTE3)
-            val event = SkillUseEvent(jp, option)
-            Bukkit.getServer().pluginManager.callEvent(event)
-        }
-    }
+class MinerSkills(val plugin: Main) : Listener, SkillProvider() {
 
     @EventHandler
     fun onMove(e: PlayerMoveEvent) {
         val player = e.player
-        val jp = JobPlayer(player, plg)
+        val jp = JobPlayer(player, plugin)
 
-        if (block(jp, Skill.STONEHASTE3)) return
+        if (block(jp)) return
 
-        if (jp.skillStatus == SkillStatus.ENABLED) {
-            if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                val targetBlock = player.getTargetBlock(null, 5).type
-                if (Blocks.stones.contains(targetBlock)) {
-                    player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+        when (jp.selectedSkill) {
+            Skill.STONEHASTE1 -> { //ここからSTONEHASTE1
+                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.stones.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 1, true))
+                    }
                 }
             }
-        }
-
-
-    }
-}
-
-class MineAll(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
-
-    @EventHandler
-    fun onInteract(e: PlayerInteractEvent) {
-        if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-            val jp = JobPlayer(plugin = plg, player = e.player)
-            if (activateBlock(jp, plg.skillManager, Skill.MINEALL)) return
-
-            val option = plg.skillManager.getSkillOption(Skill.MINEALL)
-            val event = SkillUseEvent(jp, option)
-            Bukkit.getServer().pluginManager.callEvent(event)
+            Skill.STONEHASTE2 -> { //ここからSTONEHASTE2
+                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.stones.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+                    }
+                }
+            }
+            Skill.STONEHASTE3 -> { //ここからSTONEHASTE3
+                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.stones.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 3, true))
+                    }
+                }
+            }
         }
     }
 
@@ -153,9 +68,11 @@ class MineAll(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
         val block = e.block
         val tool = player.inventory.itemInMainHand
 
-        if (block(jp, Skill.MINEALL)) {
+        if (block(jp)) {
             return
         }
+
+        if(jp.selectedSkill != Skill.MINEALL) return
 
         //スニーク時無効
         if (player.isSneaking) return
@@ -198,4 +115,5 @@ class MineAll(val plg: Main) : SkillProvider(plg, Jobs.MINER), Listener {
         }
         return count + 1
     }
+
 }

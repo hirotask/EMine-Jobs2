@@ -21,23 +21,23 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scheduler.BukkitRunnable
 
-class SwordmanSkills(plugin : Main) {
+class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
 
-    init {
-        plugin.server.pluginManager.registerEvents(Slash1(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(Slash2(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(Slash3(plugin),plugin)
-    }
+    //剣士スキル
+    @EventHandler
+    fun onInteract(e: PlayerInteractEvent) {
+        if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
+            val jp = JobPlayer(plugin = plugin, player = e.player)
+            if (block(jp)) return
 
-    class Slash1(val plg : Main) : SkillProvider(plg, Jobs.SWORDMAN), Listener {
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
-                    if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
-                        if(block(jp,Skill.SLASH1)) return
-                        val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
+            if (Items.swords.contains(e.player.inventory.itemInMainHand.type)
+                    || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
+
+                val swordItem = if (Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
+
+                when (jp.selectedSkill) {
+                    Skill.SLASH1 -> {
+
 
                         object : BukkitRunnable() {
                             var t = 0.0
@@ -50,22 +50,22 @@ class SwordmanSkills(plugin : Main) {
                                 val y = direction.y * t
                                 val z = direction.z * t
 
-                                loc.add(x,y,z)
-                                loc.world?.spawnParticle(Particle.SWEEP_ATTACK,loc,2, 0.0, 0.0, 0.0)
-                                loc.world?.spawnParticle(Particle.SPELL_INSTANT,loc,1, 1.0, 1.0, 1.0)
-                                loc.world?.playSound(loc, Sound.ENTITY_PLAYER_ATTACK_SWEEP,0.5F,5.0F)
+                                loc.add(x, y, z)
+                                loc.world?.spawnParticle(Particle.SWEEP_ATTACK, loc, 2, 0.0, 0.0, 0.0)
+                                loc.world?.spawnParticle(Particle.SPELL_INSTANT, loc, 1, 1.0, 1.0, 1.0)
+                                loc.world?.playSound(loc, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 0.5F, 5.0F)
 
-                                val entities = loc.world?.getNearbyEntities(loc,2.0,2.0,2.0)
+                                val entities = loc.world?.getNearbyEntities(loc, 2.0, 2.0, 2.0)
 
                                 if (entities != null) {
-                                    for(e in entities) {
+                                    for (e in entities) {
                                         val living = e as LivingEntity
-                                        if(living == jp.player) continue
+                                        if (living == jp.player) continue
 
                                         var multiple = 1.3
                                         var sworddamage = 1
 
-                                        when(swordItem.type) {
+                                        when (swordItem.type) {
                                             Material.WOODEN_SWORD -> sworddamage = 4
                                             Material.STONE_SWORD -> sworddamage = 5
                                             Material.IRON_SWORD -> sworddamage = 6
@@ -79,35 +79,16 @@ class SwordmanSkills(plugin : Main) {
                                     }
                                 }
 
-                                loc.subtract(x,y,z)
+                                loc.subtract(x, y, z)
 
-                                if(t > 20) {
+                                if (t > 20) {
                                     this.cancel()
                                 }
                             }
-                        }.runTaskTimer(plugin,0,1)
+                        }.runTaskTimer(plugin, 0, 1)
+
                     }
-
-                } else {
-                    if(activateBlock(jp,plg.skillManager,Skill.SLASH1)) return
-
-                    val option = plg.skillManager.getSkillOption(Skill.SLASH1)
-                    val event = SkillUseEvent(jp, option)
-                    Bukkit.getServer().pluginManager.callEvent(event)
-                }
-            }
-        }
-    }
-
-    class Slash2(val plg : Main) : SkillProvider(plg, Jobs.SWORDMAN), Listener {
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
-                    if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
-                        if(block(jp,Skill.SLASH2)) return
-                        val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
+                    Skill.SLASH2 -> {
 
                         object : BukkitRunnable() {
                             var t = 0.0
@@ -120,22 +101,22 @@ class SwordmanSkills(plugin : Main) {
                                 val y = direction.y * t
                                 val z = direction.z * t
 
-                                loc.add(x,y,z)
-                                loc.world?.spawnParticle(Particle.SWEEP_ATTACK,loc,2, 0.0, 0.0, 0.0)
-                                loc.world?.spawnParticle(Particle.SPELL_INSTANT,loc,1, 1.0, 1.0, 1.0)
-                                loc.world?.playSound(loc, Sound.ENTITY_PLAYER_ATTACK_SWEEP,0.5F,5.0F)
+                                loc.add(x, y, z)
+                                loc.world?.spawnParticle(Particle.SWEEP_ATTACK, loc, 2, 0.0, 0.0, 0.0)
+                                loc.world?.spawnParticle(Particle.SPELL_INSTANT, loc, 1, 1.0, 1.0, 1.0)
+                                loc.world?.playSound(loc, Sound.ENTITY_PLAYER_ATTACK_SWEEP, 0.5F, 5.0F)
 
-                                val entities = loc.world?.getNearbyEntities(loc,2.0,2.0,2.0)
+                                val entities = loc.world?.getNearbyEntities(loc, 2.0, 2.0, 2.0)
 
                                 if (entities != null) {
-                                    for(e in entities) {
+                                    for (e in entities) {
                                         val living = e as LivingEntity
-                                        if(living == jp.player) continue
+                                        if (living == jp.player) continue
 
                                         var multiple = 1.3
                                         var sworddamage = 1
 
-                                        when(swordItem.type) {
+                                        when (swordItem.type) {
                                             Material.WOODEN_SWORD -> sworddamage = 4
                                             Material.STONE_SWORD -> sworddamage = 5
                                             Material.IRON_SWORD -> sworddamage = 6
@@ -150,37 +131,16 @@ class SwordmanSkills(plugin : Main) {
                                     }
                                 }
 
-                                loc.subtract(x,y,z)
+                                loc.subtract(x, y, z)
 
-                                if(t > 20) {
+                                if (t > 20) {
                                     this.cancel()
                                 }
                             }
-                        }.runTaskTimer(plugin,0,1)
+                        }.runTaskTimer(plugin, 0, 1)
                     }
 
-                } else {
-                    if(activateBlock(jp,plg.skillManager,Skill.SLASH2)) return
-
-                    val option = plg.skillManager.getSkillOption(Skill.SLASH2)
-                    val event = SkillUseEvent(jp, option)
-                    Bukkit.getServer().pluginManager.callEvent(event)
-                }
-            }
-        }
-    }
-
-    class Slash3(val plg : Main) : SkillProvider(plg, Jobs.SWORDMAN), Listener {
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(jp.skillStatus == SkillStatus.ENABLED) { //剣士スキル内容
-                    if(Items.swords.contains(e.player.inventory.itemInMainHand.type) || Items.swords.contains(e.player.inventory.itemInOffHand.type)) {
-                        if(block(jp,Skill.SLASH3)) return
-
-                        val swordItem = if(Items.swords.contains(e.player.inventory.itemInMainHand.type)) e.player.inventory.itemInMainHand else e.player.inventory.itemInOffHand
-
+                    Skill.SLASH3 -> {
                         object : BukkitRunnable() {
                             var t = 0.0
                             override fun run() {
@@ -230,13 +190,6 @@ class SwordmanSkills(plugin : Main) {
                             }
                         }.runTaskTimer(plugin,0,1)
                     }
-
-                } else {
-                    if(activateBlock(jp,plg.skillManager,Skill.SLASH3)) return
-
-                    val option = plg.skillManager.getSkillOption(Skill.SLASH3)
-                    val event = SkillUseEvent(jp, option)
-                    Bukkit.getServer().pluginManager.callEvent(event)
                 }
             }
         }

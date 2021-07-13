@@ -59,8 +59,4 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     NOSLOW1(Jobs.HUNGER,25,20,60, arrayOf("20秒間食事中の移動速度が遅くならない"),"STEAK"),
     NOSLOW2(Jobs.HUNGER,35,40,60, arrayOf("40秒間食事中の移動速度が遅くならない"),"STEAK"),
     ALWAYSFULL(Jobs.HUNGER,45,120,150, arrayOf("120秒間お腹が減らない"),"CAKE")
-
-
-
-
 }

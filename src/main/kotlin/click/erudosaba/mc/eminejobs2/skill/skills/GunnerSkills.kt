@@ -7,14 +7,6 @@ import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import org.bukkit.Material
 import org.bukkit.event.Listener
 
-class GunnerSkills(plugin : Main) {
+class GunnerSkills(plugin : Main) : Listener, SkillProvider() {
 
-    init {
-        plugin.server.pluginManager.registerEvents(DoubleJump(plugin),plugin)
-    }
-
-
-    class DoubleJump(plg : Main) : SkillProvider(plg, Jobs.GUNNER), Listener{
-
-    }
 }

@@ -10,44 +10,21 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 
-abstract class SkillProvider(val plugin : Main, val job : Jobs) : Listener {
+abstract class SkillProvider : Listener {
 
 
     //Enabledされている後のブロック
-    fun block(jp : JobPlayer, skill : Skill) : Boolean {
+    fun block(jp: JobPlayer): Boolean {
 
-        if(jp.hasJob()) {
-            if(jp.hasSkill()){
-                if(jp.selectedSkill == skill) {
-                    if(jp.skillStatus == SkillStatus.ENABLED) {
-                        if(jp.JobID == job) {
-                            return false
-                        }
+        if (jp.hasJob()) {
+            if (jp.hasSkill()) {
+                if (jp.skillStatus == SkillStatus.ENABLED) {
+                    if (jp.JobID == jp.selectedSkill.job) {
+                        return false
                     }
                 }
             }
         }
         return true
-    }
-
-    //Enabledされる前のブロック
-    fun activateBlock(jp : JobPlayer, skillManager : SkillManager, skill : Skill) : Boolean {
-        if(jp.player.isSneaking) {
-            if(jp.hasSkill()){
-                if(jp.hasJob()) {
-                    if(jp.JobID == jp.selectedSkill.job) {
-                        if(jp.selectedSkill == skill) {
-                            if(jp.level >= skillManager.getSkillOption(jp.selectedSkill).needLevel) {
-                                if(jp.skillStatus == SkillStatus.DISABLED) {
-                                    return false
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return true
-
     }
 }

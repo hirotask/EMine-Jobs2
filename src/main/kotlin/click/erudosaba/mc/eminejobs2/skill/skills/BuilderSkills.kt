@@ -20,83 +20,63 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
 
-class BuilderSkills(plugin : Main) {
+class BuilderSkills(val plugin : Main) : Listener, SkillProvider()  {
+    @EventHandler
+    fun onBlockDamage(e: BlockDamageEvent) {
+        val player = e.player
+        val jp = JobPlayer(player,plugin)
 
-    init {
-        plugin.server.pluginManager.registerEvents(Protean(plugin),plugin)
-        plugin.server.pluginManager.registerEvents(Levitation(plugin),plugin)
+        if(block(jp)) return
+
+        //ここからPROTEAN
+        if(jp.selectedSkill != Skill.PROTEAN) return
+        val targetBlock = e.block
+        val blockInOffHand = player.inventory.itemInOffHand
+
+        if(!Blocks.ores.contains(targetBlock.type) && !Blocks.ores.contains(blockInOffHand.type)) {
+            if(blockInOffHand.type == Material.AIR) {
+                return
+            }
+
+            targetBlock.type = blockInOffHand.type
+            targetBlock.location.world?.playSound(targetBlock.location, Sound.BLOCK_FIRE_EXTINGUISH,0.5F,1.3F)
+            targetBlock.location.world?.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,targetBlock.location,2)
+        }
+        //ここまでPROTEAN
     }
 
-    class Protean(val plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            val jp = JobPlayer(plugin=plg,player=e.player)
-            if(activateBlock(jp,plg.skillManager,Skill.PROTEAN)) return
+    @EventHandler
+    fun onMove(e : PlayerMoveEvent) {
+        val player = e.player
+        val jp = JobPlayer(player,plugin)
 
-            val option = plg.skillManager.getSkillOption(Skill.PROTEAN)
-            val event = SkillUseEvent(jp, option)
-            Bukkit.getServer().pluginManager.callEvent(event)
-        }
+        if(block(jp)) return
 
-        @EventHandler
-        fun onBlockDamage(e : BlockDamageEvent) {
-            val player = e.player
-            val jp = JobPlayer(player,plg)
 
-            if(block(jp,Skill.PROTEAN)) return
+        //ここからLEVITATION
+        if(jp.selectedSkill != Skill.LEVITATION) return
 
-            val targetBlock = e.block
-            val blockinOffhand = player.inventory.itemInOffHand
-
-            if(!Blocks.ores.contains(targetBlock.type) && !Blocks.ores.contains(blockinOffhand.type)) {
-                if(blockinOffhand.type == Material.AIR) {
-                    return
-                }
-
-                targetBlock.type = blockinOffhand.type
-                targetBlock.location.world?.playSound(targetBlock.location, Sound.BLOCK_FIRE_EXTINGUISH,0.5F,1.3F)
-                targetBlock.location.world?.spawnParticle(Particle.CAMPFIRE_COSY_SMOKE,targetBlock.location,2)
-            }
+        if(jp.skillStatus == SkillStatus.ENABLED) {
+            player.allowFlight = true
+            player.isFlying = true
+        } else {
+            player.allowFlight = false
+            player.isFlying = false
         }
     }
 
-    class Levitation(val plg : Main) : SkillProvider(plg, Jobs.BUILDER), Listener {
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            val jp = JobPlayer(plugin=plg,player=e.player)
-            if(activateBlock(jp,plg.skillManager,Skill.LEVITATION)) return
+    @EventHandler
+    fun onPlayerDamage(e : EntityDamageEvent) {
+        val player = if(e.entity is Player) e.entity as Player else return
+        val jp = JobPlayer(player,plugin)
 
-            val option = plg.skillManager.getSkillOption(Skill.LEVITATION)
-            val event = SkillUseEvent(jp, option)
-            Bukkit.getServer().pluginManager.callEvent(event)
-        }
+        if(block(jp)) return
 
-        @EventHandler
-        fun onMove(e : PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player,plg)
+        //ここからLEVITATION
+        if(jp.selectedSkill != Skill.LEVITATION) return
 
-            if(block(jp,Skill.LEVITATION)) return
-
-            if(jp.skillStatus == SkillStatus.ENABLED) {
-                player.allowFlight = true
-                player.isFlying = true
-            } else {
-                player.allowFlight = false
-                player.isFlying = false
-            }
-        }
-
-        @EventHandler
-        fun onPlayerDamage(e : EntityDamageEvent) {
-            val player = if(e.entity is Player) e.entity as Player else return
-            val jp = JobPlayer(player,plg)
-
-            if(block(jp,Skill.LEVITATION)) return
-
-            if(e.cause == EntityDamageEvent.DamageCause.FALL) {
-                e.isCancelled = true
-            }
+        if(e.cause == EntityDamageEvent.DamageCause.FALL) {
+            e.isCancelled = true
         }
     }
 }

@@ -23,37 +23,34 @@ import org.bukkit.potion.Potion
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
-class DiggerSkills(plugin: Main) {
+class DiggerSkills(val plugin: Main) : Listener, SkillProvider() {
 
-    init {
-        plugin.server.pluginManager.registerEvents(DigHaste1(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(DigHaste2(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(DigHaste3(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(DigAll(plugin), plugin)
-    }
+    @EventHandler
+    fun onMove(e: PlayerMoveEvent) {
+        val player = e.player
+        val jp = JobPlayer(player, plugin)
 
-    class DigHaste1(val plg: Main) : SkillProvider(plg, Jobs.DIGGER), Listener {
+        if (block(jp)) return
 
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.DIGHASTE1)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.DIGHASTE1)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
+        when (jp.selectedSkill) {
+            Skill.DIGHASTE1 -> { //ここからDIGHASTE1
+                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.dirts.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 1, true))
+                    }
+                }
             }
-        }
+            Skill.DIGHASTE2 -> { //ここからDIGHASTE2
+                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
+                    val targetBlock = player.getTargetBlock(null, 5).type
+                    if (Blocks.dirts.contains(targetBlock)) {
+                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+                    }
 
-        @EventHandler
-        fun onMove(e: PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plg)
-
-            if (block(jp, Skill.DIGHASTE1)) return
-
-            if (jp.skillStatus == SkillStatus.ENABLED) {
+                }
+            }
+            Skill.DIGHASTE3 -> { //ここからDIGHASTE3
                 if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
                     val targetBlock = player.getTargetBlock(null, 5).type
                     if (Blocks.dirts.contains(targetBlock)) {
@@ -61,143 +58,62 @@ class DiggerSkills(plugin: Main) {
                     }
                 }
             }
-
-
-        }
-    }
-
-    class DigHaste2(val plg: Main) : SkillProvider(plg, Jobs.DIGGER), Listener {
-
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.DIGHASTE2)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.DIGHASTE2)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
-        }
-
-        @EventHandler
-        fun onMove(e: PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plg)
-
-            if (block(jp, Skill.DIGHASTE2)) return
-
-            if (jp.skillStatus == SkillStatus.ENABLED) {
-                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.dirts.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                    }
-                }
-            }
-
-
-        }
-    }
-
-    class DigHaste3(val plg: Main) : SkillProvider(plg, Jobs.DIGGER), Listener {
-
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.DIGHASTE3)) return
-                val option = plg.skillManager.getSkillOption(Skill.DIGHASTE3)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
-        }
-
-        @EventHandler
-        fun onMove(e: PlayerMoveEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plg)
-
-            if (block(jp, Skill.DIGHASTE3)) return
-
-            if (jp.skillStatus == SkillStatus.ENABLED) {
-                if (Items.shovels.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.dirts.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
-                    }
-                }
-            }
-
-
         }
 
     }
 
-    class DigAll(val plg: Main) : SkillProvider(plg, Jobs.DIGGER), Listener {
-        @EventHandler
-        fun onInteract(e: PlayerInteractEvent) {
-            if (e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin = plg, player = e.player)
-                if (activateBlock(jp, plg.skillManager, Skill.DIGALL)) return
+    @EventHandler
+    fun onBlockBroken(e: BlockBreakEvent) {
+        val player = e.player
+        val jp = JobPlayer(player, plugin)
+        val block = e.block
+        val tool = player.inventory.itemInMainHand
 
-                val option = plg.skillManager.getSkillOption(Skill.DIGALL)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
+        if (block(jp)) {
+            return
         }
 
-        @EventHandler
-        fun onBlockBroken(e: BlockBreakEvent) {
-            val player = e.player
-            val jp = JobPlayer(player, plugin)
-            val block = e.block
-            val tool = player.inventory.itemInMainHand
+        if(jp.selectedSkill != Skill.DIGALL) return
 
-            if (block(jp, Skill.DIGALL)) {
-                return
-            }
+        //スニーク時無効
+        if (player.isSneaking) return
 
-            //スニーク時無効
-            if (player.isSneaking) return
+        //持っているアイテムがショベルかどうか
+        if (!Items.shovels.contains(tool.type)) return
 
-            //持っているアイテムがショベルかどうか
-            if (!Items.shovels.contains(tool.type)) return
-
-            //壊すブロックが土系かどうか
-            if (!Blocks.dirts.contains(block.type)) return
+        //壊すブロックが土系かどうか
+        if (!Blocks.dirts.contains(block.type)) return
 
 
-            //掘り開始
-            val count = mineRecursively(block, tool)
+        //掘り開始
+        val count = mineRecursively(block, tool)
 
-            tool.durability = (tool.durability + count).toShort()
+        tool.durability = (tool.durability + count).toShort()
 
-            if (tool.type.maxDurability < tool.durability) {
-                player.inventory.remove(tool)
-            }
+        if (tool.type.maxDurability < tool.durability) {
+            player.inventory.remove(tool)
         }
+    }
 
-        private fun mineRecursively(block: Block, tool: ItemStack, cnt: Int = 20): Int {
-            if (cnt < 0) return 0
-            val type = block.type.toString()
-            var count = 0
-            block.breakNaturally(tool)
+    private fun mineRecursively(block: Block, tool: ItemStack, cnt: Int = 20): Int {
+        if (cnt < 0) return 0
+        val type = block.type.toString()
+        var count = 0
+        block.breakNaturally(tool)
 
-            for (x in -1..1) {
-                for (y in -1..1) {
-                    for (z in -1..1) {
-                        if (x == 0 && y == 0 && z == 0) break
+        for (x in -1..1) {
+            for (y in -1..1) {
+                for (z in -1..1) {
+                    if (x == 0 && y == 0 && z == 0) break
 
-                        block.getRelative(x, y, z).let {
-                            if (type == it.type.toString() && !(block.x == it.x && block.y == it.y && block.z == it.z)) {
-                                count += mineRecursively(it, tool, cnt - 1)
-                            }
+                    block.getRelative(x, y, z).let {
+                        if (type == it.type.toString() && !(block.x == it.x && block.y == it.y && block.z == it.z)) {
+                            count += mineRecursively(it, tool, cnt - 1)
                         }
                     }
                 }
             }
-            return count + 1
         }
+        return count + 1
     }
 }

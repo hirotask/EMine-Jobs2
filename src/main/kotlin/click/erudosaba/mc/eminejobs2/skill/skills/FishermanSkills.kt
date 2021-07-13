@@ -7,14 +7,6 @@ import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import org.bukkit.Material
 import org.bukkit.event.Listener
 
-class FishermanSkills(plugin : Main) {
+class FishermanSkills(plugin : Main) : Listener, SkillProvider() {
 
-
-    init {
-        plugin.server.pluginManager.registerEvents(CatchFish(plugin),plugin)
-    }
-
-    class CatchFish(plg : Main) : SkillProvider(plg, Jobs.FISHERMAN), Listener {
-
-    }
 }

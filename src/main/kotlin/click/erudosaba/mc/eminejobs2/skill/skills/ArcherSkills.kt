@@ -22,119 +22,73 @@ import org.bukkit.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin
 
-class ArcherSkills(plugin: Main) {
+class ArcherSkills(val plugin: Main) : Listener, SkillProvider() {
 
-    init {
-        plugin.server.pluginManager.registerEvents(SpeedArrow(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(PowerArrow(plugin), plugin)
-        plugin.server.pluginManager.registerEvents(HomingArrow(plugin), plugin)
-    }
-
-    class SpeedArrow(val plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
-
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.SPEEDARROW)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.SPEEDARROW)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
+    @EventHandler
+    fun onArrowHitEntity(e : EntityDamageByEntityEvent) {
+        if (e.damager !is Arrow) {
+            return
         }
 
-        @EventHandler
-        fun onArrowHitEntity(e: EntityDamageByEntityEvent) {
-            if (e.damager !is Arrow) {
-                return
-            }
+        val arrow = e.damager as Arrow
 
-            val arrow = e.damager as Arrow
-
-            if (arrow.shooter !is Player) {
-                return
-            }
-
-            if (e.entity !is Player) {
-                return
-            }
-
-            val shooter = arrow.shooter as Player
-            val player = e.entity as Player
-            val jp = JobPlayer(player, plg)
-
-
-            if(block(jp,Skill.SPEEDARROW)) return
-
-            if (shooter == player) {
-                val itemInHand = shooter.inventory.itemInMainHand
-
-                if (itemInHand.type == Material.BOW) {
-                    val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
-                    player.velocity = boostVec
-                }
-            }
-
-        }
-    }
-
-    class PowerArrow(val plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
-
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.POWERARROW)) return
-
-                val option = plg.skillManager.getSkillOption(Skill.POWERARROW)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
+        if (arrow.shooter !is Player) {
+            return
         }
 
-        @EventHandler
-        fun onShoot(e: EntityShootBowEvent) {
-            val player = if (e.entity is Player) e.entity as Player else return
-            val jp = JobPlayer(player, plugin)
-            if(block(jp,Skill.POWERARROW)) return
+        if (e.entity !is Player) {
+            return
+        }
 
-            if(player.inventory.itemInMainHand.type == Material.BOW) {
-                val multiply = e.projectile.velocity.length()
+        val shooter = arrow.shooter as Player
+        val player = e.entity as Player
+        val jp = JobPlayer(player, plugin)
 
-                val loc = player.location
 
-                val arrowAngle = 15
+        if(block(jp)) return
 
-                val totalAngle1 = (((loc.yaw + 90) + arrowAngle) * Math.PI) / 100
-                val arrowDirX1 = cos(totalAngle1)
-                val arrowDirZ1 = sin(totalAngle1)
+        if(jp.selectedSkill != Skill.SPEEDARROW) return
 
-                val totalAngle2 =(((loc.yaw + 90) - arrowAngle) * Math.PI) /100
-                val arrowDirX2 = cos(totalAngle2)
-                val arrowDirZ2 = sin(totalAngle2)
+        //ここからSpeedArrow
+        if (shooter == player) {
+            val itemInHand = shooter.inventory.itemInMainHand
 
-                val arrowDir1 = Vector(arrowDirX1,loc.direction.y,arrowDirZ1).normalize().multiply(multiply)
-                val arrowDir2 = Vector(arrowDirX2,loc.direction.y,arrowDirZ2).normalize().multiply(multiply)
-
-                player.launchProjectile(Arrow::class.java,arrowDir1)
-                player.launchProjectile(Arrow::class.java,arrowDir2)
+            if (itemInHand.type == Material.BOW) {
+                val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
+                player.velocity = boostVec
             }
         }
     }
 
-    class HomingArrow(val plg: Main) : SkillProvider(plg,Jobs.ARCHER), Listener {
+    @EventHandler
+    fun onShoot(e : EntityShootBowEvent) {
+        val player = if (e.entity is Player) e.entity as Player else return
+        val jp = JobPlayer(player, plugin)
+        if(block(jp)) return
 
-        @EventHandler
-        fun onInteract(e : PlayerInteractEvent) {
-            if(e.action == Action.RIGHT_CLICK_BLOCK || e.action == Action.RIGHT_CLICK_AIR) {
-                val jp = JobPlayer(plugin=plg,player=e.player)
-                if(activateBlock(jp,plg.skillManager,Skill.HOMINGARROW)) return
+        if(jp.selectedSkill != Skill.POWERARROW) return
 
-                val option = plg.skillManager.getSkillOption(Skill.HOMINGARROW)
-                val event = SkillUseEvent(jp, option)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
+        //ここからPOWERARROW
+        if(player.inventory.itemInMainHand.type == Material.BOW) {
+            val multiply = e.projectile.velocity.length()
+
+            val loc = player.location
+
+            val arrowAngle = 15
+
+            val totalAngle1 = (((loc.yaw + 90) + arrowAngle) * Math.PI) / 100
+            val arrowDirX1 = cos(totalAngle1)
+            val arrowDirZ1 = sin(totalAngle1)
+
+            val totalAngle2 =(((loc.yaw + 90) - arrowAngle) * Math.PI) /100
+            val arrowDirX2 = cos(totalAngle2)
+            val arrowDirZ2 = sin(totalAngle2)
+
+            val arrowDir1 = Vector(arrowDirX1,loc.direction.y,arrowDirZ1).normalize().multiply(multiply)
+            val arrowDir2 = Vector(arrowDirX2,loc.direction.y,arrowDirZ2).normalize().multiply(multiply)
+
+            player.launchProjectile(Arrow::class.java,arrowDir1)
+            player.launchProjectile(Arrow::class.java,arrowDir2)
         }
     }
 }
