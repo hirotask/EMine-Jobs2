@@ -62,6 +62,6 @@ class Main : JavaPlugin() {
 
         logger.info("$PluginName was Enabled!")
 
-        //テスト
+        //テスト2
     }
 }
