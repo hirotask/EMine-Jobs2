@@ -61,5 +61,7 @@ class Main : JavaPlugin() {
         skillManager.loadSkills()
 
         logger.info("$PluginName was Enabled!")
+
+        //テスト
     }
 }
