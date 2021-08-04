@@ -78,4 +78,12 @@ object Items {
             SWEET_BERRIES,
             HONEY_BOTTLE
     )
+
+    val fish = arrayOf(
+            TROPICAL_FISH,
+            PUFFERFISH,
+            SALMON,
+            COD
+
+    )
 }
