@@ -19,6 +19,8 @@ class OnInteract(val plugin : Main) : Listener{
         if(e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             val player = e.player
             val jp = JobPlayer(player,plugin)
+            if(!jp.hasSkill()) return
+
             val skill = jp.selectedSkill
 
             if(activateBlock(jp,skill)) return

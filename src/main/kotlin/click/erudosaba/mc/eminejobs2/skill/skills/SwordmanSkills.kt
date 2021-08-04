@@ -59,6 +59,10 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
 
                                 if (entities != null) {
                                     for (e in entities) {
+                                        if(e !is LivingEntity) {
+                                            return
+                                        }
+
                                         val living = e as LivingEntity
                                         if (living == jp.player) continue
 
@@ -110,6 +114,10 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
 
                                 if (entities != null) {
                                     for (e in entities) {
+                                        if(e !is LivingEntity) {
+                                            return
+                                        }
+
                                         val living = e as LivingEntity
                                         if (living == jp.player) continue
 
@@ -161,6 +169,10 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
 
                                 if (entities != null) {
                                     for(e in entities) {
+                                        if(e !is LivingEntity) {
+                                            return
+                                        }
+
                                         val living = e as LivingEntity
                                         if(living == jp.player) continue
 
