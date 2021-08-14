@@ -1,8 +1,8 @@
 package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.EatEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.util.Items
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -36,13 +36,13 @@ class OnEat(val plugin: Main) : Listener {
     @EventHandler
     fun onFoodLevelChanged(e: FoodLevelChangeEvent) {
         val player = if (e.entity is Player) e.entity as Player else return
+        val jp = JobPlayer(player,plugin)
 
         if(isEating) {
             afterEat = e.foodLevel
             val diff = afterEat - beforeEat
 
-            val event = EatEvent(JobPlayer(player,plugin), diff)
-            plugin.server.pluginManager.callEvent(event)
+            jp.addExp(Jobs.HUNGER)
             isEating = false
         }
     }

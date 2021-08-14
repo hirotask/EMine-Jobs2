@@ -1,23 +1,16 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
-import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
-import click.erudosaba.mc.eminejobs2.skill.SkillStatus
-import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.Sound
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityShootBowEvent
-import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.util.Vector
 import kotlin.math.cos
 import kotlin.math.sin

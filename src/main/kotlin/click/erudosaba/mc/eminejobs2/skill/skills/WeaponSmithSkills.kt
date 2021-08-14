@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -16,10 +17,14 @@ class WeaponSmithSkills(val plugin: Main) : Listener, SkillProvider() {
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
 
+        val player = event.whoClicked as Player
+        val jp = JobPlayer(player,plugin)
+
+        if (block(jp)) return
+        
         // Anvil Inventoryか確認
         if (event.clickedInventory !is AnvilInventory) return
         val inventory = event.clickedInventory as AnvilInventory?
-        val player = event.whoClicked as Player
         if (event.slot != 2) return
         if (inventory!!.getItem(2) == null) return
         var cost = inventory.repairCost - 4

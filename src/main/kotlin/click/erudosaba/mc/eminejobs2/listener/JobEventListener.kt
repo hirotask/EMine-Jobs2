@@ -4,7 +4,7 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.event.PlayerExpChangeEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
+import click.erudosaba.mc.eminejobs2.event.PlayerSkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.rewards.RewardItem
 import click.erudosaba.mc.eminejobs2.rewards.RewardManager
@@ -16,7 +16,6 @@ import org.bukkit.ChatColor
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
 
 class JobEventListener(val plugin : Main) : Listener{
@@ -85,7 +84,7 @@ class JobEventListener(val plugin : Main) : Listener{
     }
 
     @EventHandler
-    fun onSkillUse(e : SkillUseEvent) {
+    fun onSkillUse(e : PlayerSkillUseEvent) {
         val option = e.skillOption
         val jp = e.player
         val player = e.player.player

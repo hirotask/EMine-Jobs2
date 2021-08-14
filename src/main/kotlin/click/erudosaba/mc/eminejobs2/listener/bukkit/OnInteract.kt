@@ -1,10 +1,9 @@
 package click.erudosaba.mc.eminejobs2.listener.bukkit
 
 import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
+import click.erudosaba.mc.eminejobs2.event.PlayerSkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Skill
-import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
@@ -27,7 +26,8 @@ class OnInteract(val plugin : Main) : Listener{
 
             val skillOption = plugin.skillManager.getSkillOption(skill)
 
-            val event = SkillUseEvent(jp,skillOption)
+            //SkillUseEventの発火
+            val event = PlayerSkillUseEvent(jp,skillOption)
             Bukkit.getServer().pluginManager.callEvent(event)
         }
     }

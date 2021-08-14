@@ -1,18 +1,11 @@
 package click.erudosaba.mc.eminejobs2.skill
 
 import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
-import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.skills.*
 import click.erudosaba.mc.eminejobs2.util.CustomConfig
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.Sound
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.block.Action
-import org.bukkit.event.player.PlayerInteractEvent
 
 class SkillManager(val plugin: Main) {
 

@@ -1,17 +1,6 @@
 package click.erudosaba.mc.eminejobs2.skill
 
-import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
-import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
-import org.bukkit.Bukkit
-import org.bukkit.Material
-import org.bukkit.Sound
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.block.Action
-import org.bukkit.event.player.PlayerInteractEvent
-import java.util.*
 
 enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTime : Int, var defaultInterval : Int, var defaultDescription : Array<String>, var defaultIcon : String) {
     CUTALL(Jobs.WOODCUTTER,40,30,5, arrayOf("30秒間木を一括破壊できる"),"DIAMOND_AXE"),

@@ -2,7 +2,7 @@ package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
 import click.erudosaba.mc.eminejobs2.listener.JobEventListener
-import click.erudosaba.mc.eminejobs2.listener.MyEventListener
+import click.erudosaba.mc.eminejobs2.listener.bukkit.OnSmelt
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
@@ -42,7 +42,6 @@ class Main : JavaPlugin() {
 
         /* init of Listener */
         val listeners = arrayOf(
-                MyEventListener(this),
                 JobEventListener(this),
                 OnInventoryClick(this),
                 OnBlockBreak(this),
@@ -53,7 +52,8 @@ class Main : JavaPlugin() {
                 OnBlockPlace(this),
                 OnEat(this),
                 OnInteract(this),
-                OnJoinLeave(this)
+                OnJoinLeave(this),
+                OnSmelt(this)
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 

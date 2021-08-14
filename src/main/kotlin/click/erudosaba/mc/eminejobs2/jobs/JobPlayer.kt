@@ -76,4 +76,13 @@ class JobPlayer(val player : Player, private val plugin : Main) {
     fun hasJob() : Boolean{
         return plugin.sqlUtil.isExists(player)
     }
+
+    //もし就いている職がjobに等しかったらExpをjobExp分プラスする
+    fun addExp(job : Jobs) {
+        if(this.hasJob()) {
+            if(this.JobID == job) {
+                this.exp += job.jobExp
+            }
+        }
+    }
 }

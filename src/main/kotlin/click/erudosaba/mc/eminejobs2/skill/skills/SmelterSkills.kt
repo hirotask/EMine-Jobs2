@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -24,13 +25,18 @@ class SmelterSkills(val plugin: Main) : Listener, SkillProvider() {
 
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
+        val player = event.player
+        val jp = JobPlayer(player,plugin)
+
+        if (block(jp)) return
+
         if (event.action != Action.RIGHT_CLICK_BLOCK) return
         if (event.clickedBlock!!.state !is Furnace) return
         val furnace: Furnace = event.clickedBlock!!.state as Furnace
         val inventory: FurnaceInventory = furnace.inventory
 
         // メイン処理
-        val player = event.player
+
         // 1回までに制限
         if (!run) {
             player.sendMessage("二回目以降です")
