@@ -37,7 +37,7 @@ class Main : JavaPlugin() {
 
         val fileUtils = FileUtils()
 
-        /* init of Command*/
+        /* init of Command */
         commandManager.setup()
 
         /* init of Listener */
@@ -57,11 +57,13 @@ class Main : JavaPlugin() {
         )
         listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
 
+        /* init of Skills */
         skillManager.loadOptions()
         skillManager.loadSkills()
 
-        logger.info("$PluginName was Enabled!")
+        /* init of Recipe */
 
-        //テスト2
+
+        logger.info("$PluginName was Enabled!")
     }
 }
