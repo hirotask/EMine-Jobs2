@@ -2,31 +2,22 @@ package click.erudosaba.mc.eminejobs2.util.recipe
 
 import click.erudosaba.mc.eminejobs2.Main
 import org.bukkit.Bukkit
+import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.inventory.ShapelessRecipe
 
-class RecipeManager(val plugin: Main, val MyRecipe : Recipe) {
-
-    val key = NamespacedKey(plugin,plugin.description.name)
-    val recipe = ShapedRecipe(key, MyRecipe.item)
+class RecipeManager(val plugin: Main, val MyRecipe: Recipe) {
 
     fun setup() {
-        if(MyRecipe.shape.size == 3) {
-            recipe.apply {
-                shape(MyRecipe.shape[0],MyRecipe.shape[1],MyRecipe.shape[2])
-                for((c,m) in MyRecipe.ingredients) {
-                    var flag = false
-                    for(s in MyRecipe.shape) {
-                        val index = s.indexOf(c)
-                        if(index > -1 && !flag) { //文字列の中に文字cが含まれているか
-                            setIngredient(c,m)
-                            flag = true
-                        }
-                    }
-                }
-            }
+        val str = ChatColor.stripColor(MyRecipe.item.itemMeta?.displayName)?.replace(" ", "_")
+        val key = NamespacedKey(plugin, "${plugin.description.name}_$str")
+        val recipe = ShapelessRecipe(key, MyRecipe.item)
 
-            Bukkit.addRecipe(recipe)
+        for((v,i) in MyRecipe.ingredients) {
+            recipe.addIngredient(i,v)
         }
+
+        Bukkit.addRecipe(recipe)
     }
 }

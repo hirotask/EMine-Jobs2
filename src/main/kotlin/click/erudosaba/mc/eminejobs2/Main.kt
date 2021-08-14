@@ -9,6 +9,7 @@ import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
 import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
+import click.erudosaba.mc.eminejobs2.util.recipe.GunRecipe
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -62,7 +63,9 @@ class Main : JavaPlugin() {
         skillManager.loadSkills()
 
         /* init of Recipe */
-
+        val gunRecipe = GunRecipe(this)
+        gunRecipe.setupAmmo()
+        gunRecipe.setupGuns()
 
         logger.info("$PluginName was Enabled!")
     }
