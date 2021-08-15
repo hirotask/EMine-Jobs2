@@ -322,5 +322,10 @@ class GunRecipe(val plugin : Main) {
                         'B' to Material.REDSTONE_BLOCK
                 )
         ))
+
+        for(recipe in recipes) {
+            val recipeManager = RecipeManager(plugin)
+            recipeManager.setup(recipe)
+        }
     }
 }
