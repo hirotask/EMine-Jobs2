@@ -26,7 +26,7 @@ class JobEventListener(val plugin : Main) : Listener{
     fun onLevelUp(e: PlayerLevelUpEvent) {
         val lv = e.player.level
         val job = e.player.jobID
-        val player = e.player.player
+        val player = Bukkit.getPlayer(e.player.playerName)
         val rewardManager = RewardManager(plugin)
 
 
@@ -76,12 +76,14 @@ class JobEventListener(val plugin : Main) : Listener{
     @EventHandler
     fun onJobJoin(e: PlayerJobJoinEvent) {
         val jp = e.player
-        SideBar(plugin,jp.player)
+        val player = Bukkit.getPlayer(e.player.playerName)
+        SideBar(plugin,player)
     }
 
     @EventHandler
     fun onExpChange(e: PlayerExpChangeEvent) {
         val jp = e.player
+        val player = Bukkit.getPlayer(e.player.playerName)
         val expFunc = 51.763 * kotlin.math.exp(0.093 * (jp.level + 1) - 0.5)
 
         if(jp.exp > expFunc) {
@@ -90,16 +92,16 @@ class JobEventListener(val plugin : Main) : Listener{
             Bukkit.getServer().pluginManager.callEvent(event)
         }
 
-        SideBar(plugin,jp.player)
+        SideBar(plugin,player)
     }
 
     @EventHandler
     fun onSkillUse(e : PlayerSkillUseEvent) {
         val option = e.skillOption
         val jp = e.player
-        val player = e.player.player
+        val player = Bukkit.getPlayer(e.player.playerName)
         jp.skillStatus = SkillStatus.ENABLED
-        jp.player?.playSound(jp.player.location, Sound.UI_BUTTON_CLICK, 0.5F, 1.3F)
+        player?.playSound(player.location, Sound.UI_BUTTON_CLICK, 0.5F, 1.3F)
 
         var activeTime = option.activeTime
         var interval = option.interval
@@ -115,7 +117,7 @@ class JobEventListener(val plugin : Main) : Listener{
                 } else if(jp.skillStatus == SkillStatus.INTERVAL) {
                     if(interval <= 0) {
                         jp.skillStatus = SkillStatus.DISABLED
-                        jp.player?.playSound(jp.player.location, Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.3F)
+                        player?.playSound(player.location, Sound.ENTITY_PLAYER_LEVELUP, 0.5F, 1.3F)
                         cancel()
                     }
                     player?.spigot()?.sendMessage(ChatMessageType.ACTION_BAR,TextComponent("インターバル：${ChatColor.YELLOW}$interval"))

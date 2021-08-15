@@ -26,11 +26,11 @@ class Join(val plugin: Main) : SubCommand() {
         }
 
         for (jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+            if (jp.playerName == player.name) {
                 if(jp.level <= 20) {
                     jp.exp = 0.0
                     jp.level = 0
-                    jp.jobID = Jobs.valueOf(jobName)
+                    jp.jobID = job
                     jp.skillStatus = SkillStatus.DISABLED
                     player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に転職しました")
 
@@ -45,7 +45,7 @@ class Join(val plugin: Main) : SubCommand() {
         }
 
         player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に就きました")
-        val jp = JobPlayer(player.uniqueId,Jobs.valueOf(jobName),0.0,0,null,SkillStatus.DISABLED)
+        val jp = JobPlayer(player.uniqueId,player.name, job, 0.0, 0, null, SkillStatus.DISABLED)
         Main.jPlayers.add(jp)
 
         val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[0].toUpperCase()))

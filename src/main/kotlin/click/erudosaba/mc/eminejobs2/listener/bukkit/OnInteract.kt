@@ -6,6 +6,7 @@ import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -24,7 +25,7 @@ class OnInteract(val plugin : Main) : Listener{
                     if(jp.selectedSkill != null) {
                         val skill = jp.selectedSkill!!
 
-                        if(activateBlock(jp,skill)) return
+                        if(activateBlock(player,jp,skill)) return
 
                         val skillOption = plugin.skillManager.getSkillOption(skill)
 
@@ -39,8 +40,8 @@ class OnInteract(val plugin : Main) : Listener{
         }
     }
 
-    private fun activateBlock(jp : JobPlayer, skill : Skill) : Boolean {
-        if(jp.player!!.isSneaking) {
+    private fun activateBlock(player: Player, jp : JobPlayer, skill : Skill) : Boolean {
+        if(player.isSneaking) {
             if(jp.hasSkill()){
                 if(jp.hasJob()) {
                     if(jp.jobID == jp.selectedSkill!!.job) {

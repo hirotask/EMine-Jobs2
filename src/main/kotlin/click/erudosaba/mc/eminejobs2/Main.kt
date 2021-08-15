@@ -34,13 +34,18 @@ class Main : JavaPlugin() {
 
 
     override fun onDisable() {
-        for(jp in jPlayers) {
-            sqlUtil.insert(jp.uuid,jp.player?.name,jp.jobID.name.toLowerCase(),jp.exp,jp.level,jp.selectedSkill,jp.skillStatus)
+        for (jp in jPlayers) {
+            if (sqlUtil.isExists(jp.uuid)) {
+                sqlUtil.update(jp.uuid, jp.playerName, jp.jobID.name.toLowerCase(), jp.exp, jp.level, jp.selectedSkill, jp.skillStatus)
+            } else {
+                sqlUtil.insert(jp.uuid, jp.playerName, jp.jobID.name.toLowerCase(), jp.exp, jp.level, jp.selectedSkill, jp.skillStatus)
+            }
+            logger.info("Saved ${jp.playerName} data")
+
         }
-
-
         logger.info("$PluginName was Disabled!")
     }
+
 
     override fun onEnable() {
 
@@ -48,9 +53,11 @@ class Main : JavaPlugin() {
 
         /* init of SQL */
         jPlayers = sqlUtil.getAllPlayers(this)
-        for(jp in jPlayers) {
-            println(jp.player?.name)
+        var playerCount = 0
+        for (jp in jPlayers) {
+            playerCount++
         }
+        logger.info("Loaded $playerCount players")
 
         /* init of Command */
         commandManager.setup()
@@ -70,7 +77,7 @@ class Main : JavaPlugin() {
                 OnJoinLeave(this),
                 OnSmelt(this)
         )
-        listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
+        listeners.forEach { listener -> server.pluginManager.registerEvents(listener, this) }
 
         /* init of Skills */
         skillManager.loadOptions()

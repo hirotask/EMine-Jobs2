@@ -15,6 +15,8 @@ class Help(plugin: Main) : SubCommand() {
                 ,"${DARK_AQUA}/emj leave ${WHITE}→ ${DARK_GREEN}現在就いている職業を辞める(レベルはリセット)"
                 ,"${DARK_AQUA}/emj browse ${WHITE}→ ${DARK_GREEN}現在就くことが出来る職業一覧を表示する"
                 ,"${DARK_AQUA}/emj info ${GOLD}[job] ${WHITE}→ ${DARK_GREEN}職業に関する情報を表示"
+                ,"${DARK_AQUA}/emj skills ${WHITE}→ ${DARK_GREEN}使用できるスキル一覧を表示"
+                ,"${DARK_AQUA}/emj setskill ${GOLD}[player] ${GOLD}[skill] ${WHITE}→ ${DARK_GREEN}指定プレイヤーにスキルを設定する"
                 ,"${DARK_AQUA}/emj admininfo ${GOLD}[playername] ${WHITE}→ ${DARK_GREEN}指定プレーヤーのステータスを表示"
                 ,"${DARK_AQUA}/emj fire ${GOLD}[playername] ${WHITE}→ ${DARK_GREEN}指定プレイヤーを職業から解雇"
                 ,"${DARK_AQUA}/emj employ ${GOLD}[playername] [job] ${WHITE}→ ${DARK_GREEN}指定したプレイヤーを指定した職業に就かせる"

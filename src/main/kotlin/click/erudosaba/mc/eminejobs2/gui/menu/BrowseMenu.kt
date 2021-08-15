@@ -66,7 +66,7 @@ class BrowseMenu(plugin: Main, player: Player) : InventoryGUI(plugin, 18, title,
                                 break
                             }
                         }
-                        val jp = JobPlayer(player.uniqueId,job,0.0,0,null,SkillStatus.DISABLED)
+                        val jp = JobPlayer(player.uniqueId,player.name, job,0.0,0,null,SkillStatus.DISABLED)
                         player.sendMessage("あなたは${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に就きました")
 
                         val event = PlayerJobJoinEvent(jp, Jobs.valueOf(job.name))

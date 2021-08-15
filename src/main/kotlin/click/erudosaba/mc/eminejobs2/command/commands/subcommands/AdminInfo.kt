@@ -17,9 +17,9 @@ class AdminInfo(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
         for(jp in Main.jPlayers) {
-            if(jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId){
+            if(jp.playerName == target.name){
                 val messages = arrayOf(
-                        "プレイヤー名： ${jp.player?.name}",
+                        "プレイヤー名： ${jp.playerName}",
                         "職業： ${jp.jobID.Jobname}",
                         "レベル； ${jp.level}",
                         "経験値： ${jp.exp}"

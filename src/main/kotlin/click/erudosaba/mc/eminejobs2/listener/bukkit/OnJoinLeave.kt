@@ -8,18 +8,19 @@ import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerQuitEvent
 
-class OnJoinLeave(val plugin : Main) : Listener {
+class OnJoinLeave(val plugin: Main) : Listener {
     @EventHandler
-    fun onJoin(e : PlayerJoinEvent) {
+    fun onJoin(e: PlayerJoinEvent) {
         val player = e.player
         for (jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
-                if(jp.skillStatus != SkillStatus.DISABLED) {
+            if (jp.playerName == player.name) {
+                if (jp.skillStatus != SkillStatus.DISABLED) {
                     jp.skillStatus = SkillStatus.DISABLED
                 }
 
-                if(jp.hasJob()){
+                if (jp.hasJob()) {
                     SideBar(plugin, player)
                 }
             }

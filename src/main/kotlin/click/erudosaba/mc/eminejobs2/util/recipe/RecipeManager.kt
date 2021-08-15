@@ -46,8 +46,6 @@ class RecipeManager(val plugin: Main) {
             }
         }
 
-
-
         Bukkit.addRecipe(recipe)
     }
 }

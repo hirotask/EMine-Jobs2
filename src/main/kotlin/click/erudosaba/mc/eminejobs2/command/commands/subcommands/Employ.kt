@@ -30,7 +30,7 @@ class Employ(val plugin: Main) : SubCommand() {
         }
 
         for(jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+            if (jp.playerName == target.name) {
                 jp.exp = 0.0
                 jp.level = 0
                 jp.jobID = job
@@ -41,8 +41,16 @@ class Employ(val plugin: Main) : SubCommand() {
 
                 val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[1].toUpperCase()))
                 Bukkit.getServer().pluginManager.callEvent(event)
+                return
             }
         }
+
+        player.sendMessage("${target.name}を${jobName}に就かせました")
+        val jp = JobPlayer(player.uniqueId,player.name, job,0.0,0,null,SkillStatus.DISABLED)
+        Main.jPlayers.add(jp)
+
+        val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[1].toUpperCase()))
+        Bukkit.getServer().pluginManager.callEvent(event)
     }
 
     override fun name(): String {

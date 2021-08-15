@@ -11,19 +11,17 @@ import java.util.*
 import kotlin.math.exp
 //JobPlayerクラス：プレイヤーと職業情報を紐づけ
 //職業に就いているプレイヤーはこれで登録する
-class JobPlayer(val uuid : UUID, var jobID : Jobs, var exp : Double, var level : Int, var selectedSkill : Skill?, var skillStatus : SkillStatus) {
-
-    val player = Bukkit.getPlayer(uuid)
+class JobPlayer(val uuid : UUID, val playerName : String, var jobID : Jobs, var exp : Double = 0.0, var level : Int = 0, var selectedSkill : Skill? = null, var skillStatus : SkillStatus = SkillStatus.DISABLED) {
 
     fun hasSkill() : Boolean {
-        if(selectedSkill != null) {
-            return selectedSkill?.name == "NULL"
+        if(selectedSkill?.name != "NULL") {
+            return selectedSkill != null
         }
-        return selectedSkill == null
+        return false
     }
 
     fun hasJob() : Boolean{
-        return jobID.name == "NULL"
+        return jobID.name != "NULL"
     }
 
     //もし就いている職がjobに等しかったらExpをjobExp分プラスする

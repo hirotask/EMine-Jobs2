@@ -56,13 +56,13 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
                                         val entities = loc.world?.getNearbyEntities(loc, 2.0, 2.0, 2.0)
 
                                         if (entities != null) {
-                                            for (e in entities) {
-                                                if (e !is LivingEntity) {
+                                            for (en in entities) {
+                                                if (en !is LivingEntity) {
                                                     return
                                                 }
 
-                                                val living = e as LivingEntity
-                                                if (living == jp.player) continue
+                                                val living = en as LivingEntity
+                                                if (living == e.player) continue
 
                                                 var multiple = 1.3
                                                 var sworddamage = 1
@@ -111,13 +111,13 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
                                         val entities = loc.world?.getNearbyEntities(loc, 2.0, 2.0, 2.0)
 
                                         if (entities != null) {
-                                            for (e in entities) {
-                                                if (e !is LivingEntity) {
+                                            for (en in entities) {
+                                                if (en !is LivingEntity) {
                                                     return
                                                 }
 
-                                                val living = e as LivingEntity
-                                                if (living == jp.player) continue
+                                                val living = en as LivingEntity
+                                                if (living == e.player) continue
 
                                                 var multiple = 1.3
                                                 var sworddamage = 1
@@ -166,13 +166,13 @@ class SwordmanSkills(val plugin: Main) : Listener, SkillProvider() {
                                         val entities = loc.world?.getNearbyEntities(loc, 2.0, 2.0, 2.0)
 
                                         if (entities != null) {
-                                            for (e in entities) {
-                                                if (e !is LivingEntity) {
+                                            for (en in entities) {
+                                                if (en !is LivingEntity) {
                                                     return
                                                 }
 
-                                                val living = e as LivingEntity
-                                                if (living == jp.player) continue
+                                                val living = en as LivingEntity
+                                                if (living == e.player) continue
 
                                                 var multiple = 1.3
                                                 var sworddamage = 1

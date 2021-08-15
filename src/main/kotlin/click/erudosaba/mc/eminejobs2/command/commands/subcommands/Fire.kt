@@ -22,12 +22,14 @@ class Fire(val plugin: Main) : SubCommand() {
 
 
         for(jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+            if (jp.playerName == target.name) {
                 val event = PlayerJobLeaveEvent(jp,jp.jobID)
                 Bukkit.getServer().pluginManager.callEvent(event)
-                Main.jPlayers.remove(jp)
+
 
                 player.sendMessage("${target.name}をクビにしました")
+                Main.jPlayers.remove(jp)
+                return
             }
         }
         player.sendMessage("${target.name}は職業に就いていません")

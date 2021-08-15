@@ -22,7 +22,7 @@ class GrantExp(val plugin: Main) : SubCommand() {
         }
 
         for (jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+            if (jp.playerName == target.name) {
                 jp.exp += exp
                 player.sendMessage("${target.name}のレベルを${exp}あげました")
             }

@@ -22,9 +22,9 @@ class Demote(val plugin: Main) : SubCommand() {
         }
 
         for (jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+            if (jp.playerName == target.name) {
                 jp.level -= level
-                player.sendMessage("${jp.player?.name}のレベルを${level}さげました")
+                player.sendMessage("${jp.playerName}のレベルを${level}さげました")
             }
         }
     }

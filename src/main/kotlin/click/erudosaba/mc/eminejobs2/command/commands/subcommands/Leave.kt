@@ -11,12 +11,13 @@ class Leave(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
 
         for (jp in Main.jPlayers) {
-            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+            if (jp.playerName == player.name) {
                 val event = PlayerJobLeaveEvent(jp,jp.jobID)
                 Bukkit.getServer().pluginManager.callEvent(event)
 
-                Main.jPlayers.remove(jp)
                 player.sendMessage("正常に退職しました")
+                Main.jPlayers.remove(jp)
+                break
             }
         }
     }
