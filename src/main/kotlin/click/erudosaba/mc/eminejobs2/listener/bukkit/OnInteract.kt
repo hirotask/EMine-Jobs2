@@ -17,28 +17,35 @@ class OnInteract(val plugin : Main) : Listener{
     fun onInteract(e : PlayerInteractEvent) {
         if(e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             val player = e.player
-            val jp = JobPlayer(player,plugin)
-            if(!jp.hasSkill()) return
+            for (jp in Main.jPlayers) {
+                if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                    if(!jp.hasSkill()) return
 
-            val skill = jp.selectedSkill
+                    if(jp.selectedSkill != null) {
+                        val skill = jp.selectedSkill!!
 
-            if(activateBlock(jp,skill)) return
+                        if(activateBlock(jp,skill)) return
 
-            val skillOption = plugin.skillManager.getSkillOption(skill)
+                        val skillOption = plugin.skillManager.getSkillOption(skill)
 
-            //SkillUseEventの発火
-            val event = PlayerSkillUseEvent(jp,skillOption)
-            Bukkit.getServer().pluginManager.callEvent(event)
+                        //SkillUseEventの発火
+                        val event = PlayerSkillUseEvent(jp,skillOption)
+                        Bukkit.getServer().pluginManager.callEvent(event)
+                    }
+
+                }
+            }
+
         }
     }
 
     private fun activateBlock(jp : JobPlayer, skill : Skill) : Boolean {
-        if(jp.player.isSneaking) {
+        if(jp.player!!.isSneaking) {
             if(jp.hasSkill()){
                 if(jp.hasJob()) {
-                    if(jp.JobID == jp.selectedSkill.job) {
+                    if(jp.jobID == jp.selectedSkill!!.job) {
                         if(jp.selectedSkill == skill) {
-                            if(jp.level >= plugin.skillManager.getSkillOption(jp.selectedSkill).needLevel) {
+                            if(jp.level >= plugin.skillManager.getSkillOption(jp.selectedSkill!!).needLevel) {
                                 if(jp.skillStatus == SkillStatus.DISABLED) {
                                     return false
                                 }

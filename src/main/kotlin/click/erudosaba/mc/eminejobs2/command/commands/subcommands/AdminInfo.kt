@@ -16,19 +16,20 @@ class AdminInfo(val plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        if (!plugin.sqlUtil.isExists(target)) {
-            player.sendMessage("${target.name} は職業に就いていません")
-            return
-        } else {
-            val messages = arrayOf(
-                    "プレイヤー名： ${target.name}",
-                    "職業： ${plugin.sqlUtil.getJob(target)}",
-                    "レベル； ${plugin.sqlUtil.getLevel(target)}",
-                    "経験値： ${plugin.sqlUtil.getExp(target)}"
-            )
+        for(jp in Main.jPlayers) {
+            if(jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId){
+                val messages = arrayOf(
+                        "プレイヤー名： ${jp.player?.name}",
+                        "職業： ${jp.jobID.Jobname}",
+                        "レベル； ${jp.level}",
+                        "経験値： ${jp.exp}"
+                )
 
-            messages.forEach { s -> player.sendMessage(s) }
+                messages.forEach { s -> player.sendMessage(s) }
+                return
+            }
         }
+        player.sendMessage("${target.name} は職業に就いていません")
     }
 
     override fun name(): String {

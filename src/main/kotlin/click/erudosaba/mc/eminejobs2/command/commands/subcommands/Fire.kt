@@ -2,8 +2,11 @@ package click.erudosaba.mc.eminejobs2.command.commands.subcommands
 
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
+import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerJobLeaveEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
+import click.erudosaba.mc.eminejobs2.jobs.Jobs
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -17,17 +20,18 @@ class Fire(val plugin: Main) : SubCommand() {
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
-        if(!plugin.sqlUtil.isExists(target)) {
-            player.sendMessage("${target.name}は職業に就いていません")
-        } else{
-            val jobPlayer = JobPlayer(target,plugin)
-            val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobID)
-            Bukkit.getServer().pluginManager.callEvent(event)
 
-            plugin.sqlUtil.delete(target)
-            player.sendMessage("${target.name}をクビにしました")
+        for(jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+                val event = PlayerJobLeaveEvent(jp,jp.jobID)
+                Bukkit.getServer().pluginManager.callEvent(event)
+                Main.jPlayers.remove(jp)
 
+                player.sendMessage("${target.name}をクビにしました")
+            }
         }
+        player.sendMessage("${target.name}は職業に就いていません")
+
     }
 
     override fun name(): String {

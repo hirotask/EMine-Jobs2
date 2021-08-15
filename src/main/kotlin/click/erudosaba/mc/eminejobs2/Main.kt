@@ -1,6 +1,7 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.listener.JobEventListener
 import click.erudosaba.mc.eminejobs2.listener.bukkit.OnSmelt
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
@@ -10,6 +11,7 @@ import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
 import click.erudosaba.mc.eminejobs2.util.recipe.GunRecipe
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -27,16 +29,28 @@ class Main : JavaPlugin() {
 
     companion object {
         const val PluginName = "EMine-Jobs"
+        var jPlayers = ArrayList<JobPlayer>()
     }
 
 
     override fun onDisable() {
+        for(jp in jPlayers) {
+            sqlUtil.insert(jp.uuid,jp.player?.name,jp.jobID.name.toLowerCase(),jp.exp,jp.level,jp.selectedSkill,jp.skillStatus)
+        }
+
+
         logger.info("$PluginName was Disabled!")
     }
 
     override fun onEnable() {
 
         val fileUtils = FileUtils()
+
+        /* init of SQL */
+        jPlayers = sqlUtil.getAllPlayers(this)
+        for(jp in jPlayers) {
+            println(jp.player?.name)
+        }
 
         /* init of Command */
         commandManager.setup()

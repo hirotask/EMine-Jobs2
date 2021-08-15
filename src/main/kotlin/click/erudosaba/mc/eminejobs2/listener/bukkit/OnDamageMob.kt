@@ -4,6 +4,7 @@ import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.util.Items
+import org.bukkit.Bukkit
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -19,18 +20,23 @@ class OnDamageMob(val plugin : Main) : Listener {
         if(e.damager !is Player) {
             val arrow = if(e.damager is Arrow) e.damager as Arrow else return
             val player = if(arrow.shooter is Player) arrow.shooter as Player else return
-            val jp = JobPlayer(player,plugin)
-
-            jp.addExp(Jobs.ARCHER)
+            for (jp in Main.jPlayers) {
+                if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                    jp.addExp(Jobs.ARCHER)
+                }
+            }
         } else {
             val player = e.damager as Player
-            val jp = JobPlayer(player,plugin)
+            for (jp in Main.jPlayers) {
+                if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
 
-            val itemMainhand = player.inventory.itemInMainHand.type
-            val itemOffhand = player.inventory.itemInOffHand.type
+                    val itemMainhand = player.inventory.itemInMainHand.type
+                    val itemOffhand = player.inventory.itemInOffHand.type
 
-            if(Items.swords.contains(itemMainhand) || Items.swords.contains(itemOffhand)) {
-                jp.addExp(Jobs.SWORDMAN)
+                    if (Items.swords.contains(itemMainhand) || Items.swords.contains(itemOffhand)) {
+                        jp.addExp(Jobs.SWORDMAN)
+                    }
+                }
             }
         }
     }

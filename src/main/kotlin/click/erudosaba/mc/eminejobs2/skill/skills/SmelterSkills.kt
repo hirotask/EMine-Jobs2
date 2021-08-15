@@ -26,76 +26,78 @@ class SmelterSkills(val plugin: Main) : Listener, SkillProvider() {
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val player = event.player
-        val jp = JobPlayer(player,plugin)
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                if (block(jp)) return
 
-        if (block(jp)) return
+                if (event.action != Action.RIGHT_CLICK_BLOCK) return
+                if (event.clickedBlock!!.state !is Furnace) return
+                val furnace: Furnace = event.clickedBlock!!.state as Furnace
+                val inventory: FurnaceInventory = furnace.inventory
 
-        if (event.action != Action.RIGHT_CLICK_BLOCK) return
-        if (event.clickedBlock!!.state !is Furnace) return
-        val furnace: Furnace = event.clickedBlock!!.state as Furnace
-        val inventory: FurnaceInventory = furnace.inventory
+                // メイン処理
 
-        // メイン処理
-
-        // 1回までに制限
-        if (!run) {
-            player.sendMessage("二回目以降です")
-            return
-        }
-        run = false
-        if (!isBurning(inventory)) return
-        val skillTime = 60
-        val cut = 2.0
-        var time = (200 - furnace.cookTime).toLong()
-        time *= (1 / cut).toLong()
-        var cookTime: Long = 200
-        cookTime *= (1 / cut).toLong()
-        val difference = 1
-        while (time <= 20 * skillTime) {
-            object : BukkitRunnable() {
-                override fun run() {
-                    // 燃えてるか
-                    if (!isBurning(inventory)) {
-                        cancel()
-                        return
-                    }
-
-                    // message
-                    player.playSound(player.location, Sound.BLOCK_ANVIL_PLACE, 1f, 1f)
-
-                    // smeltingを1減らす
-                    val smelting: ItemStack? = inventory.smelting
-                    if (smelting != null) {
-                        smelting.amount = smelting.amount - 1
-                    }
-                    inventory.smelting = smelting
-                    inventory.smelting = null
-
-                    // resultを1増やす
-                    var result: ItemStack? = inventory.result
-                    if (result == null) result = ItemStack(getFurnaceRecipeResult(smelting!!.type)!!) // null
-                    else result.setAmount(result.getAmount() + 1)
-                    if (result.getAmount() === result.getMaxStackSize()) inventory.location!!.world!!.dropItem(inventory.location!!, result) else inventory.result = result
-
-                    // cookTimeを0にする
+                // 1回までに制限
+                if (!run) {
+                    player.sendMessage("二回目以降です")
+                    return
+                }
+                run = false
+                if (!isBurning(inventory)) return
+                val skillTime = 60
+                val cut = 2.0
+                var time = (200 - furnace.cookTime).toLong()
+                time *= (1 / cut).toLong()
+                var cookTime: Long = 200
+                cookTime *= (1 / cut).toLong()
+                val difference = 1
+                while (time <= 20 * skillTime) {
                     object : BukkitRunnable() {
                         override fun run() {
-                            inventory.smelting = smelting
-
-                            // 繰り返し
+                            // 燃えてるか
                             if (!isBurning(inventory)) {
                                 cancel()
                                 return
                             }
-                            var cookTime: Long = 200
-                            cookTime *= (1 / 1.3).toLong()
-                            cancel()
-                            return
+
+                            // message
+                            player.playSound(player.location, Sound.BLOCK_ANVIL_PLACE, 1f, 1f)
+
+                            // smeltingを1減らす
+                            val smelting: ItemStack? = inventory.smelting
+                            if (smelting != null) {
+                                smelting.amount = smelting.amount - 1
+                            }
+                            inventory.smelting = smelting
+                            inventory.smelting = null
+
+                            // resultを1増やす
+                            var result: ItemStack? = inventory.result
+                            if (result == null) result = ItemStack(getFurnaceRecipeResult(smelting!!.type)!!) // null
+                            else result.setAmount(result.getAmount() + 1)
+                            if (result.getAmount() === result.getMaxStackSize()) inventory.location!!.world!!.dropItem(inventory.location!!, result) else inventory.result = result
+
+                            // cookTimeを0にする
+                            object : BukkitRunnable() {
+                                override fun run() {
+                                    inventory.smelting = smelting
+
+                                    // 繰り返し
+                                    if (!isBurning(inventory)) {
+                                        cancel()
+                                        return
+                                    }
+                                    var cookTime: Long = 200
+                                    cookTime *= (1 / 1.3).toLong()
+                                    cancel()
+                                    return
+                                }
+                            }.runTaskLater(plugin, difference.toLong())
                         }
-                    }.runTaskLater(plugin, difference.toLong())
+                    }.runTaskLater(plugin, time.toLong())
+                    time += (cookTime + difference).toLong()
                 }
-            }.runTaskLater(plugin, time.toLong())
-            time += (cookTime + difference).toLong()
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import click.erudosaba.mc.eminejobs2.gui.InventoryGUI
 import click.erudosaba.mc.eminejobs2.gui.SlotCommand
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Skill
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
@@ -22,41 +23,43 @@ class SkillMenu(val plugin: Main, val player: Player) : InventoryGUI(plugin, 18,
     }
 
     override fun initialize() {
-        val jp = JobPlayer(plugin = plugin ,player = player)
-        var count = 0
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                var count = 0
+                for((skill, option) in plugin.skillManager.skillOptions) {
+                    if(jp.jobID == skill.job) {
+                        val level = jp.level
+                        val needLevel = option.needLevel
 
-        for((skill, option) in plugin.skillManager.skillOptions) {
-            if(jp.JobID == skill.job) {
-                val level = jp.level
-                val needLevel = option.needLevel
+                        if(level >= needLevel) {
+                            if(option.enabled) {
+                                val item = ItemStack(option.icon)
+                                val meta = item.itemMeta
+                                meta?.setDisplayName(option.name)
+                                meta?.lore = option.description.toList()
+                                item.itemMeta = meta
 
-                if(level >= needLevel) {
-                    if(option.enabled) {
-                        val item = ItemStack(option.icon)
-                        val meta = item.itemMeta
-                        meta?.setDisplayName(option.name)
-                        meta?.lore = option.description.toList()
-                        item.itemMeta = meta
+                                addItem(object : SlotCommand(count, item){
+                                    override fun onClick(click: ClickType?): Boolean {
+                                        if(click == ClickType.LEFT || click == ClickType.RIGHT) {
+                                            try {
+                                                jp.selectedSkill = skill
+                                                player.sendMessage("スキルを${ChatColor.YELLOW}${skill.name.toUpperCase()}${ChatColor.WHITE}に設定しました")
+                                            }catch (e : Exception) {
+                                                player.sendMessage("予期せぬエラーが発生しました")
+                                            }
+                                        }
 
-                        addItem(object : SlotCommand(count, item){
-                            override fun onClick(click: ClickType?): Boolean {
-                                if(click == ClickType.LEFT || click == ClickType.RIGHT) {
-                                    try {
-                                        jp.selectedSkill = skill
-                                        player.sendMessage("スキルを${ChatColor.YELLOW}${skill.name.toUpperCase()}${ChatColor.WHITE}に設定しました")
-                                    }catch (e : Exception) {
-                                        player.sendMessage("予期せぬエラーが発生しました")
+                                        return true
                                     }
-                                }
+                                })
 
-                                return true
+                                count++
                             }
-                        })
+                        }
 
-                        count++
                     }
                 }
-
             }
         }
     }

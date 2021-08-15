@@ -3,6 +3,7 @@ package click.erudosaba.mc.eminejobs2.listener.bukkit
 import click.erudosaba.mc.eminejobs2.Main
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
@@ -34,8 +35,11 @@ class OnBrew(val plg : Main) : Listener {
         if(e.block.location.x == block.location.x
                 && e.block.location.y == block.location.y
                 && e.block.location.z == block.location.z) {
-            val jp = JobPlayer(player,plg)
-            jp.addExp(Jobs.BREWER)
+            for (jp in Main.jPlayers) {
+                if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                    jp.addExp(Jobs.BREWER)
+                }
+            }
         }
     }
 

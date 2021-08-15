@@ -12,7 +12,7 @@ abstract class SkillProvider : Listener {
         if (jp.hasJob()) {
             if (jp.hasSkill()) {
                 if (jp.skillStatus == SkillStatus.ENABLED) {
-                    if (jp.JobID == jp.selectedSkill.job) {
+                    if (jp.jobID == jp.selectedSkill?.job) {
                         return false
                     }
                 }

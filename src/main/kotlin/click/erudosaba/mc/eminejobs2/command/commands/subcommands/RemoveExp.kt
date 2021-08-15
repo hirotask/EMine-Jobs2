@@ -21,13 +21,16 @@ class RemoveExp(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            if(plugin.sqlUtil.getLevel(target) - exp < 0) {
-                player.sendMessage("マイナスの値になるため経験値を0に設定しました")
-                plugin.sqlUtil.setExp(target,0.0)
-            } else {
-                plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) - exp)
-                player.sendMessage("${target.name}のレベルを${exp}さげました")
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+                if(jp.exp - exp < 0) {
+                    player.sendMessage("マイナスの値になるため経験値を0に設定しました")
+                    jp.exp = 0.0
+                } else {
+                    jp.exp -= exp
+                    player.sendMessage("${target.name}のレベルを${exp}さげました")
+                }
+
             }
         }
     }

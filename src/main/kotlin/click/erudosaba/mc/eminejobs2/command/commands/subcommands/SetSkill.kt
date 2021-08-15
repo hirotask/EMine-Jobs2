@@ -19,14 +19,18 @@ class SetSkill(val plugin : Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
 
         val skill = args[1]
-        val jp = JobPlayer(target,plugin)
 
-        try {
-            jp.selectedSkill = Skill.valueOf(skill.toUpperCase())
-            player.sendMessage("${target.name}のスキルを${ChatColor.YELLOW}${skill}${ChatColor.WHITE}に設定しました")
-        }catch (e : Exception) {
-            player.sendMessage("そのようなスキルは存在しません")
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(target.name)?.uniqueId) {
+                try {
+                    jp.selectedSkill = Skill.valueOf(skill.toUpperCase())
+                    player.sendMessage("${target.name}のスキルを${ChatColor.YELLOW}${skill}${ChatColor.WHITE}に設定しました")
+                } catch (e: Exception) {
+                    player.sendMessage("そのようなスキルは存在しません")
+                }
+            }
         }
+
     }
 
     override fun name(): String {

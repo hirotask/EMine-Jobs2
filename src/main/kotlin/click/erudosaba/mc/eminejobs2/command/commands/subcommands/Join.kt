@@ -5,6 +5,7 @@ import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -24,25 +25,31 @@ class Join(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(!plugin.sqlUtil.isExists(player)) {
-            plugin.sqlUtil.insert(player,args[0])
-            player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に就きました")
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                if(jp.level <= 20) {
+                    jp.exp = 0.0
+                    jp.level = 0
+                    jp.jobID = Jobs.valueOf(jobName)
+                    jp.skillStatus = SkillStatus.DISABLED
+                    player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に転職しました")
 
-            val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[0].toUpperCase()))
-            Bukkit.getServer().pluginManager.callEvent(event)
-        } else {
-            if(plugin.sqlUtil.getLevel(player) <= 20) {
-                plugin.sqlUtil.delete(player)
-                plugin.sqlUtil.insert(player,args[0])
-                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に転職しました")
-
-                val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[0].toUpperCase()))
-                Bukkit.getServer().pluginManager.callEvent(event)
-            } else {
-                player.sendMessage("あなたはレベルが20より大きいのため転職できません")
-                return
+                    val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[0].toUpperCase()))
+                    Bukkit.getServer().pluginManager.callEvent(event)
+                    return
+                } else {
+                    player.sendMessage("あなたはレベルが20より大きいのため転職できません")
+                    return
+                }
             }
         }
+
+        player.sendMessage("あなたは${ChatColor.YELLOW}${jobName}${ChatColor.WHITE}に就きました")
+        val jp = JobPlayer(player.uniqueId,Jobs.valueOf(jobName),0.0,0,null,SkillStatus.DISABLED)
+        Main.jPlayers.add(jp)
+
+        val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[0].toUpperCase()))
+        Bukkit.getServer().pluginManager.callEvent(event)
     }
 
     override fun name(): String {

@@ -5,6 +5,7 @@ import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import click.erudosaba.mc.eminejobs2.util.Blocks
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
@@ -24,24 +25,28 @@ class FarmerSkills(val plugin: Main) : Listener, SkillProvider() {
     @EventHandler
     fun onMove(e: PlayerMoveEvent) {
         val player = e.player
-        val jp = JobPlayer(player, plugin)
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                if (block(jp)) return
 
-        if (block(jp)) return
-
-        when (jp.selectedSkill) {
-            Skill.GROWING1 -> {
-                autoGrowing(player, 3)
-            }
-            Skill.GROWING2 -> {
-                autoGrowing(player, 5)
-            }
-            Skill.GROWING3 -> {
-                autoGrowing(player, 8)
-            }
-            Skill.AUTOHARVEST -> {
-                harvest(player,3)
+                when (jp.selectedSkill) {
+                    Skill.GROWING1 -> {
+                        autoGrowing(player, 3)
+                    }
+                    Skill.GROWING2 -> {
+                        autoGrowing(player, 5)
+                    }
+                    Skill.GROWING3 -> {
+                        autoGrowing(player, 8)
+                    }
+                    Skill.AUTOHARVEST -> {
+                        harvest(player,3)
+                    }
+                }
             }
         }
+
+
     }
 
     //Location locを中心とした，半径radiusの範囲のブロックを取得

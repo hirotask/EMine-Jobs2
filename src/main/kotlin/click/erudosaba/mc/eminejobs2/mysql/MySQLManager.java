@@ -41,7 +41,7 @@ public class MySQLManager {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://"+ host +":"+ port +"/"+ database, username, password);
             //Message
-            Bukkit.getLogger().info("§3Setting up MySQL");
+            Bukkit.getLogger().info("Setting up MySQL");
         }
     }
     public Connection getConnection() {

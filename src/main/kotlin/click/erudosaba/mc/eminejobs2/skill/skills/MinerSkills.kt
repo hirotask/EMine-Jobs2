@@ -6,6 +6,7 @@ import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
 import click.erudosaba.mc.eminejobs2.util.Blocks
 import click.erudosaba.mc.eminejobs2.util.Items
+import org.bukkit.Bukkit
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -20,32 +21,34 @@ class MinerSkills(val plugin: Main) : Listener, SkillProvider() {
     @EventHandler
     fun onMove(e: PlayerMoveEvent) {
         val player = e.player
-        val jp = JobPlayer(player, plugin)
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                if (block(jp)) return
 
-        if (block(jp)) return
-
-        when (jp.selectedSkill) {
-            Skill.STONEHASTE1 -> { //ここからSTONEHASTE1
-                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.stones.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 1, true))
+                when (jp.selectedSkill) {
+                    Skill.STONEHASTE1 -> { //ここからSTONEHASTE1
+                        if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                            val targetBlock = player.getTargetBlock(null, 5).type
+                            if (Blocks.stones.contains(targetBlock)) {
+                                player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 1, true))
+                            }
+                        }
                     }
-                }
-            }
-            Skill.STONEHASTE2 -> { //ここからSTONEHASTE2
-                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.stones.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+                    Skill.STONEHASTE2 -> { //ここからSTONEHASTE2
+                        if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                            val targetBlock = player.getTargetBlock(null, 5).type
+                            if (Blocks.stones.contains(targetBlock)) {
+                                player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 2, true))
+                            }
+                        }
                     }
-                }
-            }
-            Skill.STONEHASTE3 -> { //ここからSTONEHASTE3
-                if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
-                    val targetBlock = player.getTargetBlock(null, 5).type
-                    if (Blocks.stones.contains(targetBlock)) {
-                        player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 3, true))
+                    Skill.STONEHASTE3 -> { //ここからSTONEHASTE3
+                        if (Items.pickaxes.contains(player.inventory.itemInMainHand.type)) {
+                            val targetBlock = player.getTargetBlock(null, 5).type
+                            if (Blocks.stones.contains(targetBlock)) {
+                                player.addPotionEffect(PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 2, 3, true))
+                            }
+                        }
                     }
                 }
             }
@@ -55,33 +58,35 @@ class MinerSkills(val plugin: Main) : Listener, SkillProvider() {
     @EventHandler
     fun onBlockBroken(e: BlockBreakEvent) {
         val player = e.player
-        val jp = JobPlayer(player, plugin)
         val block = e.block
         val tool = player.inventory.itemInMainHand
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                if (block(jp)) {
+                    return
+                }
 
-        if (block(jp)) {
-            return
-        }
+                if(jp.selectedSkill != Skill.MINEALL) return
 
-        if(jp.selectedSkill != Skill.MINEALL) return
+                //スニーク時無効
+                if (player.isSneaking) return
 
-        //スニーク時無効
-        if (player.isSneaking) return
+                //持っているアイテムがピッケルかどうか
+                if (!Items.pickaxes.contains(tool.type)) return
 
-        //持っているアイテムがピッケルかどうか
-        if (!Items.pickaxes.contains(tool.type)) return
-
-        //壊すブロックが鉱石かどうか
-        if (!Blocks.ores.contains(block.type)) return
+                //壊すブロックが鉱石かどうか
+                if (!Blocks.ores.contains(block.type)) return
 
 
-        //掘り開始
-        val count = mineRecursively(block, tool)
+                //掘り開始
+                val count = mineRecursively(block, tool)
 
-        tool.durability = (tool.durability + count).toShort()
+                tool.durability = (tool.durability + count).toShort()
 
-        if (tool.type.maxDurability < tool.durability) {
-            player.inventory.remove(tool)
+                if (tool.type.maxDurability < tool.durability) {
+                    player.inventory.remove(tool)
+                }
+            }
         }
     }
 
