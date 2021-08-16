@@ -7,6 +7,7 @@ import click.erudosaba.mc.eminejobs2.listener.bukkit.OnSmelt
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
+import click.erudosaba.mc.eminejobs2.rewards.RewardManager
 import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
@@ -26,6 +27,7 @@ class Main : JavaPlugin() {
             myConfig.password
     ))
     val skillManager = SkillManager(plugin = this)
+    val rewardManager = RewardManager(this)
 
     companion object {
         const val PluginName = "EMine-Jobs"
@@ -82,6 +84,9 @@ class Main : JavaPlugin() {
         /* init of Skills */
         skillManager.loadOptions()
         skillManager.loadSkills()
+
+        /* init of RewardItem */
+        rewardManager.loadRewards()
 
         /* init of Recipe */
         val gunRecipe = GunRecipe(this)

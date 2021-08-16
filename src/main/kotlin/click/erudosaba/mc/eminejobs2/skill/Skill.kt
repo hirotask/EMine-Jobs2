@@ -24,7 +24,7 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     GROWING1(Jobs.FARMER,15,10,60, arrayOf("10秒間半径3ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     GROWING2(Jobs.FARMER,25,10,60, arrayOf("10秒間半径5ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     GROWING3(Jobs.FARMER,35,10,60, arrayOf("10秒間半径8ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
-    AUTOHARVEST(Jobs.FARMER,40,20,90, arrayOf("20秒間自分が歩いた地点から","半径3ブロックの範囲の作物を自動で破壊する"),"LETHER_BOOTS"),
+    AUTOHARVEST(Jobs.FARMER,40,20,90, arrayOf("20秒間自分が歩いた地点から","半径3ブロックの範囲の作物を自動で破壊する"),"LEATHER_BOOTS"),
     WALLCLIMB(Jobs.EXPLORER,25,180,300, arrayOf("180秒間壁が上れる＋移動速度上昇2"),"DIAMOND_BOOTS"),
     FROSTWALK(Jobs.EXPLORER,30,180,300, arrayOf("180秒間水の上を歩ける＋移動速度上昇2"),"DIAMOND_BOOTS"),
     SMELT1(Jobs.SMELTER,15,180,300, arrayOf("180秒間精練速度が1.3倍"),"FURNACE"),
@@ -43,9 +43,8 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     FASTBREWING2(Jobs.BREWER,30,10,130, arrayOf("10秒間醸造の時間が0.6倍"),"BREWING_STAND"),
     FASTBREWING3(Jobs.BREWER,40,10,130, arrayOf("10秒間醸造の時間が0.4倍"),"BREWING_STAND"),
     PROTEAN(Jobs.BUILDER,30,30,90, arrayOf("30秒間ブロックを殴ると","左手に持っているブロックに殴ったブロックが変化する","(鉱石ブロックは変化しない)"),"BRICKS"),
-    LEVITATION(Jobs.BUILDER,45,60,360, arrayOf("60秒間浮遊が可能"),"FETHER"),
-    DOUBLEJUMP(Jobs.GUNNER,20,60,180, arrayOf("60秒間スペースキーを２回押すと","２段ジャンプが可能"),"FETHER"),
-    NOSLOW1(Jobs.HUNGER,25,20,60, arrayOf("20秒間食事中の移動速度が遅くならない"),"STEAK"),
-    NOSLOW2(Jobs.HUNGER,35,40,60, arrayOf("40秒間食事中の移動速度が遅くならない"),"STEAK"),
+    LEVITATION(Jobs.BUILDER,45,60,360, arrayOf("60秒間浮遊が可能"),"FEATHER"),
+    DOUBLEJUMP(Jobs.GUNNER,20,60,180, arrayOf("60秒間スペースキーを２回押すと","２段ジャンプが可能"),"FEATHER"),
+    FASTEAT(Jobs.HUNGER,25,20,60, arrayOf("20秒間食べ物を一瞬で食べれるようになる"),"COOKED_BEEF"),
     ALWAYSFULL(Jobs.HUNGER,45,120,150, arrayOf("120秒間お腹が減らない"),"CAKE")
 }

@@ -209,7 +209,7 @@ skills:
       description:
         - "20秒間自分が歩いた地点から"
         - "半径3ブロックの範囲の作物を自動で破壊する"
-      icon: LETHER_BOOTS
+      icon: LEATHER_BOOTS
   explorer:
     wallclimb:
       enabled: true
@@ -399,7 +399,7 @@ skills:
       interval: 360
       description:
         - "60秒間浮遊が可能"
-      icon: FETHER
+      icon: FEATHER
   gunner:
     doublejump:
       enabled: true
@@ -410,26 +410,17 @@ skills:
       description:
         - "60秒間スペースキーを２回押すと"
         - "２段ジャンプが可能"
-      icon: FETHER
+      icon: FEATHER
   hunger:
-    noslow1:
+    fasteat:
       enabled: true
-      name: 食べ歩き1
+      name: 早食い
       need_level: 25
       active_time: 20
       interval: 60
       description:
-        - "20秒間食事中の移動速度が遅くならない"
-      icon: STEAK
-    noslow2:
-      enabled: true
-      name: 食べ歩き2
-      need_level: 35
-      active_time: 40
-      interval: 60
-      description:
-        - "40秒間食事中の移動速度が遅くならない"
-      icon: STEAK
+        - "20秒間食べ物を一瞬で食べれるようになる"
+      icon: COOKED_BEEF
     alwaysfull:
       enabled: true
       name: 常時満腹
