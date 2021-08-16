@@ -25,7 +25,6 @@ class Promote(val plugin: Main) : SubCommand() {
             if (jp.playerName == target.name) {
                 jp.level += level
                 player.sendMessage("${target.name}のレベルを${level}あげました")
-
             }
         }
     }

@@ -20,22 +20,10 @@ class OnCraft(val plugin : Main) : Listener {
             if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
                 val result = if(e.currentItem != null) e.currentItem else return
 
-                while(QualityArmory.getGuns().hasNext()) {
-                    val gun = QualityArmory.getGuns().next()
-                    if(ChatColor.stripColor(gun.itemStack.itemMeta?.displayName) == ChatColor.stripColor(result!!.itemMeta?.displayName)) {
-                        jp.addExp(Jobs.GUNNER)
-                    } else {
-                        jp.addExp(Jobs.CRAFTER)
-                    }
-                }
-
-                while(QualityArmory.getAmmo().hasNext()) {
-                    val ammo = QualityArmory.getGuns().next()
-                    if(ChatColor.stripColor(ammo.itemStack.itemMeta?.displayName) == ChatColor.stripColor(result!!.itemMeta?.displayName)) {
-                        jp.addExp(Jobs.GUNNER)
-                    } else {
-                        jp.addExp(Jobs.CRAFTER)
-                    }
+                if(QualityArmory.isGun(result) || QualityArmory.isAmmo(result)) {
+                    jp.addExp(Jobs.GUNNER)
+                } else {
+                    jp.addExp(Jobs.CRAFTER)
                 }
             }
         }

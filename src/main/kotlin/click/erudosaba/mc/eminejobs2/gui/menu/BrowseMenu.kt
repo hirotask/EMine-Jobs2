@@ -60,18 +60,20 @@ class BrowseMenu(plugin: Main, player: Player) : InventoryGUI(plugin, 18, title,
 
                                     val event = PlayerJobJoinEvent(jp, Jobs.valueOf(job.name))
                                     Bukkit.getServer().pluginManager.callEvent(event)
+                                    return true
                                 } else {
                                     player.sendMessage("あなたはレベルが20より大きいのため転職できません")
+                                    return true
                                 }
                                 break
                             }
                         }
                         val jp = JobPlayer(player.uniqueId,player.name, job,0.0,0,null,SkillStatus.DISABLED)
+                        Main.jPlayers.add(jp)
                         player.sendMessage("あなたは${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に就きました")
 
                         val event = PlayerJobJoinEvent(jp, Jobs.valueOf(job.name))
                         Bukkit.getServer().pluginManager.callEvent(event)
-
                     }
 
                     return true

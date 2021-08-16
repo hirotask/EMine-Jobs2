@@ -194,7 +194,12 @@ public class MySQLUtility {
             ps.setString(3, job.toLowerCase());
             ps.setDouble(4, exp);
             ps.setInt(5, level);
-            ps.setString(6, skill.name().toUpperCase());
+            if(skill != null) {
+                ps.setString(6, skill.name().toUpperCase());
+            } else {
+                ps.setString(6, null);
+            }
+
             ps.setString(7, status.name().toUpperCase());
             ps.setString(8, uuid.toString());
             ps.executeUpdate();
