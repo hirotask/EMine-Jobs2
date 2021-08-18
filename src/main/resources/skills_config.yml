@@ -337,28 +337,28 @@ skills:
       enabled: true
       name: 醸造時間短縮1
       need_level: 20
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.8倍"
+        - "180秒間醸造の時間が0.8倍"
       icon: BREWING_STAND
     fastbrewing2:
       enabled: true
       name: 醸造時間短縮2
       need_level: 30
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.6倍"
+        - "180秒間醸造の時間が0.6倍"
       icon: BREWING_STAND
     fastbrewing3:
       enabled: true
       name: 醸造時間短縮3
       need_level: 40
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.4倍"
+        - "180秒間醸造の時間が0.4倍"
       icon: BREWING_STAND
   builder:
     protean:
