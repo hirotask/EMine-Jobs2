@@ -10,7 +10,6 @@ enum class Jobs(val Jobname : String, val jobCategory: JobCategory, val jobExp :
     SWORDMAN("剣士",JobCategory.SLASH,0.30, Material.STONE_SWORD),
     ARCHER("アーチャー",JobCategory.SHOOT,0.30, Material.BOW),
     FARMER("農家",JobCategory.FARM,0.98, Material.STONE_HOE),
-    EXPLORER("探検家",JobCategory.EXPLORE,0.98, Material.LEATHER_BOOTS),
     SMELTER("精練家",JobCategory.SMELT,0.98, Material.FURNACE),
     FISHERMAN("釣り師",JobCategory.FISH,0.98, Material.FISHING_ROD),
     CRAFTER("クラフター",JobCategory.CRAFT,0.98, Material.CRAFTING_TABLE),
@@ -19,5 +18,5 @@ enum class Jobs(val Jobname : String, val jobCategory: JobCategory, val jobExp :
     BREWER("醸造家",JobCategory.BREW,1.2, Material.BREWING_STAND),
     BUILDER("建築家",JobCategory.BUILD,0.98, Material.BRICKS),
     GUNNER("ガンナー",JobCategory.GUN,0.98, Material.GOLDEN_HORSE_ARMOR),
-    HUNGER("暴飲暴食",JobCategory.EAT,0.98, Material.BREAD)
+    HUNGER("暴飲暴食",JobCategory.EAT,0.98, Material.BREAD),
 }

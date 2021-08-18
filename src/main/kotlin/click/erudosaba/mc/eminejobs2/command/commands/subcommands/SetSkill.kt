@@ -30,7 +30,6 @@ class SetSkill(val plugin : Main) : SubCommand() {
                 }
             }
         }
-
     }
 
     override fun name(): String {

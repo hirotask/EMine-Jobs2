@@ -8,7 +8,6 @@ enum class JobCategory {
     SLASH,  //剣でMOBを倒す
     SHOOT,  //弓でMOBを倒す
     FARM,   //農作業をする
-    EXPLORE,    //探検する
     SMELT,  //精練する
     FISH,   //釣りをする
     CRAFT,  //クラフトする

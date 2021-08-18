@@ -7,12 +7,11 @@ import click.erudosaba.mc.eminejobs2.listener.bukkit.OnSmelt
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
-import click.erudosaba.mc.eminejobs2.rewards.RewardManager
+import click.erudosaba.mc.eminejobs2.reward.RewardManager
 import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
 import click.erudosaba.mc.eminejobs2.util.recipe.GunRecipe
-import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -77,7 +76,8 @@ class Main : JavaPlugin() {
                 OnEat(this),
                 OnInteract(this),
                 OnJoinLeave(this),
-                OnSmelt(this)
+                OnSmelt(this),
+                OnBrew(this)
         )
         listeners.forEach { listener -> server.pluginManager.registerEvents(listener, this) }
 
@@ -86,6 +86,7 @@ class Main : JavaPlugin() {
         skillManager.loadSkills()
 
         /* init of RewardItem */
+        rewardManager.loadOptions()
         rewardManager.loadRewards()
 
         /* init of Recipe */

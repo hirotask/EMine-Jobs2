@@ -34,6 +34,7 @@ class CommandManager(private val plugin: Main) : CommandExecutor {
         this.commands.add(Transfer(plugin))
         this.commands.add(SetSkill(plugin))
         this.commands.add(Skills(plugin))
+        this.commands.add(Showstats(plugin))
         this.commands.add(Reload(plugin))
     }
 

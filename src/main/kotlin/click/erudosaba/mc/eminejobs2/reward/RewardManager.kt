@@ -1,10 +1,10 @@
-package click.erudosaba.mc.eminejobs2.rewards
+package click.erudosaba.mc.eminejobs2.reward
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.reward.rewards.Amulet
 import click.erudosaba.mc.eminejobs2.util.CustomConfig
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
@@ -14,7 +14,7 @@ class RewardManager(val plugin : Main) {
 
     //報酬アイテムをrewarditems_config.ymlから取得
     //値が設定されてなかったらRewardItemから設定
-    fun loadRewards() {
+    fun loadOptions() {
         val customConfig = CustomConfig(plugin,"rewardItems_config.yml")
         val config = customConfig.config
         var amountLoaded = 0
@@ -26,7 +26,7 @@ class RewardManager(val plugin : Main) {
         if(rewards != null) {
             for(r in RewardItem.values()) {
                 val rewardName = r.name.toLowerCase()
-                val reward = config.getConfigurationSection(rewardName)
+                val reward = rewards.getConfigurationSection(rewardName)
                 if(reward != null) {
                     var hasKey = false
                     for(key in reward.getKeys(false)) {
@@ -78,6 +78,14 @@ class RewardManager(val plugin : Main) {
         Bukkit.getLogger().info("[eMineJobs2] Time: $timeElapsed")
     }
 
+    fun loadRewards() {
+        val array = arrayOf(
+                Amulet(plugin)
+        )
+
+        array.forEach { plugin.server.pluginManager.registerEvents(it,plugin) }
+    }
+
     fun getItem(reward : RewardItem) : ItemStack {
         if(rewardOptions.keys.contains(reward)) {
             val option = rewardOptions[reward]
@@ -103,4 +111,5 @@ class RewardManager(val plugin : Main) {
         return ItemStack(Material.AIR)
 
     }
+
 }

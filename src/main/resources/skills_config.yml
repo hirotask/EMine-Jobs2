@@ -210,25 +210,6 @@ skills:
         - "20秒間自分が歩いた地点から"
         - "半径3ブロックの範囲の作物を自動で破壊する"
       icon: LEATHER_BOOTS
-  explorer:
-    wallclimb:
-      enabled: true
-      name: 壁上り
-      need_level: 25
-      active_time: 180
-      interval: 300
-      description:
-        - "180秒間壁が上れる＋移動速度上昇2"
-      icon: DIAMOND_BOOTS
-    frostwalk:
-      enabled: true
-      name: 氷渡り
-      need_level: 30
-      active_time: 180
-      interval: 300
-      description:
-        - "180秒間水の上を歩ける＋移動速度上昇2"
-      icon: DIAMOND_BOOTS
   smelter:
     smelt1:
       enabled: true

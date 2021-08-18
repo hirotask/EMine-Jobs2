@@ -6,8 +6,8 @@ import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerLevelUpEvent
 import click.erudosaba.mc.eminejobs2.event.PlayerSkillUseEvent
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
-import click.erudosaba.mc.eminejobs2.rewards.RewardItem
-import click.erudosaba.mc.eminejobs2.rewards.RewardManager
+import click.erudosaba.mc.eminejobs2.reward.RewardItem
+import click.erudosaba.mc.eminejobs2.reward.RewardManager
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import click.erudosaba.mc.eminejobs2.util.SideBar
 import net.md_5.bungee.api.ChatMessageType
@@ -18,7 +18,6 @@ import org.bukkit.Sound
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitRunnable
-import java.lang.Math.exp
 
 class JobEventListener(val plugin : Main) : Listener{
 
@@ -33,39 +32,35 @@ class JobEventListener(val plugin : Main) : Listener{
         when(job) {
             Jobs.WOODCUTTER -> {
                 val item = RewardItem.CUTAXE
-                if(lv == 30)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.CUTAXE))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.CUTAXE))
             }
             Jobs.MINER -> {
                 val item = RewardItem.MINEPICKAXE
-                if(lv == 30)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.MINEPICKAXE))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.MINEPICKAXE))
             }
             Jobs.DIGGER -> {
                 val item = RewardItem.DIGSHOVEL
-                if(lv == 30)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.DIGSHOVEL))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.DIGSHOVEL))
             }
             Jobs.SWORDMAN -> {
                 val item = RewardItem.HINOKI
-                if(lv == 10)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.HINOKI))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.HINOKI))
             }
             Jobs.FARMER -> {
                 val item = RewardItem.FARMBOOTS
-                if(lv == 10)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.FARMBOOTS))
-            }
-            Jobs.EXPLORER -> {
-                val item = RewardItem.AMULET
-                if(lv == 20)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.AMULET))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.FARMBOOTS))
             }
             Jobs.SMELTER -> {
                 val item = RewardItem.PORTABLEFURNACE
-                if(lv == 20)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.PORTABLEFURNACE))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.PORTABLEFURNACE))
             }
             Jobs.FISHERMAN -> {
                 val item = RewardItem.GRAPPLE
-                if(lv == 20)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.GRAPPLE))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.GRAPPLE))
             }
             Jobs.CRAFTER -> {
                 val item = RewardItem.PORTABLEWORKBENCH
-                if(lv == 20)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.PORTABLEWORKBENCH))
+                if(lv == item.needLevel)  player?.inventory?.addItem(rewardManager.getItem(RewardItem.PORTABLEWORKBENCH))
             }
         }
 

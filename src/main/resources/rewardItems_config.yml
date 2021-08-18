@@ -11,6 +11,7 @@ rewardItems:
     enchants:
       DURABILITY: 1
   cutaxe:
+    enabled: true
     name: 無尽斧
     needLevel: 30
     material: GOLDEN_AXE
@@ -21,6 +22,7 @@ rewardItems:
     enchants:
       DURABILITY: 1
   digshovel:
+    enabled: true
     name: 無尽円匙
     needLevel: 30
     material: GOLDEN_SHOVEL
@@ -31,6 +33,7 @@ rewardItems:
     enchants:
       DURABILITY: 1
   farmboots:
+    enabled: true
     name: 農業用長靴
     needLevel: 15
     material: LEATHER_BOOTS
@@ -41,6 +44,7 @@ rewardItems:
     enchants:
       PROTECTION_ENVIRONMENTAL: 1
   grapple:
+    enabled: true
     name: 立体機動装置
     needLevel: 30
     material: FISHING_ROD
@@ -52,6 +56,7 @@ rewardItems:
     enchants:
       MENDING: 1
   hinoki:
+    enabled: true
     name: ひのき棒
     needLevel: 10
     material: STICK
@@ -63,6 +68,7 @@ rewardItems:
       DURABILITY: 1
       KNOCKBACK: 10
   minepickaxe:
+    enabled: true
     name: 無尽槌
     needLevel: 30
     material: GOLDEN_PICKAXE
@@ -73,6 +79,7 @@ rewardItems:
     enchants:
       DURABILITY: 1
   portablefurnace:
+    enabled: true
     name: 携帯型かまど
     needLevel: 20
     material: IRON_HORSE_ARMOR
@@ -84,6 +91,7 @@ rewardItems:
     enchants:
       DURABILITY: 1
   portableworkbench:
+    enabled: true
     name: 携帯型作業台
     needLevel: 20
     material: BRICK

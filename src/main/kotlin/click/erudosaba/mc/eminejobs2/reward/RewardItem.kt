@@ -1,4 +1,4 @@
-package click.erudosaba.mc.eminejobs2.rewards
+package click.erudosaba.mc.eminejobs2.reward
 
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
@@ -20,5 +20,6 @@ enum class RewardItem(
     MINEPICKAXE("無尽槌",30,Material.GOLDEN_PICKAXE,true, arrayOf("レベル30で貰える。","壊れない＆ちょっとだけ早い金のピッケル"), mapOf(Enchantment.DURABILITY to 1)),
     PORTABLEFURNACE("携帯型かまど",20,Material.IRON_HORSE_ARMOR,false, arrayOf("レベル20で貰える","右クリックで使用。","携帯できるかまど。"), mapOf(Enchantment.DURABILITY to 1)),
     PORTABLEWORKBENCH("携帯型作業台",20,Material.BRICK,false, arrayOf("レベル20で貰える。","右クリックで使用。","携帯できる作業台。"), mapOf(Enchantment.DURABILITY to 1))
+
 
 }

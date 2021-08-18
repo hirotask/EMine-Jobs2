@@ -25,8 +25,6 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     GROWING2(Jobs.FARMER,25,10,60, arrayOf("10秒間半径5ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     GROWING3(Jobs.FARMER,35,10,60, arrayOf("10秒間半径8ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     AUTOHARVEST(Jobs.FARMER,40,20,90, arrayOf("20秒間自分が歩いた地点から","半径3ブロックの範囲の作物を自動で破壊する"),"LEATHER_BOOTS"),
-    WALLCLIMB(Jobs.EXPLORER,25,180,300, arrayOf("180秒間壁が上れる＋移動速度上昇2"),"DIAMOND_BOOTS"),
-    FROSTWALK(Jobs.EXPLORER,30,180,300, arrayOf("180秒間水の上を歩ける＋移動速度上昇2"),"DIAMOND_BOOTS"),
     SMELT1(Jobs.SMELTER,15,180,300, arrayOf("180秒間精練速度が1.3倍"),"FURNACE"),
     SMELT2(Jobs.SMELTER,25,180,300, arrayOf("180秒間精練速度が1.6倍"),"FURNACE"),
     SMELT3(Jobs.SMELTER,35,180,300, arrayOf("180秒間精練速度が2倍"),"FURNACE"),

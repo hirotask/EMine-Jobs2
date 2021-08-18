@@ -77,7 +77,6 @@ class SkillManager(val plugin: Main) {
                 CrafterSkills(plugin),
                 DiggerSkills(plugin),
                 EnchanterSkills(plugin),
-                ExplorerSkills(plugin),
                 FarmerSkills(plugin),
                 FishermanSkills(plugin),
                 GunnerSkills(plugin),
