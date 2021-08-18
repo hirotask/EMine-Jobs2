@@ -84,6 +84,16 @@ object Items {
             PUFFERFISH,
             SALMON,
             COD
-
     )
+
+    val seeds = arrayOf(
+            WHEAT_SEEDS,
+            MELON_SEEDS,
+            BEETROOT_SEEDS,
+            PUMPKIN_SEEDS,
+            CARROT,
+            POTATO
+    )
+
+
 }

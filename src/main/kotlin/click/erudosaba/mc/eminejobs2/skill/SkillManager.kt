@@ -11,6 +11,7 @@ class SkillManager(val plugin: Main) {
 
     val skillOptions = mutableMapOf<Skill, SkillOption>()
 
+
     //スキルをskill_config.ymlからロード
     //値が設定されていなかったらSkillから取得
     fun loadOptions() {
@@ -88,7 +89,7 @@ class SkillManager(val plugin: Main) {
                 WoodCutterSkills(plugin)
         )
 
-        skills.forEach { listener -> plugin.server.pluginManager.registerEvents(listener,plugin) }
+        skills.forEach { listener -> plugin.server.pluginManager.registerEvents(listener, plugin) }
 
     }
 

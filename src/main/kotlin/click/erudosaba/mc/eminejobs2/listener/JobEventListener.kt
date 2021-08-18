@@ -26,7 +26,7 @@ class JobEventListener(val plugin : Main) : Listener{
         val lv = e.player.level
         val job = e.player.jobID
         val player = Bukkit.getPlayer(e.player.playerName)
-        val rewardManager = RewardManager(plugin)
+        val rewardManager = plugin.rewardManager
 
 
         when(job) {

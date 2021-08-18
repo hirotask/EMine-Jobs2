@@ -21,8 +21,11 @@ class OnJoinLeave(val plugin: Main) : Listener {
                 }
 
                 if (jp.hasJob()) {
+                    println(player.name)
                     SideBar(plugin, player)
                 }
+
+                break
             }
         }
     }
