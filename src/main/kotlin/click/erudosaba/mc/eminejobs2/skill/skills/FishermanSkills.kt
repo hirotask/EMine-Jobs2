@@ -27,14 +27,15 @@ class FishermanSkills(val plugin: Main) : Listener, SkillProvider() {
                 if (block(jp)) return
 
                 if (jp.selectedSkill == Skill.CATCHFISH) { //CatchFishのスキル
-                    if (action == Action.RIGHT_CLICK_BLOCK && e.clickedBlock != null) {
-                        val block = e.clickedBlock!!
+                    if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+                        val lineOfSight = player.getLineOfSight(null,5)
+                        for(b in lineOfSight) {
+                            if(b.type == Material.WATER) {
+                                val randomInt = Random.nextInt(Items.fish.size)
+                                val fish = ItemStack(Items.fish[randomInt])
 
-                        if (block.isLiquid && block.type == Material.WATER) {
-                            val randomInt = Random.nextInt(Items.fish.size)
-                            val fish = ItemStack(Items.fish[randomInt])
-
-                            player.inventory.addItem(fish)
+                                player.inventory.addItem(fish)
+                            }
                         }
                     }
                 }
