@@ -47,15 +47,6 @@ class ArcherSkills(val plugin: Main) : Listener, SkillProvider() {
 
                 if(jp.selectedSkill != Skill.SPEEDARROW) return
 
-                //ここからSpeedArrow
-                if (shooter == player) {
-                    val itemInHand = shooter.inventory.itemInMainHand
-
-                    if (itemInHand.type == Material.BOW) {
-                        val boostVec = player.location.direction.normalize().multiply(10.0).setY(1)
-                        player.velocity = boostVec
-                    }
-                }
             }
         }
     }
@@ -94,79 +85,9 @@ class ArcherSkills(val plugin: Main) : Listener, SkillProvider() {
                         player.launchProjectile(Arrow::class.java,arrowDir1)
                         player.launchProjectile(Arrow::class.java,arrowDir2)
 
-                    } else if(jp.selectedSkill == Skill.HOMINGARROW) { //ここからHOMINGARROW
-                        val minAngle = 18.283185307179586
-                        var minEntity : LivingEntity? = null
-
-                        for(entity in getNearbyEntity(player.getTargetBlock(null,64).location,20)) {
-                            if(entity !is Player) { //
-                                if(player.hasLineOfSight(entity) && !entity.isDead) {
-                                    val toTarget = entity.location.toVector().clone().subtract(player.location.toVector())
-                                    val angle = arrow.velocity.angle(toTarget).toDouble()
-                                    if(angle < minAngle) {
-                                        minEntity = entity as LivingEntity
-                                        break
-                                    }
-                                }
-                            }
-                        }
-
-                        if(minEntity != null && !minEntity.isDead) {
-                            HomingTask(arrow,minEntity,plugin).runTaskTimer(plugin,1L,1L)
-                        }
                     }
                 }
             }
         }
-    }
-
-    private fun getNearbyEntity(loc : Location, size : Int) : List<Entity> {
-        val entities = ArrayList<Entity>()
-        for(e in loc.world!!.entities) {
-            if(loc.distance(e.location) >= size) {
-                entities.add(e)
-            }
-        }
-        return entities
-    }
-
-    class HomingTask(val arrow : Arrow, val target: LivingEntity, val plugin: Main) : BukkitRunnable() {
-        override fun run() {
-            val speed = arrow.velocity.length()
-            if(arrow.isOnGround || arrow.isDead || target.isDead) {
-                cancel()
-                return
-            }
-
-            if(isDistance(arrow,target)) {
-                cancel()
-                return
-            }
-
-            val toTarget = target.location.clone().add(Vector(0.0,0.5,0.0)).subtract(arrow.location).toVector()
-            val dirVelocity = arrow.velocity.clone().normalize()
-            val dirToTarget = toTarget.clone().normalize()
-            val angle = dirVelocity.angle(dirToTarget)
-            val newSpeed = 0.9 * speed + 0.14
-            var newVelocity = Vector(0,0,0)
-
-            if(angle < 0.12) {
-                newVelocity = dirVelocity.clone().multiply(newSpeed)
-            } else {
-                val newDir = dirVelocity.clone().multiply((angle - 60) / angle).add(dirToTarget.clone().multiply(60 / angle))
-                newDir.normalize()
-                newVelocity = newDir.clone().multiply(newSpeed)
-            }
-            arrow.velocity = newVelocity.add(Vector(0.0,0.03,0.0))
-
-        }
-
-        private fun isDistance(arrow: Arrow, le : LivingEntity) : Boolean{
-            val loc1 = arrow.location
-            val loc2 = le.location
-            val distance = loc1.distance(loc2)
-            return (distance >= 60)
-        }
-
     }
 }
