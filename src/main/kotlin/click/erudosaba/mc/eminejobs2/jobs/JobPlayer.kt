@@ -7,74 +7,32 @@ import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import java.util.*
 import kotlin.math.exp
 //JobPlayerクラス：プレイヤーと職業情報を紐づけ
-class JobPlayer(val player : Player, private val plugin : Main) {
-
-    val UUID = player.uniqueId
-    var JobID : Jobs
-        get() {
-            val jobStr = plugin.sqlUtil.getJob(player).toUpperCase()
-            return Jobs.valueOf(jobStr)
-        }
-        set(value) {
-            plugin.sqlUtil.setJob(player,value.name.toUpperCase())
-        }
-    var exp : Double
-        get() {
-            return plugin.sqlUtil.getExp(player)
-        }
-        set(value) {
-            plugin.sqlUtil.setExp(player,value)
-            val expFunc = 51.763 * exp(0.093 * (plugin.sqlUtil.getLevel(player)+1)-0.5)
-
-            val e = PlayerExpChangeEvent(this)
-            Bukkit.getServer().pluginManager.callEvent(e)
-
-            if(exp > expFunc) {
-                level += 1
-                val event = PlayerLevelUpEvent(this)
-                Bukkit.getServer().pluginManager.callEvent(event)
-            }
-
-        }
-    var level : Int
-        get() {
-            return plugin.sqlUtil.getLevel(player)
-        }
-        set(value) {
-            if(value > plugin.myConfig.maxLevel) {
-                player.sendMessage("最大レベルに到達しています。")
-            } else {
-                plugin.sqlUtil.setLevel(player,value)
-            }
-        }
-    var selectedSkill : Skill
-        get() {
-            return Skill.valueOf(plugin.sqlUtil.getSelectedSkill(player).toUpperCase())
-        }
-        set(value) {
-            plugin.sqlUtil.setSelectedSkill(player, value.name.toUpperCase())
-        }
-    var skillStatus : SkillStatus
-        get() {
-            val values = SkillStatus.values()
-            for(v in values){
-                if(v.name == plugin.sqlUtil.getSkillStatus(player)) {
-                    return v
-                }
-            }
-            return SkillStatus.DISABLED
-        }
-        set(value) {
-            plugin.sqlUtil.setSkillStatus(player,value.name)
-        }
+//職業に就いているプレイヤーはこれで登録する
+class JobPlayer(val uuid : UUID, val playerName : String, var jobID : Jobs, var exp : Double = 0.0, var level : Int = 0, var selectedSkill : Skill? = null, var skillStatus : SkillStatus = SkillStatus.DISABLED) {
 
     fun hasSkill() : Boolean {
-        return plugin.sqlUtil.SkillExists(player)
+        if(selectedSkill?.name != "NULL") {
+            return selectedSkill != null
+        }
+        return false
     }
 
     fun hasJob() : Boolean{
-        return plugin.sqlUtil.isExists(player)
+        return jobID.name != "NULL"
+    }
+
+    //もし就いている職がjobに等しかったらExpをjobExp分プラスする
+    fun addExp(job : Jobs) {
+        if(this.hasJob()) {
+            if(this.jobID == job) {
+                this.exp += job.jobExp
+
+                val e = PlayerExpChangeEvent(this)
+                Bukkit.getServer().pluginManager.callEvent(e)
+            }
+        }
     }
 }

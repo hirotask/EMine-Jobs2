@@ -1,17 +1,6 @@
 package click.erudosaba.mc.eminejobs2.skill
 
-import click.erudosaba.mc.eminejobs2.Main
-import click.erudosaba.mc.eminejobs2.event.SkillUseEvent
-import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
-import org.bukkit.Bukkit
-import org.bukkit.Material
-import org.bukkit.Sound
-import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
-import org.bukkit.event.block.Action
-import org.bukkit.event.player.PlayerInteractEvent
-import java.util.*
 
 enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTime : Int, var defaultInterval : Int, var defaultDescription : Array<String>, var defaultIcon : String) {
     CUTALL(Jobs.WOODCUTTER,40,30,5, arrayOf("30秒間木を一括破壊できる"),"DIAMOND_AXE"),
@@ -35,9 +24,7 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     GROWING1(Jobs.FARMER,15,10,60, arrayOf("10秒間半径3ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     GROWING2(Jobs.FARMER,25,10,60, arrayOf("10秒間半径5ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
     GROWING3(Jobs.FARMER,35,10,60, arrayOf("10秒間半径8ブロックの植物の成長速度を早める"),"WHEAT_SEEDS"),
-    AUTOHARVEST(Jobs.FARMER,40,20,90, arrayOf("20秒間自分が歩いた地点から","半径3ブロックの範囲の作物を自動で破壊する"),"LETHER_BOOTS"),
-    WALLCLIMB(Jobs.EXPLORER,25,180,300, arrayOf("180秒間壁が上れる＋移動速度上昇2"),"DIAMOND_BOOTS"),
-    FROSTWALK(Jobs.EXPLORER,30,180,300, arrayOf("180秒間水の上を歩ける＋移動速度上昇2"),"DIAMOND_BOOTS"),
+    AUTOHARVEST(Jobs.FARMER,40,20,90, arrayOf("20秒間自分が歩いた地点から","半径3ブロックの範囲の作物を自動で破壊する"),"LEATHER_BOOTS"),
     SMELT1(Jobs.SMELTER,15,180,300, arrayOf("180秒間精練速度が1.3倍"),"FURNACE"),
     SMELT2(Jobs.SMELTER,25,180,300, arrayOf("180秒間精練速度が1.6倍"),"FURNACE"),
     SMELT3(Jobs.SMELTER,35,180,300, arrayOf("180秒間精練速度が2倍"),"FURNACE"),
@@ -50,17 +37,12 @@ enum class Skill(val job : Jobs, var defaultNeedLevel : Int, var defaultActiveTi
     LOWCOSTREPAIR1(Jobs.WEAPONSMITH,20,10,130, arrayOf("10秒間の間に金床を使用すると","修理コストが（普通のコスト - 4)される"),"ANVIL"),
     LOWCOSTREPAIR2(Jobs.WEAPONSMITH,30,10,130, arrayOf("10秒間の間に金床を使用すると","修理コストが（普通のコスト - 7)される"),"ANVIL"),
     LOWCOSTREPAIR3(Jobs.WEAPONSMITH,40,10,130, arrayOf("10秒間の間に金床を使用すると","修理コストが（普通のコスト - 10)される"),"ANVIL"),
-    FASTBREWING1(Jobs.BREWER,20,10,130, arrayOf("10秒間醸造の時間が0.8倍"),"BREWING_STAND"),
-    FASTBREWING2(Jobs.BREWER,30,10,130, arrayOf("10秒間醸造の時間が0.6倍"),"BREWING_STAND"),
-    FASTBREWING3(Jobs.BREWER,40,10,130, arrayOf("10秒間醸造の時間が0.4倍"),"BREWING_STAND"),
+    FASTBREWING1(Jobs.BREWER,20,180,300, arrayOf("180秒間醸造の時間が0.8倍"),"BREWING_STAND"),
+    FASTBREWING2(Jobs.BREWER,30,180,300, arrayOf("180秒間醸造の時間が0.6倍"),"BREWING_STAND"),
+    FASTBREWING3(Jobs.BREWER,40,180,300, arrayOf("180秒間醸造の時間が0.4倍"),"BREWING_STAND"),
     PROTEAN(Jobs.BUILDER,30,30,90, arrayOf("30秒間ブロックを殴ると","左手に持っているブロックに殴ったブロックが変化する","(鉱石ブロックは変化しない)"),"BRICKS"),
-    LEVITATION(Jobs.BUILDER,45,60,360, arrayOf("60秒間浮遊が可能"),"FETHER"),
-    DOUBLEJUMP(Jobs.GUNNER,20,60,180, arrayOf("60秒間スペースキーを２回押すと","２段ジャンプが可能"),"FETHER"),
-    NOSLOW1(Jobs.HUNGER,25,20,60, arrayOf("20秒間食事中の移動速度が遅くならない"),"STEAK"),
-    NOSLOW2(Jobs.HUNGER,35,40,60, arrayOf("40秒間食事中の移動速度が遅くならない"),"STEAK"),
+    LEVITATION(Jobs.BUILDER,45,60,360, arrayOf("60秒間浮遊が可能"),"FEATHER"),
+    DOUBLEJUMP(Jobs.GUNNER,20,60,180, arrayOf("60秒間スペースキーを２回押すと","２段ジャンプが可能"),"FEATHER"),
+    FASTEAT(Jobs.HUNGER,25,20,60, arrayOf("20秒間食べ物を一瞬で食べれるようになる"),"COOKED_BEEF"),
     ALWAYSFULL(Jobs.HUNGER,45,120,150, arrayOf("120秒間お腹が減らない"),"CAKE")
-
-
-
-
 }

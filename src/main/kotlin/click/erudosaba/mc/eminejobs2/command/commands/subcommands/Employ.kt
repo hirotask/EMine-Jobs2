@@ -5,6 +5,7 @@ import click.erudosaba.mc.eminejobs2.command.commands.SubCommand
 import click.erudosaba.mc.eminejobs2.event.PlayerJobJoinEvent
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -28,13 +29,27 @@ class Employ(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            plugin.sqlUtil.delete(target)
-        }
-        plugin.sqlUtil.insert(target,args[1].toUpperCase())
-        player.sendMessage("${target.name}を${jobName}に就かせました")
+        for(jp in Main.jPlayers) {
+            if (jp.playerName == target.name) {
+                jp.exp = 0.0
+                jp.level = 0
+                jp.jobID = job
+                jp.selectedSkill = null
+                jp.skillStatus = SkillStatus.DISABLED
 
-        val event = PlayerJobJoinEvent(JobPlayer(player,plugin),Jobs.valueOf(args[1].toUpperCase()))
+                player.sendMessage("${target.name}を${jobName}に就かせました")
+
+                val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[1].toUpperCase()))
+                Bukkit.getServer().pluginManager.callEvent(event)
+                return
+            }
+        }
+
+        player.sendMessage("${target.name}を${jobName}に就かせました")
+        val jp = JobPlayer(player.uniqueId,player.name, job,0.0,0,null,SkillStatus.DISABLED)
+        Main.jPlayers.add(jp)
+
+        val event = PlayerJobJoinEvent(jp,Jobs.valueOf(args[1].toUpperCase()))
         Bukkit.getServer().pluginManager.callEvent(event)
     }
 

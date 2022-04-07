@@ -21,9 +21,11 @@ class Promote(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            plugin.sqlUtil.setLevel(target,plugin.sqlUtil.getLevel(target) + level)
-            player.sendMessage("${target.name}のレベルを${level}あげました")
+        for (jp in Main.jPlayers) {
+            if (jp.playerName == target.name) {
+                jp.level += level
+                player.sendMessage("${target.name}のレベルを${level}あげました")
+            }
         }
     }
 

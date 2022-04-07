@@ -40,8 +40,6 @@ public class MySQLManager {
             if (connection != null && !connection.isClosed()) return;
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://"+ host +":"+ port +"/"+ database, username, password);
-            //Message
-            Bukkit.getLogger().info("§3Setting up MySQL");
         }
     }
     public Connection getConnection() {

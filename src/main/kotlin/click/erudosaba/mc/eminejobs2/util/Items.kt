@@ -78,4 +78,22 @@ object Items {
             SWEET_BERRIES,
             HONEY_BOTTLE
     )
+
+    val fish = arrayOf(
+            TROPICAL_FISH,
+            PUFFERFISH,
+            SALMON,
+            COD
+    )
+
+    val seeds = arrayOf(
+            WHEAT_SEEDS,
+            MELON_SEEDS,
+            BEETROOT_SEEDS,
+            PUMPKIN_SEEDS,
+            CARROT,
+            POTATO
+    )
+
+
 }

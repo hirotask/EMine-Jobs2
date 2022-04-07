@@ -9,16 +9,17 @@ import org.bukkit.entity.Player
 
 class Leave(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        if(!plugin.sqlUtil.isExists(player)) {
-            return
+
+        for (jp in Main.jPlayers) {
+            if (jp.playerName == player.name) {
+                val event = PlayerJobLeaveEvent(jp,jp.jobID)
+                Bukkit.getServer().pluginManager.callEvent(event)
+
+                player.sendMessage("正常に退職しました")
+                Main.jPlayers.remove(jp)
+                break
+            }
         }
-
-        val jobPlayer = JobPlayer(player,plugin)
-        val event = PlayerJobLeaveEvent(jobPlayer,jobPlayer.JobID)
-        Bukkit.getServer().pluginManager.callEvent(event)
-
-        plugin.sqlUtil.delete(player)
-        player.sendMessage("正常に退職しました")
     }
 
     override fun name(): String {

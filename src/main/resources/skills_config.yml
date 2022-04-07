@@ -209,26 +209,7 @@ skills:
       description:
         - "20秒間自分が歩いた地点から"
         - "半径3ブロックの範囲の作物を自動で破壊する"
-      icon: LETHER_BOOTS
-  explorer:
-    wallclimb:
-      enabled: true
-      name: 壁上り
-      need_level: 25
-      active_time: 180
-      interval: 300
-      description:
-        - "180秒間壁が上れる＋移動速度上昇2"
-      icon: DIAMOND_BOOTS
-    frostwalk:
-      enabled: true
-      name: 氷渡り
-      need_level: 30
-      active_time: 180
-      interval: 300
-      description:
-        - "180秒間水の上を歩ける＋移動速度上昇2"
-      icon: DIAMOND_BOOTS
+      icon: LEATHER_BOOTS
   smelter:
     smelt1:
       enabled: true
@@ -356,28 +337,28 @@ skills:
       enabled: true
       name: 醸造時間短縮1
       need_level: 20
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.8倍"
+        - "180秒間醸造の時間が0.8倍"
       icon: BREWING_STAND
     fastbrewing2:
       enabled: true
       name: 醸造時間短縮2
       need_level: 30
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.6倍"
+        - "180秒間醸造の時間が0.6倍"
       icon: BREWING_STAND
     fastbrewing3:
       enabled: true
       name: 醸造時間短縮3
       need_level: 40
-      active_time: 10
-      interval: 130
+      active_time: 180
+      interval: 300
       description:
-        - "10秒間醸造の時間が0.4倍"
+        - "180秒間醸造の時間が0.4倍"
       icon: BREWING_STAND
   builder:
     protean:
@@ -399,7 +380,7 @@ skills:
       interval: 360
       description:
         - "60秒間浮遊が可能"
-      icon: FETHER
+      icon: FEATHER
   gunner:
     doublejump:
       enabled: true
@@ -410,26 +391,17 @@ skills:
       description:
         - "60秒間スペースキーを２回押すと"
         - "２段ジャンプが可能"
-      icon: FETHER
+      icon: FEATHER
   hunger:
-    noslow1:
+    fasteat:
       enabled: true
-      name: 食べ歩き1
+      name: 早食い
       need_level: 25
       active_time: 20
       interval: 60
       description:
-        - "20秒間食事中の移動速度が遅くならない"
-      icon: STEAK
-    noslow2:
-      enabled: true
-      name: 食べ歩き2
-      need_level: 35
-      active_time: 40
-      interval: 60
-      description:
-        - "40秒間食事中の移動速度が遅くならない"
-      icon: STEAK
+        - "20秒間食べ物を一瞬で食べれるようになる"
+      icon: COOKED_BEEF
     alwaysfull:
       enabled: true
       name: 常時満腹

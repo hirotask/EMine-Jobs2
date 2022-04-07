@@ -1,20 +1,48 @@
 package click.erudosaba.mc.eminejobs2.skill.skills
 
 import click.erudosaba.mc.eminejobs2.Main
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
 import click.erudosaba.mc.eminejobs2.skill.SkillProvider
+import click.erudosaba.mc.eminejobs2.util.Items
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.block.Action
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.ItemStack
+import kotlin.random.Random
 
-class FishermanSkills(plugin : Main) {
+class FishermanSkills(val plugin: Main) : Listener, SkillProvider() {
 
+    @EventHandler
+    fun onInteract(e: PlayerInteractEvent) {
+        val player = e.player
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                val action = e.action
 
-    init {
-        plugin.server.pluginManager.registerEvents(CatchFish(plugin),plugin)
+                if (block(jp)) return
+
+                if (jp.selectedSkill == Skill.CATCHFISH) { //CatchFishのスキル
+                    if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
+                        val lineOfSight = player.getLineOfSight(null,5)
+                        for(b in lineOfSight) {
+                            if(b.type == Material.WATER) {
+                                val randomInt = Random.nextInt(Items.fish.size)
+                                val fish = ItemStack(Items.fish[randomInt])
+
+                                player.inventory.addItem(fish)
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
     }
 
-    class CatchFish(plg : Main) : SkillProvider(plg, Jobs.FISHERMAN), Listener {
-
-    }
 }

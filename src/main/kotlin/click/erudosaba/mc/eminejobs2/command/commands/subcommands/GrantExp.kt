@@ -21,10 +21,13 @@ class GrantExp(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            plugin.sqlUtil.setExp(target,plugin.sqlUtil.getLevel(target) + exp)
-            player.sendMessage("${target.name}のレベルを${exp}あげました")
+        for (jp in Main.jPlayers) {
+            if (jp.playerName == target.name) {
+                jp.exp += exp
+                player.sendMessage("${target.name}のレベルを${exp}あげました")
+            }
         }
+
     }
 
     override fun name(): String {

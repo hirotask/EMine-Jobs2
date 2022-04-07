@@ -1,4 +1,4 @@
-package click.erudosaba.mc.eminejobs2.rewards
+package click.erudosaba.mc.eminejobs2.reward
 
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment

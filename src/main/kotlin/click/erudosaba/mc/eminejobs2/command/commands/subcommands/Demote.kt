@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 
 class Demote(val plugin: Main) : SubCommand() {
     override fun onCommand(player: Player, args: Array<String>) {
-        if(args.size < 2) {
+        if (args.size < 2) {
             player.sendMessage("${ChatColor.BOLD}引数が足りません")
             return
         }
@@ -16,14 +16,16 @@ class Demote(val plugin: Main) : SubCommand() {
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
         val level = args[1].toIntOrNull() ?: return
 
-        if(level <= 0) {
+        if (level <= 0) {
             player.sendMessage("1以上の自然数を入力してください")
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            plugin.sqlUtil.setLevel(target,plugin.sqlUtil.getLevel(target) - level)
-            player.sendMessage("${target.name}のレベルを${level}さげました")
+        for (jp in Main.jPlayers) {
+            if (jp.playerName == target.name) {
+                jp.level -= level
+                player.sendMessage("${jp.playerName}のレベルを${level}さげました")
+            }
         }
     }
 

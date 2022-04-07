@@ -15,9 +15,8 @@ class Transfer(val plugin: Main) : SubCommand() {
         }
 
         val target = (if (Bukkit.getPlayer(args[0]) != null) Bukkit.getPlayer(args[0]) else return) ?: return
-        val newjob = args[1].toUpperCase()
 
-        val job = Jobs.valueOf(args[0].toUpperCase())
+        val job = Jobs.valueOf(args[1].toUpperCase())
         val jobName = job.name
 
         if(jobName == "NULL") {
@@ -25,12 +24,15 @@ class Transfer(val plugin: Main) : SubCommand() {
             return
         }
 
-        if(plugin.sqlUtil.isExists(target)) {
-            plugin.sqlUtil.setJob(player,newjob);
-            player.sendMessage("${target.name}を${jobName}に就かせました")
-        } else {
-            player.sendMessage("${target.name}は無職です")
+        for (jp in Main.jPlayers) {
+            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                jp.jobID = job
+                player.sendMessage("${target.name}を${jobName}に就かせました")
+                return
+            }
         }
+        player.sendMessage("${target.name}は無職です")
+
     }
 
     override fun name(): String {

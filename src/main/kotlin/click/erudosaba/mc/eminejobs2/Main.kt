@@ -1,14 +1,17 @@
 package click.erudosaba.mc.eminejobs2
 
 import click.erudosaba.mc.eminejobs2.command.CommandManager
+import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.listener.JobEventListener
-import click.erudosaba.mc.eminejobs2.listener.MyEventListener
+import click.erudosaba.mc.eminejobs2.listener.bukkit.OnSmelt
 import click.erudosaba.mc.eminejobs2.listener.bukkit.*
 import click.erudosaba.mc.eminejobs2.mysql.MySQLManager
 import click.erudosaba.mc.eminejobs2.mysql.MySQLUtility
+import click.erudosaba.mc.eminejobs2.reward.RewardManager
 import click.erudosaba.mc.eminejobs2.skill.SkillManager
 import click.erudosaba.mc.eminejobs2.util.FileUtils
 import click.erudosaba.mc.eminejobs2.util.MyConfig
+import click.erudosaba.mc.eminejobs2.util.recipe.GunRecipe
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -23,26 +26,45 @@ class Main : JavaPlugin() {
             myConfig.password
     ))
     val skillManager = SkillManager(plugin = this)
+    val rewardManager = RewardManager(this)
 
     companion object {
         const val PluginName = "EMine-Jobs"
+        var jPlayers = ArrayList<JobPlayer>()
     }
 
 
     override fun onDisable() {
+        for (jp in jPlayers) {
+            if (sqlUtil.isExists(jp.uuid)) {
+                sqlUtil.update(jp.uuid, jp.playerName, jp.jobID.name.toLowerCase(), jp.exp, jp.level, jp.selectedSkill, jp.skillStatus)
+            } else {
+                sqlUtil.insert(jp.uuid, jp.playerName, jp.jobID.name.toLowerCase(), jp.exp, jp.level, jp.selectedSkill, jp.skillStatus)
+            }
+            logger.info("Saved ${jp.playerName} data")
+
+        }
         logger.info("$PluginName was Disabled!")
     }
+
 
     override fun onEnable() {
 
         val fileUtils = FileUtils()
 
-        /* init of Command*/
+        /* init of SQL */
+        jPlayers = sqlUtil.getAllPlayers(this)
+        var playerCount = 0
+        for (jp in jPlayers) {
+            playerCount++
+        }
+        logger.info("Loaded $playerCount players")
+
+        /* init of Command */
         commandManager.setup()
 
         /* init of Listener */
         val listeners = arrayOf(
-                MyEventListener(this),
                 JobEventListener(this),
                 OnInventoryClick(this),
                 OnBlockBreak(this),
@@ -52,12 +74,25 @@ class Main : JavaPlugin() {
                 OnEnchant(this),
                 OnBlockPlace(this),
                 OnEat(this),
-                OnJoinLeave(this)
+                OnInteract(this),
+                OnJoinLeave(this),
+                OnSmelt(this),
+                OnBrew(this)
         )
-        listeners.forEach { listener ->  server.pluginManager.registerEvents(listener,this) }
+        listeners.forEach { listener -> server.pluginManager.registerEvents(listener, this) }
 
+        /* init of Skills */
         skillManager.loadOptions()
         skillManager.loadSkills()
+
+        /* init of RewardItem */
+        rewardManager.loadOptions()
+        rewardManager.loadRewards()
+
+        /* init of Recipe */
+        val gunRecipe = GunRecipe(this)
+        gunRecipe.setupAmmo()
+        gunRecipe.setupGuns()
 
         logger.info("$PluginName was Enabled!")
     }

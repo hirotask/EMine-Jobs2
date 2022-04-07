@@ -7,6 +7,7 @@ import click.erudosaba.mc.eminejobs2.gui.SlotCommand
 import click.erudosaba.mc.eminejobs2.jobs.JobPlayer
 import click.erudosaba.mc.eminejobs2.jobs.Jobs
 import click.erudosaba.mc.eminejobs2.skill.Skill
+import click.erudosaba.mc.eminejobs2.skill.SkillStatus
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -47,25 +48,32 @@ class BrowseMenu(plugin: Main, player: Player) : InventoryGUI(plugin, 18, title,
             addItem(object : SlotCommand(count, item) {
                 override fun onClick(click: ClickType?): Boolean {
                     if(click == ClickType.RIGHT || click == ClickType.LEFT) {
-                        if (!plugin.sqlUtil.isExists(player)) {
-                            plugin.sqlUtil.insert(player, job.name.toLowerCase())
-                            player.sendMessage("あなたは${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に就きました")
+                        for(jp in Main.jPlayers) {
+                            if (jp.uuid == Bukkit.getPlayer(player.name)?.uniqueId) {
+                                if (jp.level <= 20) {
+                                    jp.exp = 0.0
+                                    jp.level = 0
+                                    jp.jobID = job
+                                    jp.selectedSkill = null
+                                    jp.skillStatus = SkillStatus.DISABLED
+                                    player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に転職しました")
 
-                            val event = PlayerJobJoinEvent(JobPlayer(player, plugin), Jobs.valueOf(job.name))
-                            Bukkit.getServer().pluginManager.callEvent(event)
-                        } else {
-                            if (plugin.sqlUtil.getLevel(player) <= 20) {
-                                plugin.sqlUtil.delete(player)
-                                plugin.sqlUtil.insert(player, job.name.toLowerCase())
-                                player.sendMessage("あなたはレベルをリセットし，${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に転職しました")
-
-                                val event = PlayerJobJoinEvent(JobPlayer(player, plugin), Jobs.valueOf(job.name))
-                                Bukkit.getServer().pluginManager.callEvent(event)
-                            } else {
-                                player.sendMessage("あなたはレベルが20より大きいのため転職できません")
+                                    val event = PlayerJobJoinEvent(jp, Jobs.valueOf(job.name))
+                                    Bukkit.getServer().pluginManager.callEvent(event)
+                                    return true
+                                } else {
+                                    player.sendMessage("あなたはレベルが20より大きいのため転職できません")
+                                    return true
+                                }
+                                break
                             }
                         }
+                        val jp = JobPlayer(player.uniqueId,player.name, job,0.0,0,null,SkillStatus.DISABLED)
+                        Main.jPlayers.add(jp)
+                        player.sendMessage("あなたは${ChatColor.YELLOW}${job.Jobname}${ChatColor.WHITE}に就きました")
 
+                        val event = PlayerJobJoinEvent(jp, Jobs.valueOf(job.name))
+                        Bukkit.getServer().pluginManager.callEvent(event)
                     }
 
                     return true
